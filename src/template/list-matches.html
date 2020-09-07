@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!--favicon icon-->
+    <link rel="icon" href="assets/logo.png" type="image/png" sizes="16x16">
+
+    <!--title-->
+    <title>Game of 11 - GO11</title>
+
+    <!--build:css-->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/go11.css">
+    <!-- endbuild -->
+</head>
+
+<body>
+
+    <!--preloader start-->
+    <div id="preloader">
+        <div class="preloader-wrap">
+            <img src="assets/logo.png" alt="logo" class="img-fluid" width="110" />
+            <div class="preloader">
+                <i>.</i>
+                <i>.</i>
+                <i>.</i>
+            </div>
+        </div>
+    </div>
+    <!--preloader end-->
+    <!--header section start-->
+    <header id="header" class="header-main">
+        <!--main header menu start-->
+        <div id="logoAndNav" class="main-header-menu-wrap bg-transparent fixed-top">
+            <div class="container">
+                <nav class="navbar navbar-expand-md header-nav">
+
+                    <!--logo start-->
+                    <a class="navbar-brand" href="index.html">
+                        <img src="assets/logo.png" alt="logo" class="img-fluid" />
+                    </a>
+                    <!--logo end-->
+
+                    <!--main menu start-->
+                    <ul class="navbar-nav ml-auto main-navbar-nav">
+                        <!--notification start-->
+                        <li class="nav-item header-nav-last-item d-flex align-items-center position-relative mr-4">
+                            <a href="#" class="text-white notification_bell" id="dropdownMenuLink" data-toggle="dropdown">
+                                <img class="mr-1" src="assets/bell.svg" width="24" alt="">
+                                <span>9</span>
+                            </a>
+                            <div class="nitification_dropdown dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item unred" href="#">
+                  Write to us at support@gameof11.com about the issue with issue name “Login/Registration unsuccessful”.
+                </a>
+                                <hr>
+                                <a class="dropdown-item" href="#">
+                  Write to us at support@gameof11.com about the issue with issue name “Login/Registration unsuccessful”.
+                </a>
+                                <hr>
+                                <a class="dropdown-item" href="#">
+                  Write to us at support@gameof11.com about the issue with issue name “Login/Registration unsuccessful”.
+                </a>
+                            </div>
+                        </li>
+                        <!--notification end-->
+                        <!--button start-->
+                        <li class="nav-item header-nav-last-item d-flex align-items-center position-relative">
+                            <a href="#" class="text-white dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown">
+                                <img class="mr-1 rounded-circle" src="assets/img/client-2.jpg" width="36" alt=""> Amanda Evans
+                            </a>
+                            <div class="login_dropdown dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="#">
+                  My Account
+                </a>
+                                <a class="dropdown-item" href="#">Change Password</a>
+                                <hr>
+                                <a class="dropdown-item" href="#">Log Out</a>
+                            </div>
+                        </li>
+                        <!--button end-->
+                    </ul>
+                    <!--main menu end-->
+                </nav>
+            </div>
+        </div>
+        <!--main header menu end-->
+    </header>
+    <!--header section end-->
+
+    <div class="main">
+
+        <!--hero section start-->
+        <section class="ptb-120 overflow-hidden sub_banner primary-bg" style="height:400px">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 mx-auto text-center">
+                        <div class="hero-slider-content">
+                            <h2 class="text-uppercase text-white mb-4">Upcoming Matches</h2>
+                            <div class="matches_tab text-center">
+                                <ul class="nav nav-pills justify-content-center" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active btn btn-brand-03 btn-lg" id="Cricket-tab" data-toggle="tab" href="#Cricket" role="tab" aria-controls="Cricket" aria-selected="true">
+                                            <img src="assets/cricket-active.svg" alt=""> Cricket
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link btn btn-brand-04 btn-lg" id="Football-tab" data-toggle="tab" href="#Football" role="tab" aria-controls="Football" aria-selected="false">
+                                            <img src="assets/football-inactive.svg" alt=""> Football
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end of row-->
+            </div>
+            <!--end of container-->
+        </section>
+        <!--hero section end-->
+
+        <!--Matches section start-->
+        <section class="promo-section pt-120 pb-60" style="margin-top: -120px;">
+            <div class="container text-center">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="Cricket" role="tabpanel" aria-labelledby="Cricket-tab">
+                        <div class="row justify-content-center">
+                            <div class="col-md-6">
+                                <div class="big_matche_list matche_each matche_each_big bg-light p-3 rounded">
+                                    <div class="card mb-3">
+                                        <div class="card-body px-0">
+                                            <a href="#">
+                                                <div class="d-flex justify-content-between px-3">
+                                                    <div class="matche_vs">
+                                                        <p>Bangladesh vs Zimbabwe</p>
+                                                    </div>
+                                                    <div class="matche_type">
+                                                        <p class="text-success font-weight-bold">ODD</p>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="matche_vs_left">
+                                                        <p>
+                                                            <img class="mr-1" src="assets/bd-01.png" alt=""> BAN
+                                                        </p>
+                                                    </div>
+                                                    <div class="matche_time">
+                                                        <p class="text-danger font-weight-bold">9h 43m left</p>
+                                                    </div>
+                                                    <div class="matche_vs_right">
+                                                        <p>
+                                                            ZIM <img class="ml-1" src="assets/zim-01.png" alt="">
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex justify-content-start px-3">
+                                                    <div class="matche_contest_count">
+                                                        <p class="text-warning mb-0">Total Contest: 08</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card mb-3">
+                                        <div class="card-body px-0">
+                                            <a href="#">
+                                                <div class="d-flex justify-content-between px-3">
+                                                    <div class="matche_vs">
+                                                        <p>Bangladesh vs Zimbabwe</p>
+                                                    </div>
+                                                    <div class="matche_type">
+                                                        <p class="text-success font-weight-bold">ODD</p>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="matche_vs_left">
+                                                        <p>
+                                                            <img class="mr-1" src="assets/bd-01.png" alt=""> BAN
+                                                        </p>
+                                                    </div>
+                                                    <div class="matche_time">
+                                                        <p class="text-danger font-weight-bold">9h 43m left</p>
+                                                    </div>
+                                                    <div class="matche_vs_right">
+                                                        <p>
+                                                            ZIM <img class="ml-1" src="assets/zim-01.png" alt="">
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex justify-content-start px-3">
+                                                    <div class="matche_contest_count">
+                                                        <p class="text-warning mb-0">Total Contest: 08</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card mb-3">
+                                        <div class="card-body px-0">
+                                            <a href="#">
+                                                <div class="d-flex justify-content-between px-3">
+                                                    <div class="matche_vs">
+                                                        <p>Bangladesh vs Zimbabwe</p>
+                                                    </div>
+                                                    <div class="matche_type">
+                                                        <p class="text-success font-weight-bold">ODD</p>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="matche_vs_left">
+                                                        <p>
+                                                            <img class="mr-1" src="assets/bd-01.png" alt=""> BAN
+                                                        </p>
+                                                    </div>
+                                                    <div class="matche_time">
+                                                        <p class="text-danger font-weight-bold">9h 43m left</p>
+                                                    </div>
+                                                    <div class="matche_vs_right">
+                                                        <p>
+                                                            ZIM <img class="ml-1" src="assets/zim-01.png" alt="">
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex justify-content-start px-3">
+                                                    <div class="matche_contest_count">
+                                                        <p class="text-warning mb-0">Total Contest: 08</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card mb-3">
+                                        <div class="card-body px-0">
+                                            <a href="#">
+                                                <div class="d-flex justify-content-between px-3">
+                                                    <div class="matche_vs">
+                                                        <p>Bangladesh vs Zimbabwe</p>
+                                                    </div>
+                                                    <div class="matche_type">
+                                                        <p class="text-success font-weight-bold">ODD</p>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="matche_vs_left">
+                                                        <p>
+                                                            <img class="mr-1" src="assets/bd-01.png" alt=""> BAN
+                                                        </p>
+                                                    </div>
+                                                    <div class="matche_time">
+                                                        <p class="text-danger font-weight-bold">9h 43m left</p>
+                                                    </div>
+                                                    <div class="matche_vs_right">
+                                                        <p>
+                                                            ZIM <img class="ml-1" src="assets/zim-01.png" alt="">
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex justify-content-start px-3">
+                                                    <div class="matche_contest_count">
+                                                        <p class="text-warning mb-0">Total Contest: 08</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card mb-0">
+                                        <div class="card-body px-0">
+                                            <a href="#">
+                                                <div class="d-flex justify-content-between px-3">
+                                                    <div class="matche_vs">
+                                                        <p>Bangladesh vs Zimbabwe</p>
+                                                    </div>
+                                                    <div class="matche_type">
+                                                        <p class="text-success font-weight-bold">ODD</p>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="matche_vs_left">
+                                                        <p>
+                                                            <img class="mr-1" src="assets/bd-01.png" alt=""> BAN
+                                                        </p>
+                                                    </div>
+                                                    <div class="matche_time">
+                                                        <p class="text-danger font-weight-bold">9h 43m left</p>
+                                                    </div>
+                                                    <div class="matche_vs_right">
+                                                        <p>
+                                                            ZIM <img class="ml-1" src="assets/zim-01.png" alt="">
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex justify-content-start px-3">
+                                                    <div class="matche_contest_count">
+                                                        <p class="text-warning mb-0">Total Contest: 08</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex justify-content-center align-items-center bg-light rounded h-100 p-4">
+                                    <div class="owl-carousel owl-theme single_testimonial dot-bottom-center custom-dot">
+                                        <div class="item">
+                                            <img class="rounded-circle mb-3" src="assets/img/client-2.jpg" width="120" alt="">
+                                            <h3>Walter Adams</h3>
+                                            <p class="m-0">Total Match Played <span class="text-success">130</span></p>
+                                            <p>Playing Since <span class="text-warning">2018</span></p>
+                                            <p class="main_feedback px-4">Duis rhoncus dui venenatis consequat porttitor. Etiam aliquet congue consequat. In posuere, nunc sit amet laoreet blandit, urna sapien imperdiet lectus, et molestie sem tortor quis dui. Donec molestie nisi iaculis
+                                                sodales mollis. Nullam non tellus sed elit pulvinar dignissim ut vel ex.</p>
+                                        </div>
+                                        <div class="item">
+                                            <img class="rounded-circle mb-3" src="assets/img/client-2.jpg" width="120" alt="">
+                                            <h3>Walter Adams</h3>
+                                            <p class="m-0">Total Match Played <span class="text-success">130</span></p>
+                                            <p>Playing Since <span class="text-warning">2018</span></p>
+                                            <p class="main_feedback px-4">Duis rhoncus dui venenatis consequat porttitor. Etiam aliquet congue consequat. In posuere, nunc sit amet laoreet blandit, urna sapien imperdiet lectus, et molestie sem tortor quis dui. Donec molestie nisi iaculis
+                                                sodales mollis. Nullam non tellus sed elit pulvinar dignissim ut vel ex.</p>
+                                        </div>
+                                        <div class="item">
+                                            <img class="rounded-circle mb-3" src="assets/img/client-2.jpg" width="120" alt="">
+                                            <h3>Walter Adams</h3>
+                                            <p class="m-0">Total Match Played <span class="text-success">130</span></p>
+                                            <p>Playing Since <span class="text-warning">2018</span></p>
+                                            <p class="main_feedback px-4">Duis rhoncus dui venenatis consequat porttitor. Etiam aliquet congue consequat. In posuere, nunc sit amet laoreet blandit, urna sapien imperdiet lectus, et molestie sem tortor quis dui. Donec molestie nisi iaculis
+                                                sodales mollis. Nullam non tellus sed elit pulvinar dignissim ut vel ex.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="Football" role="tabpanel" aria-labelledby="Football-tab">
+                        <div class="row justify-content-center">
+                            <div class="col-md-6">
+                                <div class="big_matche_list matche_each matche_each_big bg-light p-3 rounded">
+                                    <div class="card mb-3">
+                                        <div class="card-body px-0">
+                                            <div class="d-flex justify-content-between px-3">
+                                                <div class="matche_vs">
+                                                    <p class="mb-2">Bangladesh vs Zimbabwe</p>
+                                                </div>
+                                                <div class="matche_type">
+                                                    <p class="text-success font-weight-bold mb-2">ODD</p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="matche_vs_left">
+                                                    <p class="mb-2">
+                                                        <img class="mr-1" src="assets/bd-01.png" alt=""> BAN
+                                                    </p>
+                                                </div>
+                                                <div class="matche_time">
+                                                    <p class="text-danger font-weight-bold mb-2">9h 43m left</p>
+                                                </div>
+                                                <div class="matche_vs_right">
+                                                    <p class="mb-2">
+                                                        ZIM <img class="ml-1" src="assets/zim-01.png" alt="">
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-start px-3">
+                                                <div class="matche_contest_count">
+                                                    <p class="text-warning mb-0">Total Contest: 08</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card mb-3">
+                                        <div class="card-body px-0">
+                                            <div class="d-flex justify-content-between px-3">
+                                                <div class="matche_vs">
+                                                    <p class="mb-2">Bangladesh vs Zimbabwe</p>
+                                                </div>
+                                                <div class="matche_type">
+                                                    <p class="text-success font-weight-bold mb-2">ODD</p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="matche_vs_left">
+                                                    <p class="mb-2">
+                                                        <img class="mr-1" src="assets/bd-01.png" alt=""> BAN
+                                                    </p>
+                                                </div>
+                                                <div class="matche_time">
+                                                    <p class="text-danger font-weight-bold mb-2">9h 43m left</p>
+                                                </div>
+                                                <div class="matche_vs_right">
+                                                    <p class="mb-2">
+                                                        ZIM <img class="ml-1" src="assets/zim-01.png" alt="">
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-start px-3">
+                                                <div class="matche_contest_count">
+                                                    <p class="text-warning mb-0">Total Contest: 08</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card mb-3">
+                                        <div class="card-body px-0">
+                                            <div class="d-flex justify-content-between px-3">
+                                                <div class="matche_vs">
+                                                    <p class="mb-2">Bangladesh vs Zimbabwe</p>
+                                                </div>
+                                                <div class="matche_type">
+                                                    <p class="text-success font-weight-bold mb-2">ODD</p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="matche_vs_left">
+                                                    <p class="mb-2">
+                                                        <img class="mr-1" src="assets/bd-01.png" alt=""> BAN
+                                                    </p>
+                                                </div>
+                                                <div class="matche_time">
+                                                    <p class="text-danger font-weight-bold mb-2">9h 43m left</p>
+                                                </div>
+                                                <div class="matche_vs_right">
+                                                    <p class="mb-2">
+                                                        ZIM <img class="ml-1" src="assets/zim-01.png" alt="">
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-start px-3">
+                                                <div class="matche_contest_count">
+                                                    <p class="text-warning mb-0">Total Contest: 08</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card mb-3">
+                                        <div class="card-body px-0">
+                                            <div class="d-flex justify-content-between px-3">
+                                                <div class="matche_vs">
+                                                    <p class="mb-2">Bangladesh vs Zimbabwe</p>
+                                                </div>
+                                                <div class="matche_type">
+                                                    <p class="text-success font-weight-bold mb-2">ODD</p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="matche_vs_left">
+                                                    <p class="mb-2">
+                                                        <img class="mr-1" src="assets/bd-01.png" alt=""> BAN
+                                                    </p>
+                                                </div>
+                                                <div class="matche_time">
+                                                    <p class="text-danger font-weight-bold mb-2">9h 43m left</p>
+                                                </div>
+                                                <div class="matche_vs_right">
+                                                    <p class="mb-2">
+                                                        ZIM <img class="ml-1" src="assets/zim-01.png" alt="">
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-start px-3">
+                                                <div class="matche_contest_count">
+                                                    <p class="text-warning mb-0">Total Contest: 08</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card mb-0">
+                                        <div class="card-body px-0">
+                                            <div class="d-flex justify-content-between px-3">
+                                                <div class="matche_vs">
+                                                    <p class="mb-2">Bangladesh vs Zimbabwe</p>
+                                                </div>
+                                                <div class="matche_type">
+                                                    <p class="text-success font-weight-bold mb-2">ODD</p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="matche_vs_left">
+                                                    <p class="mb-2">
+                                                        <img class="mr-1" src="assets/bd-01.png" alt=""> BAN
+                                                    </p>
+                                                </div>
+                                                <div class="matche_time">
+                                                    <p class="text-danger font-weight-bold mb-2">9h 43m left</p>
+                                                </div>
+                                                <div class="matche_vs_right">
+                                                    <p class="mb-2">
+                                                        ZIM <img class="ml-1" src="assets/zim-01.png" alt="">
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-start px-3">
+                                                <div class="matche_contest_count">
+                                                    <p class="text-warning mb-0">Total Contest: 08</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex justify-content-center align-items-center bg-light rounded h-100 p-4">
+                                    <div class="owl-carousel owl-theme single_testimonial dot-bottom-center custom-dot">
+                                        <div class="item">
+                                            <img class="rounded-circle mb-3" src="assets/img/client-2.jpg" width="120" alt="">
+                                            <h3>Walter Adams</h3>
+                                            <p class="m-0">Total Match Played <span class="text-success">130</span></p>
+                                            <p>Playing Since <span class="text-warning">2018</span></p>
+                                            <p class="main_feedback px-4">Duis rhoncus dui venenatis consequat porttitor. Etiam aliquet congue consequat. In posuere, nunc sit amet laoreet blandit, urna sapien imperdiet lectus, et molestie sem tortor quis dui. Donec molestie nisi iaculis
+                                                sodales mollis. Nullam non tellus sed elit pulvinar dignissim ut vel ex.</p>
+                                        </div>
+                                        <div class="item">
+                                            <img class="rounded-circle mb-3" src="assets/img/client-2.jpg" width="120" alt="">
+                                            <h3>Walter Adams</h3>
+                                            <p class="m-0">Total Match Played <span class="text-success">130</span></p>
+                                            <p>Playing Since <span class="text-warning">2018</span></p>
+                                            <p class="main_feedback px-4">Duis rhoncus dui venenatis consequat porttitor. Etiam aliquet congue consequat. In posuere, nunc sit amet laoreet blandit, urna sapien imperdiet lectus, et molestie sem tortor quis dui. Donec molestie nisi iaculis
+                                                sodales mollis. Nullam non tellus sed elit pulvinar dignissim ut vel ex.</p>
+                                        </div>
+                                        <div class="item">
+                                            <img class="rounded-circle mb-3" src="assets/img/client-2.jpg" width="120" alt="">
+                                            <h3>Walter Adams</h3>
+                                            <p class="m-0">Total Match Played <span class="text-success">130</span></p>
+                                            <p>Playing Since <span class="text-warning">2018</span></p>
+                                            <p class="main_feedback px-4">Duis rhoncus dui venenatis consequat porttitor. Etiam aliquet congue consequat. In posuere, nunc sit amet laoreet blandit, urna sapien imperdiet lectus, et molestie sem tortor quis dui. Donec molestie nisi iaculis
+                                                sodales mollis. Nullam non tellus sed elit pulvinar dignissim ut vel ex.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--Matches section end-->
+
+    </div>
+
+    <!--footer bottom copyright start-->
+    <div class="footer-bottom py-5 gray-light-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mx-auto text-center">
+                    <img src="assets/logo.png" alt="" width="90">
+                    <ul class="list-inline social-list-default background-color social-hover-2 mt-4 mb-2">
+                        <li class="list-inline-item">
+                            <a class="facebook" href="#"><i class="fab fa-facebook-f"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="twitter" href="#"><i class="fab fa-twitter"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="instagram" href="#"><i class="fab fa-instagram"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="youtube" href="#"><i class="fab fa-youtube"></i></a>
+                        </li>
+                    </ul>
+                    <div class="terms-policy-wrap text-center">
+                        <ul class="list-inline">
+                            <li class="list-inline-item"><a class="small-text" href="#">Terms & Conditions</a></li>
+                            <li class="list-inline-item"><a class="small-text" href="#">Privacy Policy</a></li>
+                            <li class="list-inline-item"><a class="small-text" href="#">About Us</a></li>
+                        </ul>
+                    </div>
+                    <hr>
+                    <div class="copyright-wrap small-text text-center">
+                        <p class="mb-0">&copy; Copyright <a href="#">GameOff11</a> 2020</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--footer bottom copyright end-->
+    <!--scroll bottom to top button start-->
+    <div class="scroll-top scroll-to-target primary-bg text-white" data-target="html">
+        <span class="fas fa-hand-point-up"></span>
+    </div>
+    <!--scroll bottom to top button end-->
+
+    <!--build:js-->
+    <script src="assets/js/vendors/jquery-3.5.1.min.js"></script>
+    <script src="assets/js/vendors/popper.min.js"></script>
+    <script src="assets/js/vendors/bootstrap.min.js"></script>
+    <script src="assets/js/vendors/owl.carousel.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <!--endbuild-->
+</body>
+
+</html>

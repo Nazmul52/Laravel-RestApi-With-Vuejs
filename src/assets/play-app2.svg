@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="151" height="46" viewBox="0 0 151 46">
+  <g id="Group_8702" data-name="Group 8702" transform="translate(-102.501 -524.499)">
+    <path id="Path_119" data-name="Path 119" d="M144.444,45H5.556A5.536,5.536,0,0,1,0,39.375V5.625A5.536,5.536,0,0,1,5.556,0H144.444A5.536,5.536,0,0,1,150,5.625v33.75A5.536,5.536,0,0,1,144.444,45Z" transform="translate(103.001 524.999)" fill="#fff" stroke="#30b847" stroke-width="1"/>
+    <g id="android" transform="translate(59.862 534.999)">
+      <g id="Group_1050" data-name="Group 1050" transform="translate(57.677 9.736)">
+        <g id="Group_1049" data-name="Group 1049">
+          <path id="Path_139" data-name="Path 139" d="M150.041,192.034H139.224a.541.541,0,0,0-.541.541v8.653a2.709,2.709,0,0,0,2.163,2.65v2.758a1.623,1.623,0,1,0,3.245,0v-2.7h1.082v2.7a1.623,1.623,0,1,0,3.245,0v-2.758a2.708,2.708,0,0,0,2.163-2.65v-8.653A.54.54,0,0,0,150.041,192.034Z" transform="translate(-138.683 -192.034)" fill="#30b847"/>
+        </g>
+      </g>
+      <g id="Group_1052" data-name="Group 1052" transform="translate(57.677 -0.001)">
+        <g id="Group_1051" data-name="Group 1051" transform="translate(0 0)">
+          <path id="Path_140" data-name="Path 140" d="M147.464,2.882l.912-2.128a.541.541,0,0,0-.994-.425l-.912,2.129a5.894,5.894,0,0,0-3.671,0L141.885.329a.54.54,0,1,0-.993.425l.912,2.128a5.953,5.953,0,0,0-3.12,5.232.541.541,0,0,0,.541.541h10.817a.541.541,0,0,0,.541-.541A5.955,5.955,0,0,0,147.464,2.882Zm-4.994,3.61a.541.541,0,1,1,.541-.541A.541.541,0,0,1,142.47,6.491Zm4.327,0a.541.541,0,1,1,.541-.541A.541.541,0,0,1,146.8,6.491Z" transform="translate(-138.684 0.001)" fill="#30b847"/>
+        </g>
+      </g>
+      <g id="Group_1054" data-name="Group 1054" transform="translate(70.657 9.736)">
+        <g id="Group_1053" data-name="Group 1053">
+          <path id="Path_141" data-name="Path 141" d="M396.306,192.034a1.624,1.624,0,0,0-1.623,1.622v5.408a1.623,1.623,0,1,0,3.245,0v-5.408A1.625,1.625,0,0,0,396.306,192.034Z" transform="translate(-394.684 -192.034)" fill="#30b847"/>
+        </g>
+      </g>
+      <g id="Group_1056" data-name="Group 1056" transform="translate(53.35 9.736)">
+        <g id="Group_1055" data-name="Group 1055" transform="translate(0)">
+          <path id="Path_142" data-name="Path 142" d="M54.973,192.034a1.624,1.624,0,0,0-1.623,1.622v5.408a1.623,1.623,0,1,0,3.245,0v-5.408A1.624,1.624,0,0,0,54.973,192.034Z" transform="translate(-53.35 -192.034)" fill="#30b847"/>
+        </g>
+      </g>
+    </g>
+    <g id="Group_1057" data-name="Group 1057" transform="translate(-765 114.999)">
+      <text id="Download_for" data-name="Download for" transform="translate(907 427)" fill="#13143f" font-size="8" font-family="OpenSans-Regular, Open Sans"><tspan x="0" y="0">DOWNLOAD FOR</tspan></text>
+      <text id="Android_User" data-name="Android User" transform="translate(907 443)" fill="#13143f" font-size="13" font-family="OpenSans-Bold, Open Sans" font-weight="700"><tspan x="0" y="0">ANDROID USER</tspan></text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,23 @@
+<svg id="cricket-artwork" xmlns="http://www.w3.org/2000/svg" width="320" height="373" viewBox="0 0 320 373">
+  <path id="Path_9480" data-name="Path 9480" d="M0,0H320V373H0Z" fill="#46ab20"/>
+  <g id="Group_13427" data-name="Group 13427" opacity="0.641">
+    <path id="Path_9481" data-name="Path 9481" d="M0,0H19V373H0ZM39,0H58V373H39ZM78,0H97V373H78Zm39,0h19V373H117Zm39,0h19V373H156Zm39,0h19V373H195Zm39,0h19V373H234Zm39,0h19V373H273Z" transform="translate(14)" fill="#376c23" opacity="0.323"/>
+  </g>
+  <path id="Path_9482" data-name="Path 9482" d="M148,55h27A100.036,100.036,0,0,1,275,155v95A100.036,100.036,0,0,1,175,350H148A100.036,100.036,0,0,1,48,250V155A100.036,100.036,0,0,1,148,55Z" fill="none" stroke="#fff" stroke-width="2" opacity="0.102"/>
+  <path id="Path_9483" data-name="Path 9483" d="M0,0H320V373H0Z" fill="rgba(79,183,53,0.08)" opacity="0.497"/>
+  <g id="Group_13430" data-name="Group 13430" opacity="0.8">
+    <path id="Path_9484" data-name="Path 9484" d="M5,0H63V156H5Z" transform="translate(126 126)" fill="#ae9053" opacity="0.696"/>
+    <g id="Group_13428" data-name="Group 13428" opacity="0.102">
+      <path id="Path_9485" data-name="Path 9485" d="M0,18H68" transform="translate(126 132.513)" fill="none" stroke="#fff" stroke-width="2"/>
+      <path id="Path_9486" data-name="Path 9486" d="M16.8,6.7H51" transform="translate(126 132.513)" fill="none" stroke="#fff" stroke-linecap="square" stroke-width="2"/>
+      <path id="Path_9487" data-name="Path 9487" d="M29.2,6.7h9.5" transform="translate(126 132.513)" fill="none" stroke="#987447" stroke-linecap="square" stroke-width="2"/>
+      <path id="Path_9488" data-name="Path 9488" d="M15.9.5V17.6M52,.5V17.6" transform="translate(126 132.513)" fill="none" stroke="#fff" stroke-linecap="square" stroke-width="2"/>
+    </g>
+    <g id="Group_13429" data-name="Group 13429" opacity="0.1">
+      <path id="Path_9489" data-name="Path 9489" d="M0-19H68" transform="translate(126 274.358)" fill="none" stroke="#fff" stroke-width="2"/>
+      <path id="Path_9490" data-name="Path 9490" d="M16.8-6.7H51" transform="translate(126 274.358)" fill="none" stroke="#fff" stroke-linecap="square" stroke-width="2"/>
+      <path id="Path_9491" data-name="Path 9491" d="M29.2-6.7h9.5" transform="translate(126 274.358)" fill="none" stroke="#987447" stroke-linecap="square" stroke-width="2"/>
+      <path id="Path_9492" data-name="Path 9492" d="M15.9-.5V-17.6M52-.5V-17.6" transform="translate(126 274.358)" fill="none" stroke="#fff" stroke-linecap="square" stroke-width="2"/>
+    </g>
+  </g>
+</svg>
