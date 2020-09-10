@@ -30,7 +30,7 @@
 
 <script>
 export default {
-name: "appHeader"
+name: "Header"
 }
 </script>
 

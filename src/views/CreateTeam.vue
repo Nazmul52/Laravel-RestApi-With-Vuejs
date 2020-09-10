@@ -1,10 +1,845 @@
 <template>
-$END$
+  <div>
+    <div class="main">
+
+      <!--Matches section start-->
+      <section class="promo-section vh-100 w-100 position-fixed contest_main_bg">
+        <div class="container-fluid text-center h-100">
+          <div class="row h-100">
+            <div class="col-md-6 p-0 h-100 bg-light">
+              <div class="contest_left h-100 team_create_header">
+                <div class="bg-dark px-4 pt-3 pb-2">
+                  <div class="d-flex justify-content-between pb-2">
+                    <div class="go_back">
+                      <a href="#"> <i class="fas fa-arrow-left"></i> </a>
+                    </div>
+                    <div class="contest_each_title"><h5 class="text-danger mb-0">9h 43m left</h5></div>
+                    <div class="go_back"><i class="fas fa-info-circle text-white ml-3" data-toggle="tooltip"
+                                            data-placement="top" title="Tooltip on top"></i></div>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center mt-2">
+                    <div class="text-left team_create_header_left">
+                      <img src="@/assets/logo.png" width="28" alt=""/>
+                      <p class="mb-0 mt-2">Players</p>
+                      <h5 class="mb-0 mt-1"><span>0</span>/11</h5>
+                    </div>
+                    <div class="w-50 team_create_header_center">
+                      <h6 class="text-white mb-3">Max 7 players from a team</h6>
+                      <div class="d-flex justify-content-between mt-3">
+                        <div class="matche_vs_left pl-0">
+                          <p class="mb-0 d-inline-block"><img class="d-block mr-1" src="@/assets/bd-01.png" alt=""/></p>
+                          <p class="mb-0 text-white text-left font-weight-bold d-inline-block">BAN <span
+                              class="d-block">0</span></p>
+                        </div>
+                        <div class="matche_vs_right pr-0">
+                          <p class="mb-0 text-white text-left font-weight-bold d-inline-block">ZIM <span
+                              class="d-block">0</span></p>
+                          <p class="mb-0 text-white font-weight-bold d-inline-block"><img class="d-block ml-1"
+                                                                                          src="@/assets/zim-01.png"
+                                                                                          alt=""/></p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="text-right team_create_header_right">
+                      <img src="@/assets/logo.png" width="28" alt="" style="opacity: 0;"/>
+                      <p class="mb-0 mt-2">Credits</p>
+                      <h5 class="mb-0 mt-1">2050</h5>
+                    </div>
+                  </div>
+                </div>
+                <div class="bg-dark team_add_bar p-3">
+                  <div class="d-flex justify-content-center">
+                    <ul class="list-group list-group-horizontal-sm">
+                      <li class="list-group-item selected">1</li>
+                      <li class="list-group-item selected">2</li>
+                      <li class="list-group-item selected">3</li>
+                      <li class="list-group-item selected">4</li>
+                      <li class="list-group-item">5</li>
+                      <li class="list-group-item">6</li>
+                      <li class="list-group-item">7</li>
+                      <li class="list-group-item">8</li>
+                      <li class="list-group-item">9</li>
+                      <li class="list-group-item">10</li>
+                      <li class="list-group-item">11</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="bg-light h-100">
+                  <div class="d-flex justify-content-between">
+                    <ul class="d-flex nav nav-pills w-100" id="pills-tab" role="tablist">
+                      <li class="nav-item col p-0" role="presentation">
+                        <a class="nav-link active rounded-0" id="pills-wk-tab" data-toggle="pill" href="#pills-wk"
+                           role="tab" aria-controls="pills-wk" aria-selected="true">WK (1)</a>
+                      </li>
+                      <li class="nav-item col p-0" role="presentation">
+                        <a class="nav-link rounded-0" id="pills-bat-tab" data-toggle="pill" href="#pills-bat" role="tab"
+                           aria-controls="pills-bat" aria-selected="false">BAT (2)</a>
+                      </li>
+                      <li class="nav-item col p-0" role="presentation">
+                        <a class="nav-link rounded-0" id="pills-ar-tab" data-toggle="pill" href="#pills-ar" role="tab"
+                           aria-controls="pills-ar" aria-selected="false">AR (2)</a>
+                      </li>
+                      <li class="nav-item col p-0" role="presentation">
+                        <a class="nav-link rounded-0" id="pills-bowl-tab" data-toggle="pill" href="#pills-bowl"
+                           role="tab" aria-controls="pills-bowl" aria-selected="false">BOWL (2)</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="overflow-auto h-75">
+                    <div class="card-body green-bg text-left p-0 mb-4">
+                      <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-wk" role="tabpanel"
+                             aria-labelledby="pills-home-tab">
+                          <div class="alert alert-primary rounded-0 text-center border-0" role="alert">
+                            Pick 1-4 Wicket-Keepers
+                          </div>
+                          <div class="create_team_each create_team_each_header pl-3">
+                            <div class="player_thumb">
+
+                            </div>
+                            <div class="player_buy_info">
+                              <div class="player_name_each">
+                                <div class="text-uppercase text-muted pb-2">
+                                  Players
+                                </div>
+                              </div>
+                              <div class="player_selby">
+                                <p class="text-uppercase text-muted mb-0 pb-2">S.By</p>
+                              </div>
+                              <div class="player_selby player_credits">
+                                <a href="#" class="text-uppercase text-muted mb-0 pb-2">
+                                  Credits
+                                  <i class="ti-arrow-down"></i>
+                                </a>
+                              </div>
+                              <div class="player_add_remove">
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="create_team_each selected pl-3 mt-3">
+                            <div class="player_thumb">
+                              <img class="" src="@/assets/img/client-2.jpg" width="64" alt="">
+                            </div>
+                            <div class="player_buy_info">
+                              <div class="player_name_each">
+                                <div class="">
+                                  <p class="mb-0 d-block font-weight-bold">B Taylor</p>
+                                  <p class="text-danger mb-0 d-block">ZIM</p>
+                                </div>
+                              </div>
+                              <div class="player_selby">
+                                <p class="mb-0">32/2%</p>
+                              </div>
+                              <div class="player_selby player_credits">
+                                <p class="mb-0">32/2%</p>
+                              </div>
+                              <div class="player_add_remove">
+                                <div class="align-self-center">
+                                  <a href="#">
+                                    <i class="far fa-minus-square text-danger"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="create_team_each pl-3 mt-3">
+                            <div class="player_thumb">
+                              <img class="" src="@/assets/img/client-2.jpg" width="64" alt="">
+                            </div>
+                            <div class="player_buy_info">
+                              <div class="player_name_each">
+                                <div class="">
+                                  <p class="mb-0 d-block font-weight-bold">B Taylor</p>
+                                  <p class="text-danger mb-0 d-block">ZIM</p>
+                                </div>
+                              </div>
+                              <div class="player_selby">
+                                <p class="mb-0">32/2%</p>
+                              </div>
+                              <div class="player_selby player_credits">
+                                <p class="mb-0">32/2%</p>
+                              </div>
+                              <div class="player_add_remove">
+                                <div class="align-self-center">
+                                  <a href="#">
+                                    <i class="far fa-plus-square text-success"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="create_team_each pl-3 mt-3">
+                            <div class="player_thumb">
+                              <img class="" src="@/assets/img/client-2.jpg" width="64" alt="">
+                            </div>
+                            <div class="player_buy_info">
+                              <div class="player_name_each">
+                                <div class="">
+                                  <p class="mb-0 d-block font-weight-bold">B Taylor</p>
+                                  <p class="text-danger mb-0 d-block">ZIM</p>
+                                </div>
+                              </div>
+                              <div class="player_selby">
+                                <p class="mb-0">32/2%</p>
+                              </div>
+                              <div class="player_selby player_credits">
+                                <p class="mb-0">32/2%</p>
+                              </div>
+                              <div class="player_add_remove">
+                                <div class="align-self-center">
+                                  <a href="#">
+                                    <i class="far fa-plus-square text-success"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="create_team_each pl-3 mt-3">
+                            <div class="player_thumb">
+                              <img class="" src="@/assets/img/client-2.jpg" width="64" alt="">
+                            </div>
+                            <div class="player_buy_info">
+                              <div class="player_name_each">
+                                <div class="">
+                                  <p class="mb-0 d-block font-weight-bold">B Taylor</p>
+                                  <p class="text-danger mb-0 d-block">ZIM</p>
+                                </div>
+                              </div>
+                              <div class="player_selby">
+                                <p class="mb-0">32/2%</p>
+                              </div>
+                              <div class="player_selby player_credits">
+                                <p class="mb-0">32/2%</p>
+                              </div>
+                              <div class="player_add_remove">
+                                <div class="align-self-center">
+                                  <a href="#">
+                                    <i class="far fa-plus-square text-success"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="create_team_each pl-3 mt-3">
+                            <div class="player_thumb">
+                              <img class="" src="@/assets/img/client-2.jpg" width="64" alt="">
+                            </div>
+                            <div class="player_buy_info">
+                              <div class="player_name_each">
+                                <div class="">
+                                  <p class="mb-0 d-block font-weight-bold">B Taylor</p>
+                                  <p class="text-danger mb-0 d-block">ZIM</p>
+                                </div>
+                              </div>
+                              <div class="player_selby">
+                                <p class="mb-0">32/2%</p>
+                              </div>
+                              <div class="player_selby player_credits">
+                                <p class="mb-0">32/2%</p>
+                              </div>
+                              <div class="player_add_remove">
+                                <div class="align-self-center">
+                                  <a href="#">
+                                    <i class="far fa-plus-square text-success"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="create_team_each pl-3 mt-3">
+                            <div class="player_thumb">
+                              <img class="" src="@/assets/img/client-2.jpg" width="64" alt="">
+                            </div>
+                            <div class="player_buy_info">
+                              <div class="player_name_each">
+                                <div class="">
+                                  <p class="mb-0 d-block font-weight-bold">B Taylor</p>
+                                  <p class="text-danger mb-0 d-block">ZIM</p>
+                                </div>
+                              </div>
+                              <div class="player_selby">
+                                <p class="mb-0">32/2%</p>
+                              </div>
+                              <div class="player_selby player_credits">
+                                <p class="mb-0">32/2%</p>
+                              </div>
+                              <div class="player_add_remove">
+                                <div class="align-self-center">
+                                  <a href="#">
+                                    <i class="far fa-plus-square text-success"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="create_team_each pl-3 mt-3">
+                            <div class="player_thumb">
+                              <img class="" src="@/assets/img/client-2.jpg" width="64" alt="">
+                            </div>
+                            <div class="player_buy_info">
+                              <div class="player_name_each">
+                                <div class="">
+                                  <p class="mb-0 d-block font-weight-bold">B Taylor</p>
+                                  <p class="text-danger mb-0 d-block">ZIM</p>
+                                </div>
+                              </div>
+                              <div class="player_selby">
+                                <p class="mb-0">32/2%</p>
+                              </div>
+                              <div class="player_selby player_credits">
+                                <p class="mb-0">32/2%</p>
+                              </div>
+                              <div class="player_add_remove">
+                                <div class="align-self-center">
+                                  <a href="#">
+                                    <i class="far fa-plus-square text-success"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="create_team_each pl-3 mt-3 pb-5">
+                            <div class="player_thumb">
+                              <img class="" src="@/assets/img/client-2.jpg" width="64" alt="">
+                            </div>
+                            <div class="player_buy_info">
+                              <div class="player_name_each">
+                                <div class="">
+                                  <p class="mb-0 d-block font-weight-bold">B Taylor</p>
+                                  <p class="text-danger mb-0 d-block">ZIM</p>
+                                </div>
+                              </div>
+                              <div class="player_selby">
+                                <p class="mb-0">32/2%</p>
+                              </div>
+                              <div class="player_selby player_credits">
+                                <p class="mb-0">32/2%</p>
+                              </div>
+                              <div class="player_add_remove">
+                                <div class="align-self-center">
+                                  <i class="far fa-plus-square text-success"></i>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="team_create_btn position-absolute">
+                            <button id="create_team_btn" class="btn btn-success border-radius mt-4 mb-2" disabled>
+                              Continue
+                            </button>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-bat" role="tabpanel" aria-labelledby="pills-bat-tab">...
+                        </div>
+                        <div class="tab-pane fade" id="pills-ar" role="tabpanel" aria-labelledby="pills-ar-tab">...
+                        </div>
+                        <div class="tab-pane fade" id="pills-bowl" role="tabpanel" aria-labelledby="pills-bowl-tab">
+                          ...
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 field_map h-100">
+              <div class="players_position">
+                <div class="">
+                  <div class="players_space_around">
+                    <div class="players_position_each">
+                      <div class="players_position_each_title text-uppercase">Wicket Keepers</div>
+                      <div class="players_position_align wicket_keepers">
+                        <div class="players_position_align">
+                          <div class="players_field_position">
+                            <div class="">
+                              <div class="players_position_profile_img">
+                                <div class="profile_img_area">
+                                  <div class="profile_img_body"
+                                       :style="{backgroundImage: 'url(assets/img/client-2.jpg)'}"></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="player_name_block">
+                              <div class="player_name_block_each">Brain Lara</div>
+                            </div>
+                            <div class="player_credit_amount">10.0 Cr</div>
+                          </div>
+                        </div>
+                        <div class="players_position_align">
+                          <div class="players_field_position">
+                            <div class="">
+                              <div class="players_position_profile_img">
+                                <div class="profile_img_area">
+                                  <div class="profile_img_body"
+                                       :style="{backgroundImage: 'url(assets/img/client-2.jpg)'}"></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="player_name_block">
+                              <div class="player_name_block_each">Brain Lara</div>
+                            </div>
+                            <div class="player_credit_amount">10.0 Cr</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="players_position_each">
+                      <div class="players_position_each_title text-uppercase">Batsman</div>
+                      <div class="players_position_align batsman_keepers">
+                        <div class="players_position_align">
+                          <div class="players_field_position">
+                            <div class="">
+                              <div class="players_position_profile_img">
+                                <div class="profile_img_area">
+                                  <div class="profile_img_body"
+                                       :style="{backgroundImage: 'url(assets/img/client-2.jpg)'}"></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="player_name_block">
+                              <div class="player_name_block_each">Brain Lara</div>
+                            </div>
+                            <div class="player_credit_amount">10.0 Cr</div>
+                          </div>
+                        </div>
+                        <div class="players_position_align">
+                          <div class="players_field_position">
+                            <div class="">
+                              <div class="players_position_profile_img">
+                                <div class="profile_img_area">
+                                  <div class="profile_img_body"
+                                       :style="{backgroundImage: 'url(assets/img/client-2.jpg)'}"></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="player_name_block">
+                              <div class="player_name_block_each">Brain Lara</div>
+                            </div>
+                            <div class="player_credit_amount">10.0 Cr</div>
+                          </div>
+                        </div>
+                        <div class="players_position_align">
+                          <div class="players_field_position">
+                            <div class="">
+                              <div class="players_position_profile_img">
+                                <div class="profile_img_area">
+                                  <div class="profile_img_body"
+                                       :style="{backgroundImage: 'url(assets/img/client-2.jpg)'}"></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="player_name_block">
+                              <div class="player_name_block_each">Brain Lara</div>
+                            </div>
+                            <div class="player_credit_amount">10.0 Cr</div>
+                          </div>
+                        </div>
+                        <div class="players_position_align">
+                          <div class="players_field_position">
+                            <div class="">
+                              <div class="players_position_profile_img">
+                                <div class="profile_img_area">
+                                  <div class="profile_img_body"
+                                       :style="{backgroundImage: 'url(assets/img/client-2.jpg)'}"></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="player_name_block">
+                              <div class="player_name_block_each">Brain Lara</div>
+                            </div>
+                            <div class="player_credit_amount">10.0 Cr</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="players_position_each">
+                      <div class="players_position_each_title text-uppercase">All Rounders</div>
+                      <div class="players_position_align batsman_keepers">
+                        <div class="players_position_align">
+                          <div class="players_field_position">
+                            <div class="">
+                              <div class="players_position_profile_img">
+                                <div class="profile_img_area">
+                                  <div class="profile_img_body"
+                                       :style="{backgroundImage: 'url(assets/img/client-2.jpg)'}"></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="player_name_block">
+                              <div class="player_name_block_each">Brain Lara</div>
+                            </div>
+                            <div class="player_credit_amount">10.0 Cr</div>
+                          </div>
+                        </div>
+                        <div class="players_position_align">
+                          <div class="players_field_position">
+                            <div class="">
+                              <div class="players_position_profile_img">
+                                <div class="profile_img_area">
+                                  <div class="profile_img_body"
+                                       :style="{backgroundImage: 'url(assets/img/client-2.jpg)'}"></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="player_name_block">
+                              <div class="player_name_block_each">Brain Lara</div>
+                            </div>
+                            <div class="player_credit_amount">10.0 Cr</div>
+                          </div>
+                        </div>
+                        <div class="players_position_align">
+                          <div class="players_field_position">
+                            <div class="">
+                              <div class="players_position_profile_img">
+                                <div class="profile_img_area">
+                                  <div class="profile_img_body"
+                                       :style="{backgroundImage: 'url(assets/img/client-2.jpg)'}"></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="player_name_block">
+                              <div class="player_name_block_each">Brain Lara</div>
+                            </div>
+                            <div class="player_credit_amount">10.0 Cr</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="players_position_each">
+                      <div class="players_position_each_title text-uppercase">Bowlers</div>
+                      <div class="players_position_align batsman_keepers">
+                        <div class="players_position_align">
+                          <div class="players_field_position">
+                            <div class="">
+                              <div class="players_position_profile_img">
+                                <div class="profile_img_area">
+                                  <div class="profile_img_body"
+                                       :style="{backgroundImage: 'url(assets/img/client-2.jpg)'}"></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="player_name_block">
+                              <div class="player_name_block_each">Brain Lara</div>
+                            </div>
+                            <div class="player_credit_amount">10.0 Cr</div>
+                          </div>
+                        </div>
+                        <div class="players_position_align">
+                          <div class="players_field_position">
+                            <div class="">
+                              <div class="players_position_profile_img">
+                                <div class="profile_img_area">
+                                  <div class="profile_img_body"
+                                       :style="{backgroundImage: 'url(assets/img/client-2.jpg)'}"></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="player_name_block">
+                              <div class="player_name_block_each">Brain Lara</div>
+                            </div>
+                            <div class="player_credit_amount">10.0 Cr</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!--Matches section end-->
+
+    </div>
+
+    <!--scroll bottom to top button start-->
+    <div class="scroll-top scroll-to-target primary-bg text-white" data-target="html">
+      <span class="fas fa-hand-point-up"></span>
+    </div>
+    <!--scroll bottom to top button end-->
+
+    <!-- Prize Modal -->
+    <div class="modal fade" id="prize_list">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="login-signup-wrap text-center p-3">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <div class="login-signup-header text-center">
+                <a href="index.html">
+                  <img src="@/assets/withdraw.svg" class="img-fluid mb-3" width="40" alt="Logo">
+                </a>
+                <h4 class="mb-3 text-uppercase">Prize List</h4>
+              </div>
+              <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Rank 1
+                  <span class="badge badge-success badge-pill">10000 BDT</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Rank 2
+                  <span class="badge badge-success badge-pill">2000 BDT</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Rank 3-5
+                  <span class="badge badge-success badge-pill">300 BDT</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Rank 6-10
+                  <span class="badge badge-success badge-pill">40 BDT</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Rank 11-13
+                  <span class="badge badge-success badge-pill">30 BDT</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Rank 30-40
+                  <span class="badge badge-success badge-pill">10 BDT</span>
+                </li>
+              </ul>
+              <button class="btn btn-brand-01 border-radius mt-4 mb-2">
+                Join Now
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- modal end -->
+
+    <!-- Entry Fees Modal -->
+    <div class="modal fade" id="entry_fees">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="login-signup-wrap text-center p-3">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <div class="login-signup-header text-center">
+                <a href="index.html">
+                  <img src="@/assets/withdraw.svg" class="img-fluid mb-3" width="40" alt="Logo">
+                </a>
+                <h4 class="mb-3 text-uppercase">Entry Fee</h4>
+                <p class="text-muted">The minimum withdrawal amount is <span class="text-success font-weight-bold">250 BDT</span>
+                  and the maximum amount is <span class="text-success font-weight-bold">4999 BDT</span></p>
+              </div>
+              <button class="btn btn-brand-01 border-radius mt-4 mb-2">
+                Join Now
+              </button>
+              <p class="text-center mb-0">Don't have enough coins?</p>
+              <a href="sign-up.html"><u>Get Coins</u></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- modal end -->
+
+    <!-- Select Team Modal -->
+    <div class="modal fade" id="select_team">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="login-signup-wrap text-center p-3">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <div class="login-signup-header text-center">
+                <a href="index.html">
+                  <img src="@/assets/withdraw.svg" class="img-fluid mb-3" width="40" alt="Logo">
+                </a>
+                <h4 class="mb-3 text-uppercase">Select Your Team</h4>
+                <p class="text-muted">Maecenas Interdum Lorem Eleifend Orci Aliquam Mollis. Aliquam Non Rhoncus Magna
+                  Suspendisse. </p>
+              </div>
+              <div class="bg-light rounded px-4 mt-4">
+                <div class="team_details_each">
+                  <div class="text-left mb-2">
+                    <div class="custom-control custom-radio">
+                      <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                      <label class="custom-control-label" for="customRadio1">Team Name: <span
+                          class="text-success font-weight-bold">Lucifer</span></label>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-between team_details">
+                    <div class="">
+                      <span class="team_captain bg-dark text-white mb-2">C</span> Ronnie Grand
+                      <div class="clearfix"></div>
+                      <span class="team_vicecaptain bg-warning text-white">VC</span> Ronnie Grand
+                    </div>
+                    <div class="">
+                      <ul class="list-group list-group-horizontal-md">
+                        <li class="list-group-item text-muted">
+                          WK
+                          <span class="d-block text-dark font-weight-bold">1</span>
+                        </li>
+                        <li class="list-group-item text-muted">
+                          BAT
+                          <span class="d-block text-dark font-weight-bold">1</span>
+                        </li>
+                        <li class="list-group-item text-muted">
+                          ALL
+                          <span class="d-block text-dark font-weight-bold">1</span>
+                        </li>
+                        <li class="list-group-item text-muted">
+                          BOWL
+                          <span class="d-block text-dark font-weight-bold">1</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="team_details_each">
+                  <div class="text-left mb-2">
+                    <div class="custom-control custom-radio">
+                      <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                      <label class="custom-control-label" for="customRadio2">Team Name: <span
+                          class="text-success font-weight-bold">Lucifer</span></label>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-between team_details">
+                    <div class="">
+                      <span class="team_captain bg-dark text-white mb-2">C</span> Ronnie Grand
+                      <div class="clearfix"></div>
+                      <span class="team_vicecaptain bg-warning text-white">VC</span> Ronnie Grand
+                    </div>
+                    <div class="">
+                      <ul class="list-group list-group-horizontal-md">
+                        <li class="list-group-item text-muted">
+                          WK
+                          <span class="d-block text-dark font-weight-bold">1</span>
+                        </li>
+                        <li class="list-group-item text-muted">
+                          BAT
+                          <span class="d-block text-dark font-weight-bold">1</span>
+                        </li>
+                        <li class="list-group-item text-muted">
+                          ALL
+                          <span class="d-block text-dark font-weight-bold">1</span>
+                        </li>
+                        <li class="list-group-item text-muted">
+                          BOWL
+                          <span class="d-block text-dark font-weight-bold">1</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="team_details_each">
+                  <div class="text-left mb-2">
+                    <div class="custom-control custom-radio">
+                      <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
+                      <label class="custom-control-label" for="customRadio3">Team Name: <span
+                          class="text-success font-weight-bold">Lucifer</span></label>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-between team_details">
+                    <div class="">
+                      <span class="team_captain bg-dark text-white mb-2">C</span> Ronnie Grand
+                      <div class="clearfix"></div>
+                      <span class="team_vicecaptain bg-warning text-white">VC</span> Ronnie Grand
+                    </div>
+                    <div class="">
+                      <ul class="list-group list-group-horizontal-md">
+                        <li class="list-group-item text-muted">
+                          WK
+                          <span class="d-block text-dark font-weight-bold">1</span>
+                        </li>
+                        <li class="list-group-item text-muted">
+                          BAT
+                          <span class="d-block text-dark font-weight-bold">1</span>
+                        </li>
+                        <li class="list-group-item text-muted">
+                          ALL
+                          <span class="d-block text-dark font-weight-bold">1</span>
+                        </li>
+                        <li class="list-group-item text-muted">
+                          BOWL
+                          <span class="d-block text-dark font-weight-bold">1</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button id="joinButton" class="btn btn-success border-radius mt-4 mb-2" data-toggle="modal"
+                      data-target="#join_confirmation" data-dismiss="modal" disabled="true">
+                Join Contest
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- modal end -->
+
+    <!-- Entry Fees Modal -->
+    <div class="modal fade" id="join_confirmation">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="login-signup-wrap text-center p-3">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <div class="login-signup-header text-center">
+                <a href="index.html">
+                  <img src="@/assets/withdraw.svg" class="img-fluid mb-3" width="40" alt="Logo">
+                </a>
+                <h4 class="mb-3 text-uppercase">Confirmation</h4>
+                <p class="text-warning mb-0">
+                  Your total coins = 4750 <img class=" mb-1" src="@/assets/coin.svg" width="16" alt="">
+                </p>
+                <p class="text-success">
+                  Available free contests = 0
+                </p>
+              </div>
+              <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Entry Fee
+                  <span class="text-dark">
+                  5000
+                  <img class=" mb-1 ml-1" src="@/assets/coin.svg" width="16" alt="">
+                </span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                    <label class="custom-control-label" for="customSwitch1">Apply Free Contest</label>
+                  </div>
+                  <span class="text-dark">
+                  - 5000
+                  <img class=" mb-1 ml-1" src="@/assets/coin.svg" width="16" alt="">
+                </span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center text-success">
+                  To Pay
+                  <span class="text-dark font-weight-bold">
+                  0
+                  <img class=" mb-1 ml-1" src="@/assets/coin.svg" width="16" alt="">
+                </span>
+                </li>
+              </ul>
+              <p class="text-center text-muted mt-4 mb-0">By joining this contest, you accept GO11's T&C</p>
+              <button class="btn btn-brand-01 border-radius mt-2 mb-2">
+                Confirm Now
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- modal end -->
+  </div>
 </template>
 
 <script>
 export default {
-name: "CreateTeam"
+  name: "CreateTeam"
 }
 </script>
 
