@@ -17,7 +17,7 @@
             <ul class="navbar-nav ml-auto main-navbar-nav">
               <!--notification start-->
               <li class="nav-item header-nav-last-item d-flex align-items-center position-relative mr-4">
-                <a href="#" class="text-white notification_bell" id="dropdownMenuLink" data-toggle="dropdown">
+                <a href="#" class="text-white notification_bell" id="dropdownMenuLink2" data-toggle="dropdown">
                   <img class="mr-1" src="@/assets/bell.svg" width="24" alt="">
                   <span>9</span>
                 </a>
