@@ -126,7 +126,6 @@ import jQuery from 'jquery';
         });
     }// 9. client-testimonial one item carousel
     if ($('.web_mobile_slider_1').length > 0) {
-        console.log('okay');
         $('.web_mobile_slider_1').owlCarousel({
             loop: true,
             nav: false,

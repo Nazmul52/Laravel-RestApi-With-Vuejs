@@ -34251,6 +34251,8 @@ a.text-dark:hover, a.text-dark:focus {
 .invisible {
   visibility: hidden !important;
 }
-
+.match_team_image{
+  width: 60px;
+}
 /*!*# sourceMappingURL=../../../scss *!*/
 /*!*# sourceMappingURL=main.css.map *!*/

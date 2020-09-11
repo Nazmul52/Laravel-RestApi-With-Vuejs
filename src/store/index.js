@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import testmodule from "@/store/modules/testmodule";
+import Match from "@/store/modules/match-store";
 
 Vue.use(Vuex);
 
@@ -12,6 +12,6 @@ export const store = new Vuex.Store({
     mutations: {},
     actions: {},
     modules: {
-        testmodule
+        Match
     }
 })

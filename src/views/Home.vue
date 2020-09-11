@@ -50,11 +50,6 @@
     <!--footer bottom copyright start-->
     <app-footer></app-footer>
     <!--footer bottom copyright end-->
-    <!--scroll bottom to top button start-->
-    <div class="scroll-top scroll-to-target primary-bg text-white" data-target="html">
-      <span class="fas fa-hand-point-up"><a href="#scroll_up"></a></span>
-    </div>
-    <!--scroll bottom to top button end-->
     <!-- Modal -->
     <div class="modal fade" id="exampleModalCenter" data-backdrop="static" data-keyboard="false" tabindex="-1"
          role="dialog"
@@ -143,12 +138,15 @@ import ContactSection from "@/components/home/ContactSection";
 import TerminalSection from "@/components/home/TerminalSection";
 import ActionStartSection from "@/components/ActionStartSection";
 import FAQSection from "@/components/home/FAQSection";
+import {mapActions} from 'vuex';
+import * as type from '@/store/type';
 
 export default {
   name: 'Home',
   data() {
     return {}
   },
+  mixins: [],
   components: {
     'app-header': Header,
     'app-hero-section': HeroSection,
@@ -163,9 +161,18 @@ export default {
     'app-action-start-section': ActionStartSection,
     'app-faq-section': FAQSection
   },
-  methods: {},
+  computed: {
+    // ...mapGetters({getUpcomingMatchList: type.UPCOMING_MATCH_LIST})
+  },
+  methods: {
+    ...mapActions({
+      fetchUpcomingCricketList: type.UPCOMING_MATCH_LIST_CRICKET,
+      fetchUpcomingFootballList: type.UPCOMING_MATCH_LIST_FOOTBALL
+    })
+  },
   mounted() {
-
+    this.fetchUpcomingCricketList();
+    this.fetchUpcomingFootballList();
   }
 }
 </script>

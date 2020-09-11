@@ -584,11 +584,7 @@
 
     </div>
 
-    <!--scroll bottom to top button start-->
-    <div class="scroll-top scroll-to-target primary-bg text-white" data-target="html">
-      <span class="fas fa-hand-point-up"></span>
-    </div>
-    <!--scroll bottom to top button end-->
+
   </div>
 </template>
 

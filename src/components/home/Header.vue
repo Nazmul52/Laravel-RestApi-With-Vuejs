@@ -6,9 +6,11 @@
         <nav class="navbar navbar-expand-md header-nav">
 
           <!--logo start-->
-          <a class="navbar-brand" href="index.html">
-            <img src="@/assets/logo.png" alt="logo" class="img-fluid"/>
-          </a>
+          <router-link :to="{name:'Home'}">
+            <a class="navbar-brand" href="javascript:void(0)">
+              <img src="@/assets/logo.png" alt="logo" class="img-fluid"/>
+            </a>
+          </router-link>
           <!--logo end-->
 
           <!--main menu start-->
@@ -30,7 +32,7 @@
 
 <script>
 export default {
-name: "Header"
+  name: "Header"
 }
 </script>
 

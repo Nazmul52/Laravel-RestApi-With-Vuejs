@@ -12,16 +12,16 @@
       </div>
       <div class="row justify-content-center my-4">
         <div class="matches_tab text-center col-md-4">
-          <ul class="nav nav-pills justify-content-center" id="myTab" role="tablist">
-            <li class="nav-item">
-              <a class="nav-link active btn btn-brand-03 btn-lg" id="Cricket-tab" data-toggle="tab"
-                 href="#Cricket" role="tab" aria-controls="Cricket" aria-selected="true">
+          <ul class="nav nav-pills justify-content-center">
+            <li class="nav-item" @click="changeMatchType('cricket')">
+              <a class="nav-link active btn btn-brand-03 btn-lg" data-toggle="tab"
+                 href="javascript:void(0)" aria-selected="true">
                 <img src="@/assets/cricket-active.svg" alt=""> Cricket
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link btn btn-brand-04 btn-lg" id="Football-tab" data-toggle="tab"
-                 href="#Football" role="tab" aria-controls="Football" aria-selected="false">
+            <li class="nav-item" @click="changeMatchType('football')">
+              <a class="nav-link btn btn-brand-04 btn-lg" data-toggle="tab"
+                 href="javascript:void(0)" aria-selected="false">
                 <img src="@/assets/football-inactive.svg" alt=""> Football
               </a>
             </li>
@@ -45,8 +45,17 @@
 </template>
 
 <script>
+import {mapMutations} from 'vuex';
+import * as type from '@/store/type';
+
 export default {
-name: "MatchesSection"
+  name: "MatchesSection",
+  methods: {
+    ...mapMutations({
+      changeMatchType: type.MATCH_TYPE,
+      getUpcomingMatchList: type.UPCOMING_MATCH_LIST,
+    }),
+  }
 }
 </script>
 

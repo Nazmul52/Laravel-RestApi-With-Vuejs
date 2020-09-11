@@ -277,11 +277,7 @@
       </div>
     </div>
     <!--footer bottom copyright end-->
-    <!--scroll bottom to top button start-->
-    <div class="scroll-top scroll-to-target primary-bg text-white" data-target="html">
-      <span class="fas fa-hand-point-up"></span>
-    </div>
-    <!--scroll bottom to top button end-->
+
     <!-- Withdraw Modal -->
     <div class="modal fade" id="Withdraw_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

@@ -8,9 +8,11 @@
           <nav class="navbar navbar-expand-md header-nav">
 
             <!--logo start-->
-            <a class="navbar-brand" href="index.html">
-              <img src="@/assets/logo.png" alt="logo" class="img-fluid"/>
-            </a>
+            <router-link :to="{name:'Home'}">
+              <a class="navbar-brand" href="javascript:void(0)">
+                <img src="@/assets/logo.png" alt="logo" class="img-fluid"/>
+              </a>
+            </router-link>
             <!--logo end-->
 
             <!--main menu start-->
@@ -225,49 +227,10 @@
         </div>
       </section>
       <!--Matches section end-->
-
     </div>
 
     <!--footer bottom copyright start-->
-    <div class="footer-bottom py-5 gray-light-bg">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6 mx-auto text-center">
-            <img src="@/assets/logo.png" alt="" width="90">
-            <ul class="list-inline social-list-default background-color social-hover-2 mt-4 mb-2">
-              <li class="list-inline-item">
-                <a class="facebook" href="#"><i class="fab fa-facebook-f"></i></a>
-              </li>
-              <li class="list-inline-item">
-                <a class="twitter" href="#"><i class="fab fa-twitter"></i></a>
-              </li>
-              <li class="list-inline-item">
-                <a class="instagram" href="#"><i class="fab fa-instagram"></i></a>
-              </li>
-              <li class="list-inline-item">
-                <a class="youtube" href="#"><i class="fab fa-youtube"></i></a>
-              </li>
-            </ul>
-            <div class="terms-policy-wrap text-center">
-              <ul class="list-inline">
-                <li class="list-inline-item"><a class="small-text" href="#">Terms & Conditions</a></li>
-                <li class="list-inline-item"><a class="small-text" href="#">Privacy Policy</a></li>
-                <li class="list-inline-item"><a class="small-text" href="#">About Us</a></li>
-              </ul>
-            </div>
-            <hr>
-            <div class="copyright-wrap small-text text-center">
-              <p class="mb-0">&copy; Copyright <a href="#">GameOff11</a> 2020</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--footer bottom copyright end-->
-    <!--scroll bottom to top button start-->
-    <div class="scroll-top scroll-to-target primary-bg text-white" data-target="html">
-      <span class="fas fa-hand-point-up"></span>
-    </div>
+    <app-footer></app-footer>
     <!--scroll bottom to top button end-->
   </div>
 </template>
@@ -275,6 +238,7 @@
 <script>
 import {Carousel, Slide} from "vue-carousel";
 import MatchComponent from '@/components/home/match/MatchComponent'
+import Footer from '@/components/home/Footer'
 
 export default {
   name: "MatchList",
@@ -282,6 +246,7 @@ export default {
     Carousel,
     Slide,
     'appMatchComponent': MatchComponent,
+    'appFooter': Footer
   },
   data() {
     return {}
