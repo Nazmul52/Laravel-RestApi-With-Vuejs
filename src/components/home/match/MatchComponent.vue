@@ -19,7 +19,7 @@
               </p>
             </div>
             <div class="matche_time">
-              <p class="text-danger font-weight-bold">9h 43m left</p>
+              <p class="text-danger font-weight-bold">{{ hours }}h {{ minutes }}m left</p>
             </div>
             <div class="matche_vs_right">
               <p v-if="matchDetail.teams[1]">
@@ -89,6 +89,8 @@ export default {
   data() {
     return {
       image_server_base_path: image_server_base_path,
+      hours: 0,
+      minutes: 0,
     }
   },
   methods: {
@@ -100,14 +102,11 @@ export default {
     }
   },
   mounted() {
+    const time_in_mile_second = new Date(this.matchDetail.match_time) - new Date();
+    const time_in_minutes = time_in_mile_second / 1000;
+    this.minutes = Math.max(0, Math.round(time_in_minutes % 60));
+    this.hours = Math.max(0, Math.round(time_in_minutes / 60));
   },
-  // beforeRouteLeave(to, from, next) {
-  //   console.log('rana');
-  //   localStorage.setItem('s_m', JSON.stringify(this.matchDetail));
-  //   setTimeout(() => {
-  //     next();
-  //   }, 500);
-  // },
   beforeDestroy() {
     localStorage.setItem('s_m', JSON.stringify(this.matchDetail));
   }
