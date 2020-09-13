@@ -91,6 +91,7 @@ export default {
       image_server_base_path: image_server_base_path,
       hours: 0,
       minutes: 0,
+      interval: undefined,
     }
   },
   methods: {
@@ -102,13 +103,16 @@ export default {
     }
   },
   mounted() {
-    const time_in_mile_second = new Date(this.matchDetail.match_time) - new Date();
-    const time_in_minutes = time_in_mile_second / 1000;
-    this.minutes = Math.max(0, Math.round(time_in_minutes % 60));
-    this.hours = Math.max(0, Math.round(time_in_minutes / 60));
+    this.interval = setInterval(() => {
+      const time_in_mile_second = new Date(this.matchDetail.match_time) - new Date();
+      const time_in_minutes = time_in_mile_second / 1000;
+      this.minutes = Math.max(0, Math.round(time_in_minutes % 60));
+      this.hours = Math.max(0, Math.round(time_in_minutes / 60));
+    }, 60000);
   },
   beforeDestroy() {
     localStorage.setItem('s_m', JSON.stringify(this.matchDetail));
+    clearInterval(this.interval);
   }
 
 }
