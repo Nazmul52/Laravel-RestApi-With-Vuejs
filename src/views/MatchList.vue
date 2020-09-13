@@ -75,16 +75,17 @@
               <div class="hero-slider-content">
                 <h2 class="text-uppercase text-white mb-4">Upcoming Matches</h2>
                 <div class="matches_tab text-center">
-                  <ul class="nav nav-pills justify-content-center" id="myTab" role="tablist">
-                    <li class="nav-item">
-                      <a class="nav-link active btn btn-brand-03 btn-lg" id="Cricket-tab" data-toggle="tab"
-                         href="#Cricket" role="tab" aria-controls="Cricket" aria-selected="true">
+                  <ul class="nav nav-pills justify-content-center">
+                    <li class="nav-item" @click="changeMatchType('cricket')">
+                      <a :class="getMatchType==='cricket'?'nav-link active btn btn-brand-03 btn-lg active':'nav-link btn btn-brand-03 btn-lg'"
+                         href="javascript:void(0)">
                         <img src="@/assets/cricket-active.svg" alt=""> Cricket
+                        {{ changeMatchType === 'cricket' ? 'active' : '' }}
                       </a>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link btn btn-brand-04 btn-lg" id="Football-tab" data-toggle="tab" href="#Football"
-                         role="tab" aria-controls="Football" aria-selected="false">
+                    <li class="nav-item" @click="changeMatchType('football')">
+                      <a :class="getMatchType==='football'?'nav-link active btn btn-brand-03 btn-lg active':'nav-link btn btn-brand-03 btn-lg'"
+                         href="javascript:void(0)">
                         <img src="@/assets/football-inactive.svg" alt=""> Football
                       </a>
                     </li>
@@ -103,11 +104,12 @@
       <section class="promo-section pt-120 pb-60" style="margin-top: -120px;">
         <div class="container text-center">
           <div class="tab-content">
-            <div class="tab-pane fade show active" id="Cricket" role="tabpanel" aria-labelledby="Cricket-tab">
+            <div class="tab-pane fade show active">
               <div class="row justify-content-center">
                 <div class="col-md-6">
-                  <div class="big_matche_list matche_each matche_each_big bg-light p-3 rounded">
-                    <app-match-component :root-class="{'mb-3':true}"></app-match-component>
+                  <div class="big_matche_list matche_each matche_each_big bg-light p-3 rounded"
+                       v-for="(match,index) of getUpcomingMatchList(undefined)" :key="index">
+                    <app-match-component :matchDetail="{...match}" :root-class="{'mb-3':true}"></app-match-component>
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -125,66 +127,6 @@
                             congue consequat. In posuere, nunc sit amet laoreet blandit, urna sapien imperdiet lectus,
                             et
                             molestie sem tortor quis dui. Donec molestie nisi iaculis
-                            sodales mollis. Nullam non tellus sed elit pulvinar dignissim ut vel ex.</p>
-                        </div>
-                      </Slide>
-                      <Slide data-index="0"
-                             data-name="MySlideName0"
-                             @slideclick="handleSlideClick">
-                        <div class="item">
-                          <img class="rounded-circle mb-3" src="@/assets/img/client-2.jpg" width="120" alt="">
-                          <h3>Walter Adams</h3>
-                          <p class="m-0">Total Match Played <span class="text-success">130</span></p>
-                          <p>Playing Since <span class="text-warning">2018</span></p>
-                          <p class="main_feedback px-4">Duis rhoncus dui venenatis consequat porttitor. Etiam aliquet
-                            congue consequat. In posuere, nunc sit amet laoreet blandit, urna sapien imperdiet lectus,
-                            et
-                            molestie sem tortor quis dui. Donec molestie nisi iaculis
-                            sodales mollis. Nullam non tellus sed elit pulvinar dignissim ut vel ex.</p>
-                        </div>
-                      </Slide>
-                      <Slide data-index="0"
-                             data-name="MySlideName0"
-                             @slideclick="handleSlideClick">
-                        <div class="item">
-                          <img class="rounded-circle mb-3" src="@/assets/img/client-2.jpg" width="120" alt="">
-                          <h3>Walter Adams</h3>
-                          <p class="m-0">Total Match Played <span class="text-success">130</span></p>
-                          <p>Playing Since <span class="text-warning">2018</span></p>
-                          <p class="main_feedback px-4">Duis rhoncus dui venenatis consequat porttitor. Etiam aliquet
-                            congue consequat. In posuere, nunc sit amet laoreet blandit, urna sapien imperdiet lectus,
-                            et
-                            molestie sem tortor quis dui. Donec molestie nisi iaculis
-                            sodales mollis. Nullam non tellus sed elit pulvinar dignissim ut vel ex.</p>
-                        </div>
-                      </Slide>
-                    </Carousel>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="tab-pane fade" id="Football" role="tabpanel" aria-labelledby="Football-tab">
-              <div class="row justify-content-center">
-                <div class="col-md-6">
-                  <div class="big_matche_list matche_each matche_each_big bg-light p-3 rounded">
-                    <!-- @todo last class should be mb-0-->
-                    <app-match-component :root-class="{'mb-3':true}"></app-match-component>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="d-flex justify-content-center align-items-center bg-light rounded h-100 p-4">
-                    <Carousel :perPage="1">
-                      <Slide data-index="0"
-                             data-name="MySlideName0"
-                             @slideclick="handleSlideClick">
-                        <div class="item">
-                          <img class="rounded-circle mb-3" src="@/assets/img/client-2.jpg" width="120" alt="">
-                          <h3>Walter Adams</h3>
-                          <p class="m-0">Total Match Played <span class="text-success">130</span></p>
-                          <p>Playing Since <span class="text-warning">2018</span></p>
-                          <p class="main_feedback px-4">Duis rhoncus dui venenatis consequat porttitor. Etiam aliquet
-                            congue consequat. In posuere, nunc sit amet laoreet blandit, urna sapien imperdiet lectus,
-                            et molestie sem tortor quis dui. Donec molestie nisi iaculis
                             sodales mollis. Nullam non tellus sed elit pulvinar dignissim ut vel ex.</p>
                         </div>
                       </Slide>
@@ -239,6 +181,8 @@
 import {Carousel, Slide} from "vue-carousel";
 import MatchComponent from '@/components/home/match/MatchComponent'
 import Footer from '@/components/home/Footer'
+import * as type from '@/store/type';
+import {mapMutations, mapGetters, mapActions} from 'vuex';
 
 export default {
   name: "MatchList",
@@ -249,13 +193,31 @@ export default {
     'appFooter': Footer
   },
   data() {
-    return {}
+    return {
+    }
   },
   methods: {
+    ...mapMutations({
+      changeMatchType: type.MATCH_TYPE,
+    }),
+    ...mapActions({
+      fetchUpcomingCricketList: type.UPCOMING_MATCH_LIST_CRICKET,
+      fetchUpcomingFootballList: type.UPCOMING_MATCH_LIST_FOOTBALL
+    }),
     handleSlideClick(dataset) {
       console.log(dataset.index, dataset.name)
     },
   },
+  computed: {
+    ...mapGetters({
+      getMatchType: type.MATCH_TYPE,
+      getUpcomingMatchList: type.UPCOMING_MATCH_LIST,
+    }),
+  },
+  mounted() {
+    this.fetchUpcomingCricketList();
+    this.fetchUpcomingFootballList();
+  }
 }
 </script>
 

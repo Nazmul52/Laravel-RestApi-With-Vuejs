@@ -110,88 +110,6 @@
                         </div>
                       </div>
                     </div>
-                    <div class="card-body green-bg text-left p-0 mb-4">
-                      <h4 class="mb-0">Mini Mega</h4>
-                      <p class="text-muted mb-1">Play & Win Big!</p>
-                      <div class="metche_details bg-white pt-3 pb-0 overflow-hidden">
-                        <div class="d-flex justify-content-between px-3">
-                          <div class="text-left">
-                            <span>Total Prize</span>
-                            <h3 class="text-success mb-0">$5560</h3>
-                          </div>
-                          <div class="text-right">
-                            <span class="text-warning">Entry 5000</span><img class=" mb-1 ml-2" src="@/assets/coin.svg"
-                                                                             width="16" alt="">
-                            <button type="button" class="btn btn-xs btn-block btn-secondary" disabled>
-                              Join Now
-                            </button>
-                          </div>
-                        </div>
-                        <div class="progress mx-3 my-1">
-                          <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75"
-                               aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <div class="d-flex justify-content-between mx-3 mb-2 mt-1">
-                          <div class="text-left">
-                            <span>65 Team Joined</span>
-                          </div>
-                          <div class="text-right">
-                            <span class="text-danger">0 Spots Left</span>
-                          </div>
-                        </div>
-                        <div class="d-flex justify-content-between bg-light px-3 py-1">
-                          <div class="text-left">
-                            <span>Total 100 Winners</span>
-                          </div>
-                          <div class="text-right">
-                            <i class="fas fa-info-circle text-warning ml-3" data-toggle="tooltip" data-placement="top"
-                               title="Tooltip on top"></i>
-                            <span class="text-success">Special Offer Available</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-body green-bg text-left p-0 mb-4">
-                      <h4 class="mb-0">Mini Mega</h4>
-                      <p class="text-muted mb-1">Play & Win Big!</p>
-                      <div class="metche_details bg-white pt-3 pb-0 overflow-hidden">
-                        <div class="d-flex justify-content-between px-3">
-                          <div class="text-left">
-                            <span>Total Prize</span>
-                            <h3 class="text-success mb-0">$5560</h3>
-                          </div>
-                          <div class="text-right">
-                            <span class="text-warning">Entry 5000</span><img class=" mb-1 ml-2" src="@/assets/coin.svg"
-                                                                             width="16" alt="">
-                            <button type="button" class="btn btn-xs btn-block btn-success">
-                              Join Now
-                            </button>
-                          </div>
-                        </div>
-                        <div class="progress mx-3 my-1">
-                          <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75"
-                               aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <div class="d-flex justify-content-between mx-3 mb-2 mt-1">
-                          <div class="text-left">
-                            <span>65 Team Joined</span>
-                          </div>
-                          <div class="text-right">
-                            <span class="text-danger">0 Spots Left</span>
-                          </div>
-                        </div>
-                        <div class="d-flex justify-content-between bg-light px-3 py-1">
-                          <div class="text-left">
-                            <span>Total 100 Winners</span>
-                          </div>
-                          <div class="text-right">
-                            <i class="fas fa-info-circle text-warning ml-3" data-toggle="tooltip" data-placement="top"
-                               title="Tooltip on top"></i>
-                            <span class="text-success">Special Offer Available</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -255,7 +173,6 @@
       <!--Matches section end-->
 
     </div>
-
 
 
     <!-- Prize Modal -->
@@ -546,11 +463,24 @@ export default {
     Carousel,
     Slide
   },
+  data() {
+    return {
+      matchDetail: {},
+    }
+  },
   methods: {
     handleSlideClick(dataset) {
       console.log(dataset.index, dataset.name)
     },
   },
+  beforeDestroy() {
+    localStorage.removeItem('s_m');
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.matchDetail = JSON.parse(localStorage.getItem('s_m'));
+    });
+  }
 }
 </script>
 

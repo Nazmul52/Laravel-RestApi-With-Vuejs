@@ -5,6 +5,7 @@ const state = {
     upcoming_match_football: [],
     upcoming_match_cricket: [],
     match_type: 'cricket',
+    tournament_id: '',
 };
 
 const getters = {
@@ -17,10 +18,33 @@ const getters = {
     [type.MATCH_TYPE]: (state) => {
         return state.match_type;
     },
+    [type.TOURNAMENT_ID_GETTER]: (state) => {
+        return state.tournament_id;
+    },
+    [type.TOURNAMENT_ID_NAME_MAP]: (state) => {
+        const mapper = {};
+        const tournamentList = [];
+        for (let match of state['upcoming_match_' + state.match_type]) {
+            if (!mapper[match.tournament_id]) {
+                mapper[match.tournament_id] = true;
+                tournamentList.push({
+                    key: match.tournament_id,
+                    value: match.tournament_name
+                });
+            }
+        }
+        return tournamentList;
+    },
     [type.UPCOMING_MATCH_LIST]: (state) => {
-        return (value) => {
-            if (!value) value = state.match_type === 'cricket' ? state.upcoming_match_cricket.length : state.upcoming_match_football.length;
-            return state.match_type === 'cricket' ? [...state.upcoming_match_cricket].splice(0, value) : [...state.upcoming_match_football].splice(0, value);
+        return (len) => {
+            if (!len) len = state.match_type === 'cricket' ? state.upcoming_match_cricket.length : state.upcoming_match_football.length;
+            return state.match_type === 'cricket' ?
+                [...state.upcoming_match_cricket].filter(match => {
+                    return !state.tournament_id || state.tournament_id === match.tournament_id
+                }).splice(0, len) :
+                [...state.upcoming_match_football].filter(match => {
+                    return !state.tournament_id || state.tournament_id === match.tournament_id
+                }).splice(0, len);
         }
     }
 };
@@ -33,6 +57,10 @@ const mutations = {
     },
     [type.MATCH_TYPE]: (state, payload) => {
         state.match_type = payload;
+        state.tournament_id = '';
+    },
+    [type.TOURNAMENT_ID_SETTER]: (state, payload) => {
+        state.tournament_id = payload;
     }
 };
 const actions = {
@@ -47,7 +75,6 @@ const actions = {
     },
     [type.UPCOMING_MATCH_LIST_FOOTBALL]: (context) => {
         axios.get('/football/upcoming-matches').then(response => {
-            console.log(response.data.data);
             context.commit(type.UPCOMING_MATCH_LIST_FOOTBALL, response.data.data);
         }).catch(errors => {
             console.log(errors);
