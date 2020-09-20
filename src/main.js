@@ -29,6 +29,16 @@ Vue.config.productionTip = false;
 Vue.mixin({
     filters: {
         ...match_filter
+    },
+    methods: {
+        getTimeDiff(datetime) {
+            const time_in_mile_second = Math.round(Math.max(0, new Date(datetime) - new Date()));
+            const time_in_minutes = time_in_mile_second / (1000 * 60);
+            return {
+                minutes: Math.round(Math.max(0, time_in_minutes % 60)),
+                hours: Math.round(Math.max(0, time_in_minutes / 60))
+            };
+        }
     }
 });
 const router = new VueRouter({

@@ -8,17 +8,17 @@
       <section class="promo-section vh-100 w-100 position-fixed contest_main_bg">
         <div class="container-fluid text-center h-100">
           <div class="row h-100">
-            <div class="col-md-6 p-0 h-100 bg-light">
+            <div class="col-md-6 p-0 h-100 bg-light" v-if="matchDetail">
               <div class="contest_left h-100">
                 <div class="bg-secondary px-4 pt-3 pb-2">
                   <div class="d-flex justify-content-between">
                     <div class="go_back">
-                      <a href="#">
+                      <router-link :to="{name:'MatchList'}">
                         <i class="fas fa-arrow-left"></i>
-                      </a>
+                      </router-link>
                     </div>
                     <div class="contest_each_title">
-                      <h5 class="text-white mb-0">T20 Match</h5>
+                      <h5 class="text-white mb-0">{{ matchDetail.format }}</h5>
                     </div>
                     <div class="go_back">
                       <i class="fas fa-info-circle text-white ml-3" data-toggle="tooltip" data-placement="top"
@@ -27,23 +27,28 @@
                   </div>
                   <div class="d-flex justify-content-between align-items-center mt-2">
                     <div class="matche_vs_left">
-                      <p class="mb-0 text-white font-weight-bold">
-                        <img class="mr-1" src="@/assets/bd-01.png" alt=""> BAN
+                      <p class="mb-0 text-white font-weight-bold" v-if="matchDetail.teams && matchDetail.teams[0]">
+                        <img style="max-width: 7rem;" class="mr-1"
+                             :src="image_server_base_path+matchDetail.teams[0].logo">
+                        {{ matchDetail.teams[0].code || matchDetail.teams[0].team_key }}
                       </p>
                     </div>
                     <div class="matche_time">
                       <p class="text-warning mb-0">VS</p>
                     </div>
                     <div class="matche_vs_right">
-                      <p class="mb-0 text-white font-weight-bold">
-                        ZIM <img class="ml-1" src="@/assets/zim-01.png" alt="">
+                      <p class="mb-0 text-white font-weight-bold" v-if="matchDetail.teams &&  matchDetail.teams[1]">
+                        {{ matchDetail.teams[1].code || matchDetail.teams[1].team_key }}
+                        <img class="ml-1" style="max-width: 7rem;"
+                             :src="image_server_base_path+matchDetail.teams[1].logo"
+                        >
                       </p>
                     </div>
                   </div>
                 </div>
                 <div class="bg-dark p-2">
                   <div class="d-flex justify-content-center">
-                    <h5 class="text-danger mb-0">9h 43m left</h5>
+                    <h5 class="text-danger mb-0">{{ hours }}h {{ minutes }}m left</h5>
                   </div>
                 </div>
                 <div class="bg-light p-3 h-100">
@@ -52,10 +57,10 @@
                       <span class="d-inline-block mr-2">Short By :</span>
                       <div class="btn-group btn-group-toggle text-uppercase" data-toggle="buttons">
                         <label class="btn btn-sm btn-outline-success active">
-                          <input type="radio" name="options" id="option1" checked=""> Total Prize
+                          <input type="radio" v-model="sort_by" value="total_price"> Total Prize
                         </label>
                         <label class="btn btn-sm btn-outline-success">
-                          <input type="radio" name="options" id="option2"> Entry Fee
+                          <input type="radio" v-model="sort_by" value="entry_price"> Entry Fee
                         </label>
                       </div>
                     </div>
@@ -69,46 +74,7 @@
                     <div class="card-body green-bg text-left p-0 mb-4">
                       <h4 class="mb-0">Mini Mega</h4>
                       <p class="text-muted mb-1">Play & Win Big!</p>
-                      <div class="metche_details bg-white pt-3 pb-0 overflow-hidden">
-                        <div class="d-flex justify-content-between px-3">
-                          <div class="text-left">
-                            <span>Total Prize</span>
-                            <h3 class="text-success mb-0">$5560</h3>
-                          </div>
-                          <div class="text-right">
-                            <a href="javascript:void(0)" class="text-warning" data-toggle="modal"
-                               data-target="#entry_fees">Entry 5000</a><img class=" mb-1 ml-2" src="@/assets/coin.svg"
-                                                                            width="16" alt="">
-                            <button type="button" class="btn btn-xs btn-block btn-success" data-toggle="modal"
-                                    data-target="#select_team">
-                              Join Now
-                            </button>
-                          </div>
-                        </div>
-                        <div class="progress mx-3 my-1">
-                          <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75"
-                               aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <div class="d-flex justify-content-between mx-3 mb-2 mt-1">
-                          <div class="text-left">
-                            <span>65 Team Joined</span>
-                          </div>
-                          <div class="text-right">
-                            <span class="text-danger">0 Spots Left</span>
-                          </div>
-                        </div>
-                        <div class="d-flex justify-content-between bg-light px-3 py-1">
-                          <div class="text-left">
-                            <span>Total 100 Winners</span>
-                          </div>
-                          <div class="text-right">
-                            <i class="fas fa-info-circle text-warning ml-3" data-toggle="tooltip" data-placement="top"
-                               title="Tooltip on top"></i>
-                            <a href="javascript:void(0)" class="text-success" data-toggle="modal"
-                               data-target="#prize_list">Special Offer Available</a>
-                          </div>
-                        </div>
-                      </div>
+                      <app-contest :contest="contest[0]"></app-contest>
                     </div>
                   </div>
                 </div>
@@ -455,31 +421,82 @@
 </template>
 
 <script>
+import {image_server_base_path} from '@/utils/enviornment_data'
 import {Carousel, Slide} from "vue-carousel";
+import axios from 'axios';
+import {mapGetters} from 'vuex';
+import * as type from '@/store/type';
+import appContest from '@/components/contest/contest';
 
 export default {
   name: "Contest",
   components: {
     Carousel,
-    Slide
+    Slide,
+    'app-contest': appContest,
   },
   data() {
     return {
       matchDetail: {},
+      image_server_base_path: image_server_base_path,
+      hours: 0,
+      minutes: 0,
+      interval: undefined,
+      sort_by: 'total_price',
+      contest: [],
+    }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      axios.get('/football/active-contests',
+          {
+            params: {
+              match_id: this.matchId
+            }
+          }).then(res => {
+        if (+res.data.status === 1) {
+          this.contest = res.data.data.contests;
+          console.log(this.contest);
+        }
+      }).catch(err => {
+        console.log(err);
+      }).then(() => {
+
+      });
+      // wait for match list api response using interval and time calculate under interval
+      const interval = setInterval(() => {
+        this.matchDetail = this.matchDetailByMatchId(this.matchId, this.matchType);
+        if (Object.keys(this.matchDetail).length !== 0 && this.matchDetail.constructor === Object) {
+          this.setTime(this.getTimeDiff(this.matchDetail.match_time));
+          clearInterval(interval);
+        }
+      }, 2000);
+    });
+  },
+  updated() {
+    this.interval = setInterval(() => this.setTime(this.getTimeDiff(this.matchDetail.match_time)), 60000);
+    this.setTime(this.getTimeDiff(this.matchDetail.match_time));
+  },
+  computed: {
+    ...mapGetters({matchDetailByMatchId: type.MATCH_BY_MATCH_ID}),
+    matchId() {
+      return this.$route.params.match_id
+    },
+    matchType() {
+      return this.$route.params.match_type
     }
   },
   methods: {
+    setTime(minutes_hours) {
+      this.minutes = minutes_hours.minutes;
+      this.hours = minutes_hours.hours;
+    },
     handleSlideClick(dataset) {
       console.log(dataset.index, dataset.name)
     },
   },
   beforeDestroy() {
-    localStorage.removeItem('s_m');
-  },
-  mounted() {
-    this.$nextTick(() => {
-      this.matchDetail = JSON.parse(localStorage.getItem('s_m'));
-    });
+    clearInterval(this.interval);
   }
 }
 </script>

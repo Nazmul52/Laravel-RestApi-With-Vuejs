@@ -5,7 +5,11 @@
         <div class="tab-pane fade show active">
           <div class="row justify-content-md-center justify-content-sm-center matche_each">
             <div class="col-lg-4" v-for="(match,index) of getUpcomingMatchList(6)" :key="index">
-              <app-match-component :matchDetail="{...match}" v-if="index<6"></app-match-component>
+              <app-match-component
+                  :matchType="getMatchType"
+                  :matchDetail="{...match}"
+                  v-if="index<6"
+              ></app-match-component>
             </div>
           </div>
           <router-link to="/match-list">

@@ -109,7 +109,10 @@
                 <div class="col-md-6">
                   <div class="big_matche_list matche_each matche_each_big bg-light p-3 rounded"
                        v-for="(match,index) of getUpcomingMatchList(undefined)" :key="index">
-                    <app-match-component :matchDetail="{...match}" :root-class="{'mb-3':true}"></app-match-component>
+                    <app-match-component :matchType="getMatchType"
+                                         :matchDetail="{...match}"
+                                         :root-class="{'mb-3':true}"
+                    ></app-match-component>
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -193,8 +196,7 @@ export default {
     'appFooter': Footer
   },
   data() {
-    return {
-    }
+    return {}
   },
   methods: {
     ...mapMutations({

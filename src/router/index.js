@@ -34,7 +34,7 @@ const routes = [
 
     },
     {
-        path: '/contest',
+        path: '/contest/:match_type/:match_id',
         name: 'Contest',
         component: () => import(/* webpackChunkName: "confirm-team" */'@/views/Contest'),
         beforeEnter: (to, from, next) => {
@@ -49,7 +49,6 @@ const routes = [
         beforeEnter: (to, from, next) => {
             next();
         }
-
     },
     {
         path: '/match-list',
@@ -59,7 +58,7 @@ const routes = [
             next();
         }
 
-    },{
+    }, {
         path: '/user-profile',
         name: 'UserProfile',
         component: () => import(/* webpackChunkName: "match-list" */'@/views/UserProfile'),

@@ -1,7 +1,7 @@
 <template>
   <div :class="getClasses()">
     <div class="card-body px-0">
-      <router-link :to="{name:'Contest'}">
+      <router-link :to="{name:'Contest',params:{match_id:matchDetail.match_id,match_type:matchType}}">
         <a href="javascript:void(0)">
           <div class="d-flex justify-content-between px-3">
             <div class="matche_vs">
@@ -84,6 +84,10 @@ export default {
         }
       },
       require: true,
+    },
+    matchType: {
+      type: String,
+      default: () => 'cricket',
     }
   },
   data() {
@@ -95,6 +99,10 @@ export default {
     }
   },
   methods: {
+    setTime(minutes_hours) {
+      this.minutes = minutes_hours.minutes;
+      this.hours = minutes_hours.hours;
+    },
     getClasses() {
       return {
         ...this.rootClass,
@@ -103,15 +111,13 @@ export default {
     }
   },
   mounted() {
-    this.interval = setInterval(() => {
-      const time_in_mile_second = new Date(this.matchDetail.match_time) - new Date();
-      const time_in_minutes = time_in_mile_second / 1000;
-      this.minutes = Math.max(0, Math.round(time_in_minutes % 60));
-      this.hours = Math.max(0, Math.round(time_in_minutes / 60));
-    }, 60000);
+    this.setTime(this.getTimeDiff(this.matchDetail.match_time));
+  },
+  updated() {
+    this.interval = setInterval(() => this.setTime(this.getTimeDiff(this.matchDetail.match_time)), 60000);
+    this.setTime(this.getTimeDiff(this.matchDetail.match_time));
   },
   beforeDestroy() {
-    localStorage.setItem('s_m', JSON.stringify(this.matchDetail));
     clearInterval(this.interval);
   }
 

@@ -138,8 +138,6 @@ import ContactSection from "@/components/home/ContactSection";
 import TerminalSection from "@/components/home/TerminalSection";
 import ActionStartSection from "@/components/ActionStartSection";
 import FAQSection from "@/components/home/FAQSection";
-import {mapActions} from 'vuex';
-import * as type from '@/store/type';
 
 export default {
   name: 'Home',
@@ -165,14 +163,10 @@ export default {
     // ...mapGetters({getUpcomingMatchList: type.UPCOMING_MATCH_LIST})
   },
   methods: {
-    ...mapActions({
-      fetchUpcomingCricketList: type.UPCOMING_MATCH_LIST_CRICKET,
-      fetchUpcomingFootballList: type.UPCOMING_MATCH_LIST_FOOTBALL
-    })
+
   },
   mounted() {
-    this.fetchUpcomingCricketList();
-    this.fetchUpcomingFootballList();
+
   }
 }
 </script>

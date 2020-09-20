@@ -32,15 +32,19 @@ export default {
   components: {},
   computed: {...mapGetters({doubleCounter: type.DOUBLE_COUNTER})},// so call getter
   methods: {
-    ...mapActions({setCounter: type.SET_COUNTER}),
-    scrollToTop (duration) {
+    ...mapActions({
+      setCounter: type.SET_COUNTER,
+      fetchUpcomingCricketList: type.UPCOMING_MATCH_LIST_CRICKET,
+      fetchUpcomingFootballList: type.UPCOMING_MATCH_LIST_FOOTBALL
+    }),
+    scrollToTop(duration) {
       // cancel if already on top
       if (document.scrollingElement.scrollTop === 0) return;
 
       const totalScrollDistance = document.scrollingElement.scrollTop;
       let scrollY = totalScrollDistance, oldTimestamp = null;
 
-      function step (newTimestamp) {
+      function step(newTimestamp) {
         if (oldTimestamp !== null) {
           // if duration is 0 scrollY will be -Infinity
           scrollY -= totalScrollDistance * (newTimestamp - oldTimestamp) / duration;
@@ -50,6 +54,7 @@ export default {
         oldTimestamp = newTimestamp;
         window.requestAnimationFrame(step);
       }
+
       window.requestAnimationFrame(step);
     }
   }, // so call setter
@@ -67,6 +72,8 @@ export default {
 //   }
 // },
   mounted() {
+    this.fetchUpcomingCricketList();
+    this.fetchUpcomingFootballList();
     this.$nextTick(() => {
 
     });

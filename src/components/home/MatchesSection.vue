@@ -34,7 +34,7 @@
           <select class="form-control" v-model="selected_tournament_id" @change="changeTournamentId">
             <option value="">All Series</option>
             <option v-for="(tournament,index) of getTournamentList" :value="tournament.key"
-                    :key="tournament.key+index">
+                    :key="index">
               {{ tournament.value }}
             </option>
           </select>

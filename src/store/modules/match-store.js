@@ -46,7 +46,13 @@ const getters = {
                     return !state.tournament_id || state.tournament_id === match.tournament_id
                 }).splice(0, len);
         }
+    },
+    [type.MATCH_BY_MATCH_ID]: state => (match_id, match_type) => {
+        return match_type === 'cricket' ?
+            [...state.upcoming_match_cricket].filter(match => +match_id === +match.match_id)[0] :
+            [...state.upcoming_match_football].filter(match => +match_id === +match.match_id)[0];
     }
+
 };
 const mutations = {
     [type.UPCOMING_MATCH_LIST_CRICKET]: (state, payload) => {

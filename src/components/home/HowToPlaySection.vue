@@ -69,7 +69,8 @@ export default {
   },
   methods: {
     handleSlideClick(dataset) {
-      console.log(dataset.index, dataset.name)
+      return dataset;
+      // console.log(dataset.index, dataset.name)
     },
   },
 }
