@@ -57,10 +57,12 @@
                       <span class="d-inline-block mr-2">Short By :</span>
                       <div class="btn-group btn-group-toggle text-uppercase" data-toggle="buttons">
                         <label class="btn btn-sm btn-outline-success active">
-                          <input type="radio" v-model="sort_by" value="total_price"> Total Prize
+                          <input type="radio" v-model="sort_by" @click="sortBy('total_prize')" value="total_prize">
+                          Total Prize
                         </label>
                         <label class="btn btn-sm btn-outline-success">
-                          <input type="radio" v-model="sort_by" value="entry_price"> Entry Fee
+                          <input type="radio" v-model="sort_by" @click="sortBy('entry_fee')" value="entry_fee">
+                          Entry Fee
                         </label>
                       </div>
                     </div>
@@ -70,12 +72,8 @@
                       </button>
                     </div>
                   </div>
-                  <div class="overflow-auto h-75">
-                    <div class="card-body green-bg text-left p-0 mb-4">
-                      <h4 class="mb-0">Mini Mega</h4>
-                      <p class="text-muted mb-1">Play & Win Big!</p>
-                      <app-contest :contest="contest[0]"></app-contest>
-                    </div>
+                  <div v-for="(conts,index) of contest" :key="index">
+                    <app-contest :contest="{...conts}" :index="index" @priceList="priceListProcess"></app-contest>
                   </div>
                 </div>
               </div>
@@ -137,10 +135,7 @@
         </div>
       </section>
       <!--Matches section end-->
-
     </div>
-
-
     <!-- Prize Modal -->
     <div class="modal fade" id="prize_list">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -151,36 +146,23 @@
                 <span aria-hidden="true">&times;</span>
               </button>
               <div class="login-signup-header text-center">
-                <a href="index.html">
+                <router-link :to="{name:'Home'}">
                   <img src="@/assets/withdraw.svg" class="img-fluid mb-3" width="40" alt="Logo">
-                </a>
+                </router-link>
                 <h4 class="mb-3 text-uppercase">Prize List</h4>
               </div>
               <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  Rank 1
-                  <span class="badge badge-success badge-pill">10000 BDT</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  Rank 2
-                  <span class="badge badge-success badge-pill">2000 BDT</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  Rank 3-5
-                  <span class="badge badge-success badge-pill">300 BDT</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  Rank 6-10
-                  <span class="badge badge-success badge-pill">40 BDT</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  Rank 11-13
-                  <span class="badge badge-success badge-pill">30 BDT</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  Rank 30-40
-                  <span class="badge badge-success badge-pill">10 BDT</span>
-                </li>
+                <div v-for="prize_amount of selectedPrizeList.keys()" :key="prize_amount">
+                  <li class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Rank {{
+                      selectedPrizeList.get(prize_amount).length > 1 ?
+                          selectedPrizeList.get(prize_amount)[0] + '-' + selectedPrizeList.get(prize_amount)[selectedPrizeList.get(prize_amount).length - 1]
+                          : selectedPrizeList.get(prize_amount)[0]
+                    }}
+                    <span class="badge badge-success badge-pill">{{ prize_amount }} BDT</span>
+                  </li>
+                </div>
               </ul>
               <button class="btn btn-brand-01 border-radius mt-4 mb-2">
                 Join Now
@@ -442,13 +424,15 @@ export default {
       hours: 0,
       minutes: 0,
       interval: undefined,
-      sort_by: 'total_price',
+      sort_by: 'total_prize',
       contest: [],
+      selectedPrizeList: new Map(),
     }
   },
   mounted() {
     this.$nextTick(() => {
-      axios.get('/football/active-contests',
+      const type = this.matchType === 'football' ? '/football' : '';
+      axios.get(type + '/active-contests',
           {
             params: {
               match_id: this.matchId
@@ -456,7 +440,6 @@ export default {
           }).then(res => {
         if (+res.data.status === 1) {
           this.contest = res.data.data.contests;
-          console.log(this.contest);
         }
       }).catch(err => {
         console.log(err);
@@ -484,9 +467,23 @@ export default {
     },
     matchType() {
       return this.$route.params.match_type
-    }
+    },
   },
   methods: {
+    sortBy(sort_by) {
+      this.sort_by = sort_by;
+      this.contest.sort((a, b) => {
+        switch (sort_by) {
+          case 'entry_fee':
+            return +a.entry_amount - +b.entry_amount;
+          case 'total_prize':
+            return +a.winning_amount - +b.winning_amount;
+          default:
+            return -1;
+        }
+      });
+      return this.sort_by;
+    },
     setTime(minutes_hours) {
       this.minutes = minutes_hours.minutes;
       this.hours = minutes_hours.hours;
@@ -494,10 +491,22 @@ export default {
     handleSlideClick(dataset) {
       console.log(dataset.index, dataset.name)
     },
+    priceListProcess(index) {
+      this.selectedPrizeList = new Map();
+      const selectedContest = [...this.contest[index].prize];
+      selectedContest.sort((prize_a, prize_b) => prize_a.rank - prize_b.rank).forEach(prize => {
+        if (this.selectedPrizeList.has(prize.prize_amount)) {
+          this.selectedPrizeList.set(prize.prize_amount, [...this.selectedPrizeList.get(prize.prize_amount), prize.rank])
+        } else {
+          this.selectedPrizeList.set(prize.prize_amount, [prize.rank])
+        }
+      });
+    }
   },
   beforeDestroy() {
     clearInterval(this.interval);
-  }
+  },
+  watch: {}
 }
 </script>
 
