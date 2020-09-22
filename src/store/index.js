@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import Match from "@/store/modules/match-store";
+import Auth from "@/store/modules/auth-store";
 
 Vue.use(Vuex);
 
@@ -12,6 +13,7 @@ export const store = new Vuex.Store({
     mutations: {},
     actions: {},
     modules: {
-        Match
+        Match,
+        Auth
     }
 })
