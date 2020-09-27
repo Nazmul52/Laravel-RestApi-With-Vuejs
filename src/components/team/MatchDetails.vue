@@ -17,7 +17,7 @@
       <div class="text-left team_create_header_left">
         <img src="@/assets/logo.png" width="28" alt=""/>
         <p class="mb-0 mt-2">Players</p>
-        <h5 class="mb-0 mt-1"><span>0</span>/11</h5>
+        <h5 class="mb-0 mt-1"><span>{{ totalSelectedCount }}</span>/11</h5>
       </div>
       <div class="w-50 team_create_header_center">
         <h6 class="text-white mb-3">Max 7 players from a team</h6>
@@ -51,7 +51,14 @@
 
 <script>
 export default {
-name: "MatchDetails"
+name: "MatchDetails",
+  props:{
+    totalSelectedCount:{
+      type:Number,
+      default:()=>0,
+      required:true,
+    }
+  }
 }
 </script>
 

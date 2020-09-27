@@ -7,12 +7,13 @@
           <div class="row h-100">
             <div class="col-md-6 p-0 h-100 bg-light">
               <div class="contest_left h-100 team_create_header">
-                <app-match-details :teamDetails="matchDetail"></app-match-details>
-                <app-selected-player-count :playerSelected="playerSelected"></app-selected-player-count>
-                <app-player-list @selectedPlater="selectedPlayer" :activeContest="active_contest" :matchDetail="matchDetail"></app-player-list>
+                <app-match-details :teamDetails="matchDetail" :totalSelectedCount="totalSelectedPlayerCount"></app-match-details>
+                <app-selected-player-count :playerSelected="playerSelected" :totalSelectedCount="totalSelectedPlayerCount"></app-selected-player-count>
+                <app-player-list @totalPlayerSelected="totalPlayerSelected" :activeContest="active_contest"
+                                 :matchDetail="matchDetail"></app-player-list>
               </div>
             </div>
-           <app-team-structure></app-team-structure>
+            <app-team-structure></app-team-structure>
           </div>
         </div>
       </section>
@@ -317,6 +318,7 @@ export default {
       minutes: 0,
       interval: undefined,
       playerSelected: 0,
+      totalSelectedPlayerCount: 0,
     }
   },
   components: {
@@ -344,8 +346,11 @@ export default {
       this.hours = minutes_hours.hours;
     },
     // eslint-disable-next-line no-unused-vars
-    selectedPlayer(spList){
-    }
+    selectedPlayer(spList) {
+    },
+    totalPlayerSelected(count) {
+      this.totalSelectedPlayerCount = count || 0;
+    },
   },
   mounted() {
     this.fetchActiveContest({match_id: this.matchId});
@@ -361,7 +366,6 @@ export default {
     // eslint-disable-next-line no-unused-vars
     getActiveContest(nv, ov) {
       this.active_contest = nv || {};
-      console.log(this.active_contest);
     },
     // eslint-disable-next-line no-unused-vars
     matchDetailByMatchId: (nv, ov) => {
