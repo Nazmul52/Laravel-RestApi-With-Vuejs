@@ -35,7 +35,8 @@ export default {
     ...mapActions({
       setCounter: type.SET_COUNTER,
       fetchUpcomingCricketList: type.UPCOMING_MATCH_LIST_CRICKET,
-      fetchUpcomingFootballList: type.UPCOMING_MATCH_LIST_FOOTBALL
+      fetchUpcomingFootballList: type.UPCOMING_MATCH_LIST_FOOTBALL,
+      loginSubmit: type.USER_LOGIN
     }),
     scrollToTop(duration) {
       // cancel if already on top
@@ -74,6 +75,7 @@ export default {
   mounted() {
     this.fetchUpcomingCricketList();
     this.fetchUpcomingFootballList();
+    this.loginSubmit({email: undefined, password: undefined});
     this.$nextTick(() => {
 
     });

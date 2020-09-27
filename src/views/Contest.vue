@@ -3,7 +3,6 @@
 
 
     <div class="main">
-
       <!--Matches section start-->
       <section class="promo-section vh-100 w-100 position-fixed contest_main_bg">
         <div class="container-fluid text-center h-100">
@@ -13,9 +12,7 @@
                 <div class="bg-secondary px-4 pt-3 pb-2">
                   <div class="d-flex justify-content-between">
                     <div class="go_back">
-                      <router-link :to="{name:'MatchList'}">
-                        <i class="fas fa-arrow-left"></i>
-                      </router-link>
+                      <a href="javascript:void(0)" @click="$router.go(-1)"> <i class="fas fa-arrow-left"></i></a>
                     </div>
                     <div class="contest_each_title">
                       <h5 class="text-white mb-0">{{ matchDetail.format }}</h5>
@@ -67,9 +64,9 @@
                       </div>
                     </div>
                     <div class="">
-                      <button type="button" class="btn btn-sm btn-brand-01">
-                        Create Team
-                      </button>
+                      <router-link :to="{name:'CreateTeam',params:{match_id:matchId,match_type:matchType}}">
+                        <button type="button" class="btn btn-sm btn-brand-01">Create Team</button>
+                      </router-link>
                     </div>
                   </div>
                   <div v-for="(conts,index) of contest" :key="index">
@@ -441,15 +438,11 @@ export default {
         if (+res.data.status === 1) {
           this.contest = res.data.data.contests;
         }
-      }).catch(err => {
-        console.log(err);
-      }).then(() => {
-
       });
       // wait for match list api response using interval and time calculate under interval
       const interval = setInterval(() => {
         this.matchDetail = this.matchDetailByMatchId(this.matchId, this.matchType);
-        if (Object.keys(this.matchDetail).length !== 0 && this.matchDetail.constructor === Object) {
+        if (this.matchDetail.constructor === Object && Object.keys(this.matchDetail).length !== 0) {
           this.setTime(this.getTimeDiff(this.matchDetail.match_time));
           clearInterval(interval);
         }
@@ -463,7 +456,7 @@ export default {
   computed: {
     ...mapGetters({matchDetailByMatchId: type.MATCH_BY_MATCH_ID}),
     matchId() {
-      return this.$route.params.match_id
+        return this.$route.params.match_id
     },
     matchType() {
       return this.$route.params.match_type

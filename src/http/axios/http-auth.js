@@ -14,11 +14,13 @@ instance.interceptors.request.use(config => {
     return config;
 });
 instance.interceptors.response.use(res => {
-    if (res.data.status === 0) {
+    return res;
+}, (error) => {
+    if (error.response & error.response.data && +error.response.data.status === 0) {
         store.mutations[type.USER_LOGOUT]();
         routes.push({'name': 'Home'});
         document.querySelector('#login-modal').click();
     }
-    return res;
+    return Promise.reject(error);
 });
 export default instance;

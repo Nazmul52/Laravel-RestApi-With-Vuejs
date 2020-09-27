@@ -43,7 +43,7 @@ const routes = [
 
     },
     {
-        path: '/create-team',
+        path: '/create-team/:match_type/:match_id',
         name: 'CreateTeam',
         component: () => import(/* webpackChunkName: "create-team" */'@/views/CreateTeam'),
         beforeEnter: (to, from, next) => {

@@ -11,13 +11,17 @@ import '@/assets/js/app'
 import VueCarousel from 'vue-carousel';
 import axios from 'axios';
 import match_filter from "@/filters/match_filter";
+
 axios.interceptors.request.use(config => {
     config.baseURL = 'http://18.188.54.233/api';
     config.headers['Access-Control-Allow-Origin'] = '*';
     return config;
 });
-axios.interceptors.response.use(res => {
-    return res;
+axios.interceptors.response.use((response) => {
+    return response;
+}, (error) => {
+    // console.log(error.response.data);
+    return Promise.reject(error);
 });
 Vue.use(VueCarousel).use(VueRouter);
 Vue.config.productionTip = false;

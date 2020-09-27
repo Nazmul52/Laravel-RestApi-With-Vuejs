@@ -1,70 +1,8 @@
 <template>
   <div>
-    <!--header section start-->
-    <header id="header" class="header-main">
-      <!--main header menu start-->
-      <div id="logoAndNav" class="main-header-menu-wrap bg-transparent fixed-top">
-        <div class="container">
-          <nav class="navbar navbar-expand-md header-nav">
-
-            <!--logo start-->
-            <router-link :to="{name:'Home'}">
-              <a class="navbar-brand" href="javascript:void(0)">
-                <img src="@/assets/logo.png" alt="logo" class="img-fluid"/>
-              </a>
-            </router-link>
-            <!--logo end-->
-
-            <!--main menu start-->
-            <ul class="navbar-nav ml-auto main-navbar-nav">
-              <!--notification start-->
-              <li class="nav-item header-nav-last-item d-flex align-items-center position-relative mr-4">
-                <a href="#" class="text-white notification_bell" id="dropdownMenuLink" data-toggle="dropdown">
-                  <img class="mr-1" src="@/assets/bell.svg" width="24" alt="">
-                  <span>9</span>
-                </a>
-                <div class="nitification_dropdown dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <a class="dropdown-item unred" href="#">
-                    Write to us at support@gameof11.com about the issue with issue name “Login/Registration
-                    unsuccessful”.
-                  </a>
-                  <hr>
-                  <a class="dropdown-item" href="#">
-                    Write to us at support@gameof11.com about the issue with issue name “Login/Registration
-                    unsuccessful”.
-                  </a>
-                  <hr>
-                  <a class="dropdown-item" href="#">
-                    Write to us at support@gameof11.com about the issue with issue name “Login/Registration
-                    unsuccessful”.
-                  </a>
-                </div>
-              </li>
-              <!--notification end-->
-              <!--button start-->
-              <li class="nav-item header-nav-last-item d-flex align-items-center position-relative">
-                <a href="#" class="text-white dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown">
-                  <img class="mr-1 rounded-circle" src="@/assets/img/client-2.jpg" width="36" alt=""> Amanda Evans
-                </a>
-                <div class="login_dropdown dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <a class="dropdown-item" href="#">
-                    My Account
-                  </a>
-                  <a class="dropdown-item" href="#">Change Password</a>
-                  <hr>
-                  <a class="dropdown-item" href="#">Log Out</a>
-                </div>
-              </li>
-              <!--button end-->
-            </ul>
-            <!--main menu end-->
-          </nav>
-        </div>
-      </div>
-      <!--main header menu end-->
-    </header>
+    <app-header :login_Status="loginResponseData.login_status"
+    ></app-header>
     <!--header section end-->
-
     <div class="main">
 
       <!--hero section start-->
@@ -186,6 +124,7 @@ import MatchComponent from '@/components/home/match/MatchComponent'
 import Footer from '@/components/home/Footer'
 import * as type from '@/store/type';
 import {mapMutations, mapGetters, mapActions} from 'vuex';
+import Header from '@/components/home/Header';
 
 export default {
   name: "MatchList",
@@ -193,10 +132,16 @@ export default {
     Carousel,
     Slide,
     'appMatchComponent': MatchComponent,
-    'appFooter': Footer
+    'appFooter': Footer,
+    'appHeader': Header
   },
   data() {
-    return {}
+    return {
+      loginResponseData: {
+        login_status: false,
+        login_fail_message: undefined,
+      }
+    }
   },
   methods: {
     ...mapMutations({
@@ -214,11 +159,19 @@ export default {
     ...mapGetters({
       getMatchType: type.MATCH_TYPE,
       getUpcomingMatchList: type.UPCOMING_MATCH_LIST,
+      loginResponse: type.USER_LOGIN_STATUS
     }),
   },
   mounted() {
     this.fetchUpcomingCricketList();
     this.fetchUpcomingFootballList();
+  },
+  watch: {
+    loginResponse: function (nv, ov) {
+      this.loginResponseData.login_fail_message = nv.login_fail_message;
+      this.loginResponseData.login_status = nv.login_status;
+      console.log(ov);
+    }
   }
 }
 </script>
