@@ -3,7 +3,7 @@
     <div class="bg-dark team_add_bar p-3">
       <div class="d-flex justify-content-center">
         <ul class="list-group list-group-horizontal-sm">
-          <li :class="'list-group-item '+(totalSelectedCount >= index ? 'selected':'')" v-for="index in 12"
+          <li :class="'list-group-item '+(totalSelectedCount >= index ? 'selected':'')" v-for="index in 11"
               :key="index">{{ index }}
           </li>
         </ul>

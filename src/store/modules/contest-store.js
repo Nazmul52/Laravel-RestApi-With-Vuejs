@@ -4,8 +4,8 @@ import auth_axios from '@/http/axios/http-auth';
 const state = {
     active_contest: {},
     selectedTeam:{
-        match_id: undefined,
-        team_name: undefined,
+        match_id: null,
+        team_name: null,
         keeper: [
         ],
         batsman: [
@@ -21,7 +21,7 @@ const getters = {
     [type.ACTIVE_CONTEST_BY_MATCH_ID_GETTER]: (state) => {
         return state.active_contest;
     },
-    [type.SELECTED_TEAM_GETTER]: (state) => {
+    [type.SELECTED_TEAM_CRICKET_GETTER]: (state) => {
         return state.selectedTeam;
     },
 
@@ -30,8 +30,8 @@ const mutations = {
     [type.ACTIVE_CONTEST_BY_MATCH_ID_MUTATION]: (state, payload) => {
         state.active_contest = payload;
     },
-    [type.SELECTED_TEAM_SETTER]: (state, payload) => {
-        state.active_contest = payload;
+    [type.SELECTED_TEAM_CRICKET_SETTER]: (state, payload) => {
+        state.selectedTeam = payload;
     },
 
 };

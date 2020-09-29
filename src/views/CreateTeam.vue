@@ -7,9 +7,20 @@
           <div class="row h-100">
             <div class="col-md-6 p-0 h-100 bg-light">
               <div class="contest_left h-100 team_create_header">
-                <app-match-details :teamDetails="matchDetail" :totalSelectedCount="totalSelectedPlayerCount"></app-match-details>
-                <app-selected-player-count :playerSelected="playerSelected" :totalSelectedCount="totalSelectedPlayerCount"></app-selected-player-count>
-                <app-player-list @totalPlayerSelected="totalPlayerSelected" :activeContest="active_contest"
+                <app-match-details :matchDetail="getMatchDetailByMatchId"
+                                   :totalSelectedCount="totalSelectedPlayerCount"
+                                   :playerInTeamACount="playerInTeamACount"
+                                   :playerInTeamBCount="playerInTeamBCount"
+                                   :credit="credit"
+                                   :hours="hours"
+                                   :minutes="minutes"
+                ></app-match-details>
+                <app-selected-player-count :playerSelected="playerSelected"
+                                           :totalSelectedCount="totalSelectedPlayerCount"></app-selected-player-count>
+                <app-player-list @totalPlayerSelected="totalPlayerSelected"
+                                 @totalCreditSelected="totalCreditSelected"
+                                 @playerInTeamCount="playerInTeamCount"
+                                 :activeContest="active_contest"
                                  :matchDetail="matchDetail"></app-player-list>
               </div>
             </div>
@@ -319,6 +330,9 @@ export default {
       interval: undefined,
       playerSelected: 0,
       totalSelectedPlayerCount: 0,
+      credit: 0,
+      playerInTeamACount: 0,
+      playerInTeamBCount: 0,
     }
   },
   components: {
@@ -338,6 +352,9 @@ export default {
     matchType() {
       return this.$route.params.match_type
     },
+    getMatchDetailByMatchId() {
+      return this.matchDetailByMatchId(this.matchId, this.matchType);
+    }
   },
   methods: {
     ...(mapActions({fetchActiveContest: type.ACTIVE_CONTEST_BY_MATCH_ID_ACTION})),
@@ -351,16 +368,27 @@ export default {
     totalPlayerSelected(count) {
       this.totalSelectedPlayerCount = count || 0;
     },
+    totalCreditSelected(credit) {
+      this.credit = credit;
+    },
+    playerInTeamCount({a, b}) {
+      this.playerInTeamACount = a;
+      this.playerInTeamBCount = b;
+
+    }
   },
   mounted() {
-    this.fetchActiveContest({match_id: this.matchId});
-    const interval = setInterval(() => {
-      this.matchDetail = this.matchDetailByMatchId(this.matchId, this.matchType);
-      if (this.matchDetail && this.matchDetail.constructor === Object && Object.keys(this.matchDetail).length !== 0) {
-        this.setTime(this.getTimeDiff(this.matchDetail.match_time));
-        clearInterval(interval);
-      }
-    }, 2000);
+    setTimeout(() => {
+      this.fetchActiveContest({match_id: this.matchId});
+      console.log(this.getMatchDetailByMatchId);
+      this.matchDetail = this.getMatchDetailByMatchId;
+      const interval = setInterval(() => {
+        if (this.matchDetail && this.matchDetail.constructor === Object && Object.keys(this.matchDetail).length !== 0) {
+          this.setTime(this.getTimeDiff(this.matchDetail.match_time || new Date()));
+          clearInterval(interval);
+        }
+      }, 2000);
+    }, 1000);
   },
   watch: {
     // eslint-disable-next-line no-unused-vars
@@ -368,9 +396,6 @@ export default {
       this.active_contest = nv || {};
     },
     // eslint-disable-next-line no-unused-vars
-    matchDetailByMatchId: (nv, ov) => {
-      this.matchDetail = nv;
-    }
   },
   updated() {
     this.interval = setInterval(() => this.setTime(this.getTimeDiff(this.matchDetail.match_time)), 60000);
