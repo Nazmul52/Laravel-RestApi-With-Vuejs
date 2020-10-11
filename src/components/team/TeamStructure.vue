@@ -11,7 +11,7 @@
                   <div class="players_position_profile_img">
                     <div class="profile_img_area">
                       <div class="profile_img_body"
-                           :style="{backgroundImage: 'url('+imagePath+player.player_image+')'}"></div>
+                           :style="{backgroundImage: 'url('+encodeURI(imagePath+player.player_image)+')'}"></div>
                     </div>
                   </div>
                 </div>
@@ -32,7 +32,7 @@
                   <div class="players_position_profile_img">
                     <div class="profile_img_area">
                       <div class="profile_img_body"
-                           :style="{backgroundImage: 'url('+imagePath+player.player_image+')'}"></div>
+                           :style="{backgroundImage: 'url('+encodeURI(imagePath+player.player_image)+')'}"></div>
                     </div>
                   </div>
                 </div>
@@ -53,7 +53,7 @@
                   <div class="players_position_profile_img">
                     <div class="profile_img_area">
                       <div class="profile_img_body"
-                           :style="{backgroundImage: 'url('+imagePath+player.player_image+')'}"></div>
+                           :style="{backgroundImage: 'url('+encodeURI(imagePath+player.player_image)+')'}"></div>
                     </div>
                   </div>
                 </div>
@@ -74,7 +74,7 @@
                   <div class="players_position_profile_img">
                     <div class="profile_img_area">
                       <div class="profile_img_body"
-                           :style="{backgroundImage: 'url('+imagePath+player.player_image+')'}"></div>
+                           :style="{backgroundImage: 'url('+encodeURI(imagePath+player.player_image)+')'}"></div>
                     </div>
                   </div>
                 </div>

@@ -55,7 +55,7 @@
               <div
                   :class="'create_team_each pl-3 mt-3 '+(index === selectedPLayerList.length-1?'pb-5 ':'') + (player.isSelected?'selected':'')">
                 <div class="player_thumb">
-                  <img :src="imagePath+player.player_image" width="60" alt="">
+                  <img :src="encodeURI(imagePath+player.player_image)" width="60" alt="">
                 </div>
                 <div class="player_buy_info">
                   <div class="player_name_each">
@@ -375,6 +375,7 @@ export default {
       return false;
     },
     playerSelect(player = {}) {
+      console.log(player);
       this.activeContest.players = this.activeContest.players.map(player1 => {
         if (player.player_key === player1.player_key) {
           player1.isSeleted = !player1.isSeleted;
