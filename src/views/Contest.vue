@@ -442,7 +442,7 @@ export default {
       // wait for match list api response using interval and time calculate under interval
       const interval = setInterval(() => {
         this.matchDetail = this.matchDetailByMatchId(this.matchId, this.matchType);
-        if (this.matchDetail.constructor === Object && Object.keys(this.matchDetail).length !== 0) {
+        if (this.matchDetail && this.matchDetail.constructor === Object && Object.keys(this.matchDetail).length !== 0) {
           this.setTime(this.getTimeDiff(this.matchDetail.match_time));
           clearInterval(interval);
         }

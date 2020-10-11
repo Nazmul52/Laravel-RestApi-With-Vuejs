@@ -388,7 +388,7 @@ export default {
           clearInterval(interval);
         }
       }, 2000);
-    }, 1000);
+    }, 5000);
   },
   watch: {
     // eslint-disable-next-line no-unused-vars

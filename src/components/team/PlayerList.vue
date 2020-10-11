@@ -25,7 +25,7 @@
         <div class="tab-content">
           <div class="tab-pane fade show active">
             <div class="alert alert-primary rounded-0 text-center border-0" role="alert">
-              Pick {{ min_per_match }}-{{ max_per_match }} {{ pTypeTitle }}
+              Pick {{ min_per_match() }}-{{ max_per_match() }} {{ pTypeTitle }}
             </div>
             <div class="create_team_each create_team_each_header pl-3">
               <div class="player_thumb">
@@ -84,7 +84,7 @@
             </div>
             <div class="team_create_btn position-absolute">
               <button id="create_team_btn" class="btn btn-success border-radius mt-4 mb-2"
-                      :disabled="teamRules.status !== 'success' || totalSelectedPlayer!==11">
+                      :disabled="totalSelectedPlayer!==11" @click="continueForTeamConfirm">
                 Continue
               </button>
             </div>
@@ -162,6 +162,20 @@ export default {
       selectedTeamData: [],
       count: 0,
       credit: 0,
+      MAXIMUM_NUM_PLAYERS: 11,
+      MAXIMUM_CREDIT: 100.0,
+      MAXIMUM_NUM_PLAYER_FOR_INDIVIDUAL_TEAM: 7,
+      need_3_batsman: 'You need at least 3 Batsmen',
+      need_1_wk: "You need at least 1 Wicketkeep",
+      need_1_all_rounder: "You need at least 1 All-Rounder",
+      need_3_bowlers: "You need at least 3 bowlers",
+      squad_cannot_cross_max_players: "Your squad can not cross 11 players",
+      total_credit_value_greater_100: "Total credit value can not be greater than 100",
+      not_more_than_7_players_from_any_team: "Not more than 7 players from any team",
+      not_more_than_1_wicket_keeper: 'Not more than 1 wicket keeper',
+      not_more_than_5_batsmen: 'Not more than 5 batsmen',
+      not_more_than_3_allrounders: 'Not more than 3 allrounders',
+      not_more_than_5_bowlers: 'Not more than 5 bowlers',
     }
   },
   props: {
@@ -182,6 +196,9 @@ export default {
   },
   methods: {
     ...mapMutations({setSelectedPlayerForTeam: type.SELECTED_TEAM_CRICKET_SETTER}),
+    continueForTeamConfirm() {
+      this.$router.push({path: '/create-team/cricket/' + this.matchDetail.match_id})
+    },
     playerType(type) {
       this.pType = type;
       switch (type) {
@@ -205,50 +222,157 @@ export default {
       this.sort_by = by;
       this.orderBYASC = !this.orderBYASC
     },
+    min_per_match(pType) {
+      try {
+        pType = pType ? pType : this.pType;
+        return this.activeContest['team_rules'][pType]['min_per_match'];
+        // eslint-disable-next-line no-empty
+      } catch (e) {
+        return 0;
+      }
+    },
+    max_per_match(pType) {
+      try {
+        pType = pType ? pType : this.pType;
+        return this.activeContest['team_rules'][pType]['max_per_match'];
+        // eslint-disable-next-line no-empty
+      } catch (e) {
+        return 0;
+      }
+    },
     teamRules(player) {
       if (player)
         this.selectedTeamData[this.pType].push(player);
-      const response = {status: 'success', message: []};
-      if (this.max_per_match < this.selectedTeamData[this.pType].length) {
-        response.status = 'fail';
-        response.message.push('You cannot take more than ' + this.max_per_match + ' ' + this.pType);
+      /*
+
+            const response = {status: 'success', message: []};
+            if (this.max_per_match < this.selectedTeamData[this.pType].length) {
+              response.status = 'fail';
+              response.message.push('You cannot take more than ' + this.max_per_match + ' ' + this.pType);
+            }
+            if (this.playerInTeamACount > 6 || this.playerInTeamBCount > 6) {  //max 7 player can select from a team
+              response.status = 'fail';
+              response.message.push('You cannot take more than 7 players from a team');
+            }
+            if (this.totalSelectedPlayer > 11) {
+              response.status = 'fail';
+              if (this.totalSelectedPlayer > 11)
+                response.message.push('You cannot take more than ' + 11);
+              const min_per_match_Keeper = this.activeContest['team_rules']['keeper']['min_per_match'];
+              if (min_per_match_Keeper < this.keeperCount) {
+                response.message.push('You cannot take less than ' + min_per_match_Keeper + ' Keeper');
+              }
+              const min_per_match_batsman = this.activeContest['team_rules']['batsman']['min_per_match'];
+              if (min_per_match_batsman < this.batsmanCount) {
+                response.message.push('You cannot take less than ' + min_per_match_batsman + ' batsman');
+              }
+              const min_per_match_allrounder = this.activeContest['team_rules']['allrounder']['min_per_match'];
+              if (min_per_match_allrounder < this.allrounderCount) {
+                response.message.push('You cannot take less than ' + min_per_match_allrounder + ' allrounder');
+              }
+              const min_per_match_bowler = this.activeContest['team_rules']['bowler']['min_per_match'];
+              if (min_per_match_bowler < this.bowlerCount) {
+                response.message.push('You cannot take less than ' + min_per_match_bowler + ' bowler');
+              }
+            }
+            let creditCount = 0;
+            this.activeContest.players.forEach(player => {
+              creditCount += player.isSeleted ? player.credit_points : 0;
+            });
+            if (creditCount > 100) {
+              response.status = 'fail';
+              response.message.push('You cannot use more than ' + 100 + ' for build a team');
+            }
+      */
+      if (this.checkAllCategoryForMinimumRequiredPlayer()) {
+
+        if (this.batsmanCount < this.min_per_match('batsman')) {
+          alert(this.need_3_batsman);
+        } else if (this.keeperCount < this.min_per_match('keeper')) {
+          alert(this.need_1_wk);
+        } else if (this.allrounderCount < this.min_per_match('allrounder')) {
+          alert(this.need_1_all_rounder);
+        } else if (this.bowlerCount < this.min_per_match('bowler')) {
+          alert(this.need_3_bowlers);
+        }
+        return false;
       }
-      if (this.playerInTeamACount > 6 || this.playerInTeamBCount > 6) {  //max 7 player can select from a team
-        response.status = 'fail';
-        response.message.push('You cannot take more than 7 players from a team');
-      }
-      if (this.totalSelectedPlayer > 11) {
-        response.status = 'fail';
-        if (this.totalSelectedPlayer > 11)
-          response.message.push('You cannot take more than ' + 11);
-        const min_per_match_Keeper = this.activeContest['team_rules']['keeper']['min_per_match'];
-        if (min_per_match_Keeper < this.keeperCount) {
-          response.message.push('You cannot take less than ' + min_per_match_Keeper + ' Keeper');
-        }
-        const min_per_match_batsman = this.activeContest['team_rules']['batsman']['min_per_match'];
-        if (min_per_match_batsman < this.batsmanCount) {
-          response.message.push('You cannot take less than ' + min_per_match_batsman + ' batsman');
-        }
-        const min_per_match_allrounder = this.activeContest['team_rules']['allrounder']['min_per_match'];
-        if (min_per_match_allrounder < this.allrounderCount) {
-          response.message.push('You cannot take less than ' + min_per_match_allrounder + ' allrounder');
-        }
-        const min_per_match_bowler = this.activeContest['team_rules']['bowler']['min_per_match'];
-        if (min_per_match_bowler < this.bowlerCount) {
-          response.message.push('You cannot take less than ' + min_per_match_bowler + ' bowler');
-        }
-      }
+
       let creditCount = 0;
       this.activeContest.players.forEach(player => {
         creditCount += player.isSeleted ? player.credit_points : 0;
       });
-      if (creditCount > 100) {
-        response.status = 'fail';
-        response.message.push('You cannot use more than ' + 100 + ' for build a team');
+      if (this.totalSelectedPlayer > this.MAXIMUM_NUM_PLAYERS) {
+        alert(this.squad_cannot_cross_max_players);
+        return false;
       }
-      if (player)
-        this.selectedTeamData[this.pType] = [...this.selectedTeamData[this.pType].filter(p => player.player_key !== p.player_key)]
-      return response;
+
+      if (creditCount > this.MAXIMUM_CREDIT) {
+        alert(this.total_credit_value_greater_100);
+        return false;
+      }
+      if (this.playerInTeamACount  > this.MAXIMUM_NUM_PLAYER_FOR_INDIVIDUAL_TEAM) {
+        alert(this.not_more_than_7_players_from_any_team);
+        return false;
+      }
+
+      if (this.playerInTeamBCount > this.MAXIMUM_NUM_PLAYER_FOR_INDIVIDUAL_TEAM) {
+        alert(this.not_more_than_7_players_from_any_team);
+        return false;
+      }
+      if (this.keeperCount > this.max_per_match('keeper')) {
+        alert(this.not_more_than_1_wicket_keeper);
+        return false;
+      }
+
+
+      if (this.batsmanCount > this.max_per_match('batsman')) {
+        alert(`Not more than ${this.max_per_match('batsman')} batsm${this.min_per_match('batsman') > 1 ? 'e' : 'a'}n`);
+        return false;
+      }
+
+
+      if (this.allrounderCount > this.max_per_match('allrounder')) {
+        alert(this.not_more_than_3_allrounders);
+        return false;
+      }
+
+      if (this.bowlerCount > this.max_per_match('bowler')) {
+        alert(this.not_more_than_5_bowlers);
+        return false;
+      }
+      this.selectedTeamData[this.pType].pop();
+      return true;
+    },
+    checkAllCategoryForMinimumRequiredPlayer() {
+      let requiredWk = 0, requiredBat = 0, requiredAllR = 0, requiredBowl = 0,
+          totalRequiredRemaining, totalSelectedRemaining;
+
+      if (this.keeperCount < this.min_per_match('keeper'))
+        requiredWk = this.min_per_match('keeper') - this.keeperCount;
+      if (this.batsmanCount < this.min_per_match('batsman'))
+        requiredBat = this.min_per_match('batsman') - this.batsmanCount;
+      if (this.allrounderCount < this.min_per_match('allrounder'))
+        requiredAllR = this.min_per_match('allrounder') - this.allrounderCount;
+      if (this.bowlerCount < this.min_per_match('bowler'))
+        requiredBowl = this.min_per_match('bowler') - this.bowlerCount;
+
+      totalRequiredRemaining = requiredWk + requiredBat + requiredAllR + requiredBowl;
+      totalSelectedRemaining = this.MAXIMUM_NUM_PLAYERS - (this.allrounderCount + this.bowlerCount + this.keeperCount + this.batsmanCount);
+
+      if (totalRequiredRemaining === 0 && totalSelectedRemaining === 0)
+        return false;
+
+      if (totalRequiredRemaining >= totalSelectedRemaining) {
+
+        // if (playerCat.equalsIgnoreCase(PLAYER_ROLE_BAT)) {
+        //   if (fantasyTeamSelect.playerTypeCounterBat < this.batsmanCount)
+        //     return false;
+        // }
+
+        return true;
+      }
+      return false;
     },
     playerSelect(player = {}) {
       this.activeContest.players = this.activeContest.players.map(player1 => {
@@ -256,7 +380,7 @@ export default {
           player1.isSeleted = !player1.isSeleted;
           if (player1.isSeleted) {
             const response_of_rule = this.teamRules(player);
-            if (response_of_rule.status === 'fail') {
+            if (!response_of_rule) {
               this.selectedTeamData[this.pType] = [...this.selectedTeamData[this.pType].filter(player1 => player1.player_key !== player.player_key)]
               player1.isSeleted = !player1.isSeleted;
             } else {
@@ -270,6 +394,15 @@ export default {
       });
       this.count = 0;
       try {
+        if (this.playerInTeamACount  > this.MAXIMUM_NUM_PLAYER_FOR_INDIVIDUAL_TEAM) {
+          alert(this.not_more_than_7_players_from_any_team);
+          return false;
+        }
+
+        if (this.playerInTeamBCount > this.MAXIMUM_NUM_PLAYER_FOR_INDIVIDUAL_TEAM) {
+          alert(this.not_more_than_7_players_from_any_team);
+          return false;
+        }
         this.count = this.activeContest.players.filter(player => player.isSeleted).length || 0;
       } catch (e) {
         this.count = 0;
@@ -303,22 +436,6 @@ export default {
         });
       } else {
         return [];
-      }
-    },
-    min_per_match() {
-      try {
-        return this.activeContest['team_rules'][this.pType]['min_per_match'];
-        // eslint-disable-next-line no-empty
-      } catch (e) {
-        return 0;
-      }
-    },
-    max_per_match() {
-      try {
-        return this.activeContest['team_rules'][this.pType]['max_per_match'];
-        // eslint-disable-next-line no-empty
-      } catch (e) {
-        return 0;
       }
     },
     keeperCount() {
