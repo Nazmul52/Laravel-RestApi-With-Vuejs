@@ -25,7 +25,7 @@ const routes = [
         }
 
     }, {
-        path: '/confirm-team',
+        path: '/confirm-team/cricket/:match_id',
         name: 'ConfirmTeam',
         component: () => import(/* webpackChunkName: "confirm-team" */'@/views/ConfirmTeam'),
         beforeEnter: (to, from, next) => {
@@ -43,9 +43,16 @@ const routes = [
 
     },
     {
-        path: '/create-team/:match_type/:match_id',
+        path: '/create-team/cricket/:match_id',
         name: 'CreateTeam',
         component: () => import(/* webpackChunkName: "create-team" */'@/views/CreateTeam'),
+        beforeEnter: (to, from, next) => {
+            next();
+        }
+    }, {
+        path: '/create-team/football/:match_id',
+        name: 'CreateTeamFootball',
+        component: () => import(/* webpackChunkName: "create-team" */'@/views/CreateTeamFootball'),
         beforeEnter: (to, from, next) => {
             next();
         }

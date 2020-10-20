@@ -20,7 +20,6 @@
                 <app-player-list @totalPlayerSelected="totalPlayerSelected"
                                  @totalCreditSelected="totalCreditSelected"
                                  @playerInTeamCount="playerInTeamCount"
-                                 :activeContest="active_contest"
                                  :matchDetail="matchDetail"></app-player-list>
               </div>
             </div>
@@ -350,7 +349,7 @@ export default {
       return this.$route.params.match_id;
     },
     matchType() {
-      return this.$route.params.match_type
+      return 'cricket';
     },
     getMatchDetailByMatchId() {
       return this.matchDetailByMatchId(this.matchId, this.matchType);
@@ -380,7 +379,6 @@ export default {
   mounted() {
     setTimeout(() => {
       this.fetchActiveContest({match_id: this.matchId});
-      console.log(this.getMatchDetailByMatchId);
       this.matchDetail = this.getMatchDetailByMatchId;
       const interval = setInterval(() => {
         if (this.matchDetail && this.matchDetail.constructor === Object && Object.keys(this.matchDetail).length !== 0) {

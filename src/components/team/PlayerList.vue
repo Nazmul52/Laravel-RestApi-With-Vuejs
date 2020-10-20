@@ -61,9 +61,9 @@
                   <div class="player_name_each">
                     <div class="">
                       <p class="mb-0 d-block font-weight-bold">{{ player.name }}</p>
-                      <p class="text-danger mb-0 d-block">
+                      <p class="text-danger mb-0 d-block text-uppercase">
                         {{
-                          player.team_belong === 1 ? (activeContest && activeContest.a ? activeContest.a.team_key : '') : (activeContest && activeContest.b ? activeContest.a.team_key : '')
+                          +player.team_belong === 1 ? (activeContest && activeContest.teams.a ? activeContest.teams.a.team_key : '') : (activeContest && activeContest.teams.b ? activeContest.teams.b.team_key : '')
                         }}</p>
                     </div>
                   </div>
@@ -75,8 +75,8 @@
                   </div>
                   <div class="player_add_remove" style="cursor: pointer" @click="playerSelect(player)">
                     <div class="align-self-center">
-                      <i class="far fa-minus-square text-danger" v-if="player.isSeleted"></i>
-                      <i class="far fa-plus-square text-success" v-if="!player.isSeleted"></i>
+                      <i class="far fa-minus-square text-danger" v-if="player.isSelected"></i>
+                      <i class="far fa-plus-square text-success" v-if="!player.isSelected"></i>
                     </div>
                   </div>
                 </div>
@@ -148,6 +148,7 @@
 <script>
 import {image_server_base_path} from '@/utils/enviornment_data';
 import {mapGetters, mapMutations} from 'vuex';
+import Vue from 'vue';
 import * as type from '@/store/type';
 
 export default {
@@ -158,6 +159,7 @@ export default {
       pTypeTitle: 'Wicket-Keepers',
       imagePath: image_server_base_path,
       sort_by: undefined,
+      activeContest: [],
       orderBYASC: true,
       selectedTeamData: [],
       count: 0,
@@ -179,13 +181,6 @@ export default {
     }
   },
   props: {
-    activeContest: {
-      type: Object,
-      required: true,
-      default: function () {
-        return {};
-      }
-    },
     matchDetail: {
       type: Object,
       required: true,
@@ -195,9 +190,12 @@ export default {
     },
   },
   methods: {
-    ...mapMutations({setSelectedPlayerForTeam: type.SELECTED_TEAM_CRICKET_SETTER}),
+    ...mapMutations({
+      setSelectedPlayerForTeam: type.SELECTED_TEAM_CRICKET_SETTER,
+      setActiveContestByMatchIdMutation: type.ACTIVE_CONTEST_BY_MATCH_ID_MUTATION
+    }),
     continueForTeamConfirm() {
-      this.$router.push({path: '/create-team/cricket/' + this.matchDetail.match_id})
+      this.$router.push({path: '/confirm-team/cricket/' + this.matchDetail.match_id})
     },
     playerType(type) {
       this.pType = type;
@@ -241,51 +239,7 @@ export default {
       }
     },
     teamRules(player) {
-      if (player)
-        this.selectedTeamData[this.pType].push(player);
-      /*
-
-            const response = {status: 'success', message: []};
-            if (this.max_per_match < this.selectedTeamData[this.pType].length) {
-              response.status = 'fail';
-              response.message.push('You cannot take more than ' + this.max_per_match + ' ' + this.pType);
-            }
-            if (this.playerInTeamACount > 6 || this.playerInTeamBCount > 6) {  //max 7 player can select from a team
-              response.status = 'fail';
-              response.message.push('You cannot take more than 7 players from a team');
-            }
-            if (this.totalSelectedPlayer > 11) {
-              response.status = 'fail';
-              if (this.totalSelectedPlayer > 11)
-                response.message.push('You cannot take more than ' + 11);
-              const min_per_match_Keeper = this.activeContest['team_rules']['keeper']['min_per_match'];
-              if (min_per_match_Keeper < this.keeperCount) {
-                response.message.push('You cannot take less than ' + min_per_match_Keeper + ' Keeper');
-              }
-              const min_per_match_batsman = this.activeContest['team_rules']['batsman']['min_per_match'];
-              if (min_per_match_batsman < this.batsmanCount) {
-                response.message.push('You cannot take less than ' + min_per_match_batsman + ' batsman');
-              }
-              const min_per_match_allrounder = this.activeContest['team_rules']['allrounder']['min_per_match'];
-              if (min_per_match_allrounder < this.allrounderCount) {
-                response.message.push('You cannot take less than ' + min_per_match_allrounder + ' allrounder');
-              }
-              const min_per_match_bowler = this.activeContest['team_rules']['bowler']['min_per_match'];
-              if (min_per_match_bowler < this.bowlerCount) {
-                response.message.push('You cannot take less than ' + min_per_match_bowler + ' bowler');
-              }
-            }
-            let creditCount = 0;
-            this.activeContest.players.forEach(player => {
-              creditCount += player.isSeleted ? player.credit_points : 0;
-            });
-            if (creditCount > 100) {
-              response.status = 'fail';
-              response.message.push('You cannot use more than ' + 100 + ' for build a team');
-            }
-      */
-      if (this.checkAllCategoryForMinimumRequiredPlayer()) {
-
+      if (this.checkAllCategoryForMinimumRequiredPlayer(player)) {
         if (this.batsmanCount < this.min_per_match('batsman')) {
           alert(this.need_3_batsman);
         } else if (this.keeperCount < this.min_per_match('keeper')) {
@@ -300,7 +254,7 @@ export default {
 
       let creditCount = 0;
       this.activeContest.players.forEach(player => {
-        creditCount += player.isSeleted ? player.credit_points : 0;
+        creditCount += player.isSelected ? player.credit_points : 0;
       });
       if (this.totalSelectedPlayer > this.MAXIMUM_NUM_PLAYERS) {
         alert(this.squad_cannot_cross_max_players);
@@ -311,11 +265,10 @@ export default {
         alert(this.total_credit_value_greater_100);
         return false;
       }
-      if (this.playerInTeamACount  > this.MAXIMUM_NUM_PLAYER_FOR_INDIVIDUAL_TEAM) {
+      if (this.playerInTeamACount > this.MAXIMUM_NUM_PLAYER_FOR_INDIVIDUAL_TEAM) {
         alert(this.not_more_than_7_players_from_any_team);
         return false;
       }
-
       if (this.playerInTeamBCount > this.MAXIMUM_NUM_PLAYER_FOR_INDIVIDUAL_TEAM) {
         alert(this.not_more_than_7_players_from_any_team);
         return false;
@@ -341,10 +294,9 @@ export default {
         alert(this.not_more_than_5_bowlers);
         return false;
       }
-      this.selectedTeamData[this.pType].pop();
       return true;
     },
-    checkAllCategoryForMinimumRequiredPlayer() {
+    checkAllCategoryForMinimumRequiredPlayer(player) {
       let requiredWk = 0, requiredBat = 0, requiredAllR = 0, requiredBowl = 0,
           totalRequiredRemaining, totalSelectedRemaining;
 
@@ -365,68 +317,81 @@ export default {
 
       if (totalRequiredRemaining >= totalSelectedRemaining) {
 
-        // if (playerCat.equalsIgnoreCase(PLAYER_ROLE_BAT)) {
-        //   if (fantasyTeamSelect.playerTypeCounterBat < this.batsmanCount)
-        //     return false;
-        // }
-
+        if (player.role === 'keeper') {
+          if (this.keeperCount < this.min_per_match('keeper'))
+            return false;
+        }
+        if (player.role === 'batsman') {
+          if (this.batsmanCount < this.min_per_match('batsman'))
+            return false;
+        }
+        if (player.role === 'allrounder') {
+          if (this.allrounderCount < this.min_per_match('allrounder'))
+            return false;
+        }
+        if (player.role === 'bowler') {
+          if (this.bowlerCount < this.min_per_match('bowler'))
+            return false;
+        }
         return true;
       }
       return false;
     },
     playerSelect(player = {}) {
-      console.log(player);
-      this.activeContest.players = this.activeContest.players.map(player1 => {
+      this.activeContest.players.forEach((player1, index) => {
         if (player.player_key === player1.player_key) {
-          player1.isSeleted = !player1.isSeleted;
-          if (player1.isSeleted) {
-            const response_of_rule = this.teamRules(player);
-            if (!response_of_rule) {
-              this.selectedTeamData[this.pType] = [...this.selectedTeamData[this.pType].filter(player1 => player1.player_key !== player.player_key)]
-              player1.isSeleted = !player1.isSeleted;
+          Vue.set(this.activeContest.players, index, {
+            ...this.activeContest.players[index],
+            isSelected: !this.activeContest.players[index].isSelected
+          });
+          if (this.activeContest.players[index].isSelected) {
+            if (!this.teamRules(player)) {
+              this.selectedTeamData[this.pType] = [
+                ...this.selectedTeamData[this.pType].filter(player1 => player1.player_key !== player.player_key)
+              ];
+              Vue.set(this.activeContest.players, index, {
+                ...this.activeContest.players[index],
+                isSelected: !this.activeContest.players[index].isSelected
+              });
             } else {
               this.selectedTeamData[this.pType].push(player);
             }
           } else {
-            this.selectedTeamData[this.pType] = [...this.selectedTeamData[this.pType].filter(player1 => player1.player_key !== player.player_key)]
+            this.selectedTeamData[this.pType] = [
+              ...this.selectedTeamData[this.pType].filter(player1 => player1.player_key !== player.player_key)
+            ];
           }
         }
-        return player1;
       });
       this.count = 0;
       try {
-        if (this.playerInTeamACount  > this.MAXIMUM_NUM_PLAYER_FOR_INDIVIDUAL_TEAM) {
-          alert(this.not_more_than_7_players_from_any_team);
-          return false;
-        }
-
-        if (this.playerInTeamBCount > this.MAXIMUM_NUM_PLAYER_FOR_INDIVIDUAL_TEAM) {
-          alert(this.not_more_than_7_players_from_any_team);
-          return false;
-        }
-        this.count = this.activeContest.players.filter(player => player.isSeleted).length || 0;
+        this.count = this.activeContest.players.filter(player => player.isSelected).length || 0;
       } catch (e) {
         this.count = 0;
       }
       try {
         this.credit = 0;
         this.activeContest.players.forEach(player => {
-          if (player.isSeleted) {
+          if (player.isSelected) {
             this.credit += player.credit_points;
           }
         });
         // eslint-disable-next-line no-empty
       } catch (e) {
-
+        this.credit = 0;
       }
       this.$emit('totalPlayerSelected', this.count);
       this.$emit('totalCreditSelected', this.credit);
       this.$emit('playerInTeamCount', {a: this.playerInTeamACount, b: this.playerInTeamBCount});
       this.setSelectedPlayerForTeam(this.selectedTeamData);
+      this.setActiveContestByMatchIdMutation(this.activeContest);
     },
   },
   computed: {
-    ...mapGetters({getSelectedPlayerForTeam: type.SELECTED_TEAM_CRICKET_GETTER}),
+    ...mapGetters({
+      getSelectedPlayerForTeam: type.SELECTED_TEAM_CRICKET_GETTER,
+      getActiveContest: type.ACTIVE_CONTEST_BY_MATCH_ID_GETTER
+    }),
     selectedPLayerList() {
       if (this.activeContest && this.activeContest.players) {
         return this.activeContest.players.filter(player => player.role === this.pType).sort((a, b) => {
@@ -474,7 +439,7 @@ export default {
     totalSelectedPlayer() {
       let count = 0;
       try {
-        count = this.activeContest.players.filter(player => player.isSeleted).length || 0;
+        count = this.activeContest.players.filter(player => player.isSelected).length || 0;
       } catch (e) {
         count = 0;
       }
@@ -483,7 +448,7 @@ export default {
     },
     playerInTeamACount() {
       try {
-        return this.activeContest.players.filter(player => player.isSeleted && player.team_belong === 1).length || 0
+        return this.activeContest.players.filter(player => player.isSelected && +player.team_belong === 1).length || 0
         // eslint-disable-next-line no-empty
       } catch (e) {
         return 0;
@@ -491,7 +456,7 @@ export default {
     },
     playerInTeamBCount() {
       try {
-        return this.activeContest.players.filter(player => player.isSeleted && player.team_belong === 2).length || 0
+        return this.activeContest.players.filter(player => player.isSelected && +player.team_belong === 2).length || 0
         // eslint-disable-next-line no-empty
       } catch (e) {
         return 0;
@@ -502,10 +467,13 @@ export default {
   watch: {
     // eslint-disable-next-line no-unused-vars
     getSelectedPlayerForTeam(nv, ov) {
-      console.log(nv);
       this.selectedTeamData = nv;
 
-    }
+    },
+    // eslint-disable-next-line no-unused-vars
+    getActiveContest(nv, ov) {
+      this.activeContest = nv || {};
+    },
   },
   mounted() {
     this.selectedTeamData = {...this.getSelectedPlayerForTeam} || {}
