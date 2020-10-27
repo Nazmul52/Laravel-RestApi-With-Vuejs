@@ -1,9 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&display=swap');
+
+
 body,
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-    font-family: 'Roboto Condensed', sans-serif;
+    /* font-family: 'Roboto Condensed', sans-serif; */
+    font-family: 'Bree Serif', serif;
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
@@ -43,7 +48,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 .bn_text {
     font-family: 'Hind Siliguri', sans-serif;
-    font-weight: 300;
+    font-weight: 400;
 }
 
 #preloader .preloader-wrap .preloader i {
@@ -51,7 +56,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 .hero_banner {
-    background: url('./../banner.png') no-repeat 0% 0% !important;
+    background: url(../banner.png) no-repeat 0% 0% !important;
     background-size: cover !important;
     position: relative;
 }
@@ -76,11 +81,11 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 .header-nav-last-item .btn {
-    padding: 8px 34px;
+    padding: 8px 20px;
 }
 
 .single-promo-card {
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
     border-bottom: 5px solid #30B847;
 }
 
@@ -172,6 +177,8 @@ p.font-18 {
 .form-control {
     border-bottom: 2px solid #30B847;
     border-radius: 6px !important;
+    font-size: 16px;
+    height: calc(2.4em + 0.75rem + 0px);
 }
 
 .form-control:focus {
@@ -191,11 +198,13 @@ p.font-18 {
     letter-spacing: normal;
     font-weight: 400;
     padding: 8px 40px;
+    font-family: 'Bree Serif', serif;
 }
 
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
     background: #f67a3c;
+    font-family: 'Bree Serif', serif;
 }
 
 .nav-pills .nav-link,
@@ -235,7 +244,7 @@ p.font-18 {
 .matche_vs_left::before {
     content: '';
     position: absolute;
-    left: 0;
+    left: 0px;
     top: 6px;
     width: 57px;
     height: 45px;
@@ -255,7 +264,7 @@ p.font-18 {
 .matche_vs_right::before {
     content: '';
     position: absolute;
-    right: 0;
+    right: 0px;
     top: 6px;
     width: 57px;
     height: 45px;
@@ -269,7 +278,7 @@ p.font-18 {
 }
 
 .single-review-wrap {
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
 }
 
 .login_dropdown .dropdown-item {
@@ -978,6 +987,54 @@ hr {
 }
 
 @media (max-width: 640px) {
+    .navbar-collapse {
+        position: absolute;
+        left: 0px;
+        top: 93px;
+        background: rgb(39, 168, 68);
+        width: 100%;
+        padding: 10px 15px 0px;
+        border-radius: 0px 0px 6px 6px;
+        z-index: 9;
+        box-shadow: 0px 0px 6px rgb(38 169 68);
+    }
+
+    .main-header-menu-second .navbar-expand-md .navbar-nav .nav-link {
+        padding: 6px 0;
+        text-align: right;
+    }
+
+    .navbar-nav.main-navbar-nav li {
+        -ms-flex-pack: end !important;
+        justify-content: flex-end !important;
+    }
+
+    .navbar-nav.login_menu li a.dropdown-toggle span {
+        display: none;
+    }
+
+    .navbar-nav.login_menu .dropdown-menu {
+        position: absolute;
+        left: auto;
+    }
+
+    .navbar-expand-md .navbar-nav.login_menu {
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        padding-top: 20px;
+    }
+
+    .nitification_dropdown {
+        max-width: 264px;
+        width: 264px;
+    }
+
+    .bg-transparent.fixed-top {
+        background-color: #28a745 !important;
+    }
+
     .feature-content-wrap {
         text-align: center;
         margin-top: 40px;
@@ -1018,5 +1075,18 @@ hr {
 
     .team_create_header .team_add_bar .list-group-item {
         width: 30px;
+    }
+
+    .leadboard_scoreboard .matche_vs_left {
+        padding-left: 0;
+    }
+
+    .leadboard_scoreboard .matche_vs_right {
+        padding-right: 0;
+    }
+
+    .leadboard_scoreboard .matche_vs_right .leadboard_scoreboard_img,
+    .leadboard_scoreboard .matche_vs_left .leadboard_scoreboard_img {
+        display: none !important;
     }
 }

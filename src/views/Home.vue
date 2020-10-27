@@ -17,7 +17,9 @@
       <!--Matches list section start-->
       <app-match-list-section></app-match-list-section>
       <!--Matches list section end-->
-
+      <!--     My Contest-->
+      <app-my-contest></app-my-contest>
+      <!--    End My Contest-->
       <!--How to play start-->
       <app-how-to-play-section></app-how-to-play-section>
       <!--How to play section end-->
@@ -66,7 +68,7 @@ import ContactSection from "@/components/home/ContactSection";
 import TerminalSection from "@/components/home/TerminalSection";
 import ActionStartSection from "@/components/ActionStartSection";
 import FAQSection from "@/components/home/FAQSection";
-// import auth_axios from '@/http/axios/http-auth';
+import MyContest from "@/components/home/MyContest";
 
 export default {
   name: 'Home',
@@ -86,7 +88,8 @@ export default {
     'app-contact-section': ContactSection,
     'app-terminal-section': TerminalSection,
     'app-action-start-section': ActionStartSection,
-    'app-faq-section': FAQSection
+    'app-faq-section': FAQSection,
+    'app-my-contest': MyContest
   },
   computed: {},
   methods: {},
