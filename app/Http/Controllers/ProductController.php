@@ -184,4 +184,15 @@ class ProductController extends Controller
         }
         $remove->delete();
     }
+
+    public function updateStock(Request $request, $id){
+
+        $product = Product::find($id);
+         $product->product_quantity = $request->product_quantity;
+         $product->save();
+
+        return response()->json([
+            'message' => 'Successfully updated product stock information',
+        ], 201);
+    }
 }

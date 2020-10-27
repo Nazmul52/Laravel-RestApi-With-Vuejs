@@ -40,8 +40,13 @@ Route::apiResource('supplier', 'SupplierController');
 Route::apiResource('category', 'CategoryController');
 Route::apiResource('product', 'ProductController');
 Route::apiResource('expense', 'ExpenseController');
+Route::apiResource('customer', 'CustomerController');
 Route::post('/salary/paid/{id}', 'SalaryController@paid');
 Route::get('salary', 'SalaryController@index');
 Route::get('salary/view/{id}', 'SalaryController@viewSalary');
 Route::get('/edit/salary/{id}', 'SalaryController@editSalary');
 Route::post('/update/salary/{id}', 'SalaryController@updateSalary');
+Route::post('/stock/edit/{id}', 'ProductController@updateStock');
+Route::get('getting/product/{id}', 'POSController@index');
+
+Route::get('/addToCart/{id}', 'CartController@addToCart');
