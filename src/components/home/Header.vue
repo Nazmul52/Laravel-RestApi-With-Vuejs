@@ -54,13 +54,11 @@
               <!--button start-->
               <li class="nav-item header-nav-last-item d-flex align-items-center position-relative">
                 <a href="#" class="text-white dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown">
-                  <img class="mr-1 rounded-circle border" src="@/assets/img/client-2.jpg" width="36" alt="">
-                  Amanda Evans
+                  <img class="mr-1 rounded-circle border" :src="encodeURI(file_path+getUserData.avatar.image_path)" width="36" alt="">
+                  {{ getUserData.name }}
                 </a>
                 <div class="login_dropdown dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <a class="dropdown-item" href="#">
-                    My Account
-                  </a>
+                  <router-link :to="{name:'UserProfile'}" class="dropdown-item">My Account</router-link>
                   <a class="dropdown-item" href="#">Change Password</a>
                   <hr>
                   <a class="dropdown-item" href="javascript:void(0)" @click="logoutSubmit">Log Out</a>
@@ -159,11 +157,13 @@
 <script>
 import * as type from '@/store/type';
 import {mapActions, mapGetters} from 'vuex';
+import {image_server_base_path} from '@/utils/enviornment_data';
 
 export default {
   name: "Header",
   data() {
     return {
+      file_path: image_server_base_path,
       password: '',
       phone: '',
       loginResponseData: {
@@ -173,7 +173,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({loginResponse: type.USER_LOGIN_STATUS}),
+    ...mapGetters({
+      loginResponse: type.USER_LOGIN_STATUS,
+      getUserData: type.USER_DATA_GETTER
+    }),
     loginStatus(){
       return this.loginResponse.login_status;
     }

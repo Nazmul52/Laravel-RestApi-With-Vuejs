@@ -23,20 +23,20 @@
 
 <script>
 import {mapGetters} from 'vuex';
-// import {mapMutations} from 'vuex';
 import {mapActions} from 'vuex';
 import * as type from './store/type'
 
 export default {
   name: 'App',
   components: {},
-  computed: {...mapGetters({doubleCounter: type.DOUBLE_COUNTER})},// so call getter
+  computed: {...mapGetters({getUserStatus: type.USER_STATUS_GETTER})},// so call getter
   methods: {
     ...mapActions({
       setCounter: type.SET_COUNTER,
       fetchUpcomingCricketList: type.UPCOMING_MATCH_LIST_CRICKET,
       fetchUpcomingFootballList: type.UPCOMING_MATCH_LIST_FOOTBALL,
-      loginSubmit: type.USER_LOGIN
+      loginSubmit: type.USER_LOGIN,
+      getUserDetails: type.USER_DATA_SETTER
     }),
     scrollToTop(duration) {
       // cancel if already on top
@@ -76,9 +76,10 @@ export default {
     this.fetchUpcomingCricketList();
     this.fetchUpcomingFootballList();
     this.loginSubmit({email: undefined, password: undefined});
-    this.$nextTick(() => {
+    this.getUserDetails();
+  },
+  watch: {
 
-    });
   }
 }
 </script>

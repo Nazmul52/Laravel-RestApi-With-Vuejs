@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import Header from '@/components/home/Header'
+import Header from '@/components/home/Header';
 import HeroSection from "@/components/home/HeroSection";
 import MatchesSection from "@/components/home/MatchesSection";
 import MatchListSection from "@/components/home/MatchListSection";
@@ -69,6 +69,7 @@ import TerminalSection from "@/components/home/TerminalSection";
 import ActionStartSection from "@/components/ActionStartSection";
 import FAQSection from "@/components/home/FAQSection";
 import MyContest from "@/components/home/MyContest";
+
 
 export default {
   name: 'Home',
@@ -92,13 +93,11 @@ export default {
     'app-my-contest': MyContest
   },
   computed: {},
-  methods: {},
+  methods: {
+
+  },
   mounted() {
-    // auth_axios.get('/coin-packs').then(res => {
-    //   console.log(res);
-    // }).catch(err => {
-    //   console.log(err);
-    // })
+
   },
   watch: {}
 }

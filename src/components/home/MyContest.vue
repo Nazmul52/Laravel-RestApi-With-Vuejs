@@ -114,9 +114,18 @@
                       <p class="text-muted">{{ conDetails.subtitle }}</p>
                       <div class="metche_details bg-white pt-3 pb-0 overflow-hidden">
                         <div class="d-flex justify-content-between px-3">
-                          <div class="text-left">
+                          <div class="text-left" v-if="conDetails.winning_amount !== 'paid'">
                             <span>Total Prize</span>
-                            <h3 class="mb-0">{{ conDetails.winning_amount === 'paid' ? 'TK' : 'coin' }}
+                            <h3 class="mb-0">
+                              <img class="mb-2" src="@/assets/coin.svg" width="24" alt="">
+                              {{
+                                conDetails.winning_amount
+                              }}</h3>
+                          </div>
+                          <div class="text-left" v-else>
+                            <span>Total Prize</span>
+                            <h3 class="mb-0">
+                              <img  class="mb-2" src="@/assets/taka.png" width="18" alt="">
                               {{
                                 conDetails.winning_amount
                               }}</h3>

@@ -1,66 +1,7 @@
 <template>
   <div>
     <!--header section start-->
-    <header id="header" class="header-main">
-      <!--main header menu start-->
-      <div id="logoAndNav" class="main-header-menu-wrap bg-transparent fixed-top">
-        <div class="container">
-          <nav class="navbar navbar-expand-md header-nav">
-
-            <!--logo start-->
-            <a class="navbar-brand" href="index.html">
-              <img src="@/assets/logo.png" alt="logo" class="img-fluid"/>
-            </a>
-            <!--logo end-->
-
-            <!--main menu start-->
-            <ul class="navbar-nav ml-auto main-navbar-nav">
-              <!--notification start-->
-              <li class="nav-item header-nav-last-item d-flex align-items-center position-relative mr-4">
-                <a href="#" class="text-white notification_bell" id="dropdownMenuLink2" data-toggle="dropdown">
-                  <img class="mr-1" src="@/assets/bell.svg" width="24" alt="">
-                  <span>9</span>
-                </a>
-                <div class="nitification_dropdown dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <a class="dropdown-item unred" href="#">
-                    Write to us at support@gameof11.com about the issue with issue name “Login/Registration
-                    unsuccessful”.
-                  </a>
-                  <hr>
-                  <a class="dropdown-item" href="#">
-                    Write to us at support@gameof11.com about the issue with issue name “Login/Registration
-                    unsuccessful”.
-                  </a>
-                  <hr>
-                  <a class="dropdown-item" href="#">
-                    Write to us at support@gameof11.com about the issue with issue name “Login/Registration
-                    unsuccessful”.
-                  </a>
-                </div>
-              </li>
-              <!--notification end-->
-              <!--button start-->
-              <li class="nav-item header-nav-last-item d-flex align-items-center position-relative">
-                <a href="#" class="text-white dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown">
-                  <img class="mr-1 rounded-circle" src="@/assets/img/client-2.jpg" width="36" alt=""> Amanda Evans
-                </a>
-                <div class="login_dropdown dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <a class="dropdown-item" href="#">
-                    My Account
-                  </a>
-                  <a class="dropdown-item" href="#">Change Password</a>
-                  <hr>
-                  <a class="dropdown-item" href="#">Log Out</a>
-                </div>
-              </li>
-              <!--button end-->
-            </ul>
-            <!--main menu end-->
-          </nav>
-        </div>
-      </div>
-      <!--main header menu end-->
-    </header>
+    <app-header></app-header>
     <!--header section end-->
 
     <div class="main">
@@ -71,10 +12,10 @@
           <div class="row justify-content-center">
             <div class="col-md-8 mx-auto text-center">
               <div class="hero-slider-content">
-                <img class="rounded-circle mb-3" src="@/assets/img/client-2.jpg" width="120" alt="">
-                <h3 class="text-warning mb-0">Rashidul Islam</h3>
-                <p class="mb-0 text-white">+88 01712121212</p>
-                <p class="text-white d-inline-block pb-2 account_email_border">myemail@mail.com</p>
+                <img class="rounded-circle mb-3" :src="file_path+getUserData.avatar.image_path" width="120" alt="">
+                <h3 class="text-warning mb-0">{{ getUserData.name }}</h3>
+                <p class="mb-0 text-white">{{ getUserData.phone }}</p>
+                <p class="text-white d-inline-block pb-2 account_email_border">{{ getUserData.email }}</p>
               </div>
             </div>
           </div>
@@ -102,8 +43,8 @@
                   <div class="col-md-4 border-right">
                     <div class="deposite_coin">
                       <img class="mb-2" src="@/assets/coin.svg" width="24" alt="">
-                      <h2 class="mb-0">500</h2>
-                      <p class="text-muted">Deposite Coins</p>
+                      <h2 class="mb-0">{{ getUserData.metadata.total_coins }}</h2>
+                      <p class="text-muted">Deposit Coins</p>
                       <hr class="mx-5">
                       <button type="button" class="btn btn-sm btn-warning" name="button" data-toggle="modal"
                               data-target="#Addcoin_modal">Add Coins
@@ -608,8 +549,26 @@
 </template>
 
 <script>
+import Header from '@/components/home/Header';
+import * as type from '@/store/type';
+import {image_server_base_path} from '@/utils/enviornment_data';
+import {mapGetters} from 'vuex';
+
 export default {
-  name: "UserProfile"
+  name: "UserProfile",
+  data() {
+    return {
+      file_path: image_server_base_path,
+    }
+  },
+  components: {
+    'app-header': Header,
+  },
+  computed: {
+    ...mapGetters({
+      getUserData: type.USER_DATA_GETTER
+    }),
+  }
 }
 </script>
 
