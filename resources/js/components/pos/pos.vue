@@ -46,12 +46,15 @@
 	                            </tr>
 	                          </thead>
 	                          <tbody>
-	                            <tr>
-	                              <td>Name</td>
-	                              <td>QTY</td>
-	                              <td>Unit</td>
-	                              <td>Total</td>
-	                              <td><a href="#" class="btn btn-sm btn-primary">X</a></td>
+	                            <tr v-for="cart in carts" :key="cart.id">
+	                              <td>{{ cart.pro_name }}</td>
+	                              <td>	<button class="btn btn-sm btn-danger">-</button>
+	                              	<input type="text" style="width: 50px;" readonly="" :value="cart.pro_quantity"/>
+	                              	<button class="btn btn-sm btn-success">+</button>
+	                              </td>
+	                              <td>{{ cart.product_price }}</td>
+	                              <td>{{ cart.sub_total }}</td>
+	                              <td><a @click="removeItem(cart.id)" class="btn btn-sm btn-primary"><font color="#fff">X</font></a></td>
 	                            </tr>
 	                           
 	                          </tbody>
@@ -243,6 +246,10 @@
 			this.getAllProduct();
 			this.getAllCategory();
 			this.getAllCustomer();
+			this.cartProduct();
+			Reload.$on('AfterAdd', () => {
+				this.cartProduct();
+			});
 		}, 
 
 		data(){
@@ -254,6 +261,7 @@
 				getProducts: [],
 				customers: [],
 				errors: {},
+				carts: [],
 				form: {
 					customer_id: ''
 				}
@@ -301,6 +309,7 @@
 			addToCart(id){
 				axios.get('/api/addToCart/'+id)
 				.then(() => {
+					Reload.$emit('AfterAdd')
 					Toast.fire({
 					  icon: 'success',
 					  title: 'Successfully Add to Cart'
@@ -309,9 +318,21 @@
 				.catch() 
 			},
 
-			cartProduct(id){
-				axios.get('/api/car/product/'+id)
-				.then(({data}) => (this.getProducts = data))
+			cartProduct(){
+				axios.get('/api/cart/product/')
+				.then(({data}) => (this.carts = data))
+				.catch() 
+			},
+
+			removeItem(id){
+				axios.get('/api/removeItem/'+id)
+				.then(() => {
+					Reload.$emit('AfterAdd')
+					Toast.fire({
+					  icon: 'success',
+					  title: 'Successfully remove this product from cart'
+					})
+				})
 				.catch() 
 			}
 		},

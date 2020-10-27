@@ -27,4 +27,18 @@ class CartController extends Controller
             'cartproduct' => $data
         ], 201);
     }
+
+    public function cartProduct(){
+        $cart = DB::table('pos')->get();
+        return response()->json($cart);
+    }
+
+    public function removeCart($id){
+        $carItem = DB::table('pos')->delete($id);
+
+        return response()->json([
+            'message' => 'Successfully remove from cart',
+            
+        ], 201);
+    }
 }

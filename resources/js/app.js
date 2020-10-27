@@ -39,6 +39,8 @@ const Toast = Swal.mixin({
 
 window.Toast = Toast
 
+window.Reload = new Vue();
+
 /*Noty added*/
 import Notification from './Helpers/Notification'
 

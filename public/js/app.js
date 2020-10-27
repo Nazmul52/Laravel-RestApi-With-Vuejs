@@ -4701,6 +4701,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = (_created$created$data = {
   created: function created() {
     if (!User.loggedIn()) {
@@ -4710,9 +4713,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }
 }, _defineProperty(_created$created$data, "created", function created() {
+  var _this = this;
+
   this.getAllProduct();
   this.getAllCategory();
   this.getAllCustomer();
+  this.cartProduct();
+  Reload.$on('AfterAdd', function () {
+    _this.cartProduct();
+  });
 }), _defineProperty(_created$created$data, "data", function data() {
   return {
     products: [],
@@ -4722,72 +4731,83 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     getProducts: [],
     customers: [],
     errors: {},
+    carts: [],
     form: {
       customer_id: ''
     }
   };
 }), _defineProperty(_created$created$data, "computed", {
   filtersearch: function filtersearch() {
-    var _this = this;
+    var _this2 = this;
 
     return this.products.filter(function (product) {
-      return product.product_name.match(_this.searchTerm);
+      return product.product_name.match(_this2.searchTerm);
     });
   },
   getFilterSearch: function getFilterSearch() {
-    var _this2 = this;
+    var _this3 = this;
 
     return this.getProducts.filter(function (getProduct) {
-      return getProduct.product_name.match(_this2.searchCategoryTerm);
+      return getProduct.product_name.match(_this3.searchCategoryTerm);
     });
   }
 }), _defineProperty(_created$created$data, "methods", {
   getAllProduct: function getAllProduct() {
-    var _this3 = this;
+    var _this4 = this;
 
     axios.get('/api/product').then(function (_ref) {
       var data = _ref.data;
-      return _this3.products = data;
+      return _this4.products = data;
     })["catch"]();
   },
   getAllCategory: function getAllCategory() {
-    var _this4 = this;
+    var _this5 = this;
 
     axios.get('/api/category').then(function (_ref2) {
       var data = _ref2.data;
-      return _this4.categories = data;
+      return _this5.categories = data;
     })["catch"]();
   },
   getAllCustomer: function getAllCustomer() {
-    var _this5 = this;
+    var _this6 = this;
 
     axios.get('/api/customer').then(function (_ref3) {
       var data = _ref3.data;
-      return _this5.customers = data;
+      return _this6.customers = data;
     })["catch"]();
   },
   getSubProduct: function getSubProduct(id) {
-    var _this6 = this;
+    var _this7 = this;
 
     axios.get('/api/getting/product/' + id).then(function (_ref4) {
       var data = _ref4.data;
-      return _this6.getProducts = data;
+      return _this7.getProducts = data;
     })["catch"]();
   },
   addToCart: function addToCart(id) {
     axios.get('/api/addToCart/' + id).then(function () {
+      Reload.$emit('AfterAdd');
       Toast.fire({
         icon: 'success',
         title: 'Successfully Add to Cart'
       });
     })["catch"]();
   },
-  cartProduct: function cartProduct(id) {
-    var _this7 = this;
+  cartProduct: function cartProduct() {
+    var _this8 = this;
 
-    axios.get('/api/car/product/' + id).then(function (_ref5) {
+    axios.get('/api/cart/product/').then(function (_ref5) {
       var data = _ref5.data;
-      return _this7.getProducts = data;
+      return _this8.carts = data;
+    })["catch"]();
+  },
+  removeItem: function removeItem(id) {
+    axios.get('/api/removeItem/' + id).then(function () {
+      Reload.$emit('AfterAdd');
+      Toast.fire({
+        icon: 'success',
+        title: 'Successfully remove this product from cart'
+      });
     })["catch"]();
   }
 }), _created$created$data);
@@ -54735,7 +54755,84 @@ var render = function() {
                     _c("div", { staticClass: "row" }, [
                       _c("div", { staticClass: "col-lg-12 mb-4" }, [
                         _c("div", { staticClass: "card" }, [
-                          _vm._m(1),
+                          _c("div", { staticClass: "table-responsive" }, [
+                            _c(
+                              "table",
+                              {
+                                staticClass:
+                                  "table align-items-center table-flush"
+                              },
+                              [
+                                _vm._m(1),
+                                _vm._v(" "),
+                                _c(
+                                  "tbody",
+                                  _vm._l(_vm.carts, function(cart) {
+                                    return _c("tr", { key: cart.id }, [
+                                      _c("td", [_vm._v(_vm._s(cart.pro_name))]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _c(
+                                          "button",
+                                          {
+                                            staticClass: "btn btn-sm btn-danger"
+                                          },
+                                          [_vm._v("-")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("input", {
+                                          staticStyle: { width: "50px" },
+                                          attrs: { type: "text", readonly: "" },
+                                          domProps: { value: cart.pro_quantity }
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "button",
+                                          {
+                                            staticClass:
+                                              "btn btn-sm btn-success"
+                                          },
+                                          [_vm._v("+")]
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _vm._v(_vm._s(cart.product_price))
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _vm._v(_vm._s(cart.sub_total))
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _c(
+                                          "a",
+                                          {
+                                            staticClass:
+                                              "btn btn-sm btn-primary",
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.removeItem(cart.id)
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c(
+                                              "font",
+                                              { attrs: { color: "#fff" } },
+                                              [_vm._v("X")]
+                                            )
+                                          ],
+                                          1
+                                        )
+                                      ])
+                                    ])
+                                  }),
+                                  0
+                                )
+                              ]
+                            )
+                          ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "card-footer" }, [
                             _vm._m(2),
@@ -55269,41 +55366,17 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "table-responsive" }, [
-      _c("table", { staticClass: "table align-items-center table-flush" }, [
-        _c("thead", { staticClass: "thead-light" }, [
-          _c("tr", [
-            _c("th", [_vm._v("Name")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Qty")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Unit")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Total")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Action")])
-          ])
-        ]),
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("tr", [
+        _c("th", [_vm._v("Name")]),
         _vm._v(" "),
-        _c("tbody", [
-          _c("tr", [
-            _c("td", [_vm._v("Name")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("QTY")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Unit")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Total")]),
-            _vm._v(" "),
-            _c("td", [
-              _c(
-                "a",
-                { staticClass: "btn btn-sm btn-primary", attrs: { href: "#" } },
-                [_vm._v("X")]
-              )
-            ])
-          ])
-        ])
+        _c("th", [_vm._v("Qty")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Unit")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Total")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Action")])
       ])
     ])
   },
@@ -74908,6 +74981,7 @@ var Toast = sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.mixin({
   }
 });
 window.Toast = Toast;
+window.Reload = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
 /*Noty added*/
 
 

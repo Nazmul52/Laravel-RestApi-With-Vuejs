@@ -50,3 +50,5 @@ Route::post('/stock/edit/{id}', 'ProductController@updateStock');
 Route::get('getting/product/{id}', 'POSController@index');
 
 Route::get('/addToCart/{id}', 'CartController@addToCart');
+Route::get('/removeItem/{id}', 'CartController@removeCart');
+Route::get('/cart/product/', 'CartController@cartProduct');
