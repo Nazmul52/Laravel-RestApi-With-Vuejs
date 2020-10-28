@@ -56,3 +56,4 @@ Route::get('/increment/quantity/{id}', 'CartController@incrementQty');
 Route::get('/decrement/quantity/{id}', 'CartController@decrementQty');
 Route::get('/vat/', 'CartController@vat');
 Route::post('/order/complete', 'POSController@orderComplete');
+Route::get('/order/today', 'OrderController@todayOrder');

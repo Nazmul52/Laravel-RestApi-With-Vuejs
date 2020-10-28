@@ -358,6 +358,9 @@
 					  icon: 'success',
 					  title: 'Successfully Order Done'
 					})
+
+					this.$router.push({  name: 'home'})
+
 				})
 				.catch(error => this.errors = error.response.data.errors) 
 			},
