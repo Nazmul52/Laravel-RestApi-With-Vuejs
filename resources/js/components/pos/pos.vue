@@ -48,9 +48,10 @@
 	                          <tbody>
 	                            <tr v-for="cart in carts" :key="cart.id">
 	                              <td>{{ cart.pro_name }}</td>
-	                              <td>	<button class="btn btn-sm btn-danger">-</button>
+	                              <td>	<button @click.prevent="decrement(cart.id)" class="btn btn-sm btn-danger" v-if="cart.pro_quantity >= 2">-</button>
+	                              	<button  class="btn btn-sm btn-danger" v-else="" disabled="">-</button>
 	                              	<input type="text" style="width: 50px;" readonly="" :value="cart.pro_quantity"/>
-	                              	<button class="btn btn-sm btn-success">+</button>
+	                              	<button class="btn btn-sm btn-success" @click.prevent="increment(cart.id)">+</button>
 	                              </td>
 	                              <td>{{ cart.product_price }}</td>
 	                              <td>{{ cart.sub_total }}</td>
@@ -63,25 +64,25 @@
 	                      <div class="card-footer">
 	                      	<ul class="list-group">
 	                      		<li class="list-group-item d-flex justify-content-between align-items-center">Total Quantity:
-	                      			<strong>56</strong>
+	                      			<strong>{{ qty }}</strong>
 	                      		</li>
 	                      		<li class="list-group-item d-flex justify-content-between align-items-center">Sub Total :
-	                      			<strong>5620 $</strong>
+	                      			<strong>{{ subtotal }}</strong>
 	                      		</li>
 	                      		<li class="list-group-item d-flex justify-content-between align-items-center">Vat :
-	                      			<strong>35%</strong>
+	                      			<strong>{{ vats.vat }} %</strong>
 	                      		</li>
 	                      		<li class="list-group-item d-flex justify-content-between align-items-center">Total Amount:
-	                      			<strong>5800</strong>
+	                      			<strong>{{ subtotal*vats.vat / 100 + subtotal }}</strong>
 	                      		</li>
 	                      	</ul>
 	                      	<br>
 	                      	<br>
-	                      	<form>
+	                      	<form @submit.prevent="orderDone">
 	                      		<label>Customer Name</label>
 	                      		<select class="form-control" v-model="customer_id">
                       				<option>Select customer </option>
-                      				<option v-for="customer in customers"  value="customer.id">{{ customer.name }} </option>
+                      				<option v-for="customer in customers"  :value="customer.id">{{ customer.name }} </option>
 	                      		</select>
 
 	                      		<label>Pay</label>
@@ -89,10 +90,10 @@
 	                      		<label>Due</label>
 	                      		<input type="text" class="form-control" required="" v-model="due">
 	                      		<label>Pay By</label>
-	                      		<select class="form-control" v-model="customer_id">
-                      				<option>Handcash </option>
-                      				<option>Check </option>
-                      				<option>Gift Card </option>
+	                      		<select class="form-control" v-model="pay_by">
+                      				<option value="Handcash">Handcash </option>
+                      				<option value="Check">Check </option>
+                      				<option value="Gift Card">Gift Card </option>
 	                      		</select>
 	                      		<br>
 
@@ -188,7 +189,7 @@
 		          	        	<div class="row">
 		          		        	<div class="col-lg-3 col-md-3 col-sm-6 col-6" v-for="getProduct in getFilterSearch" :key="getProduct.id">
 		          		        		<div class="row">
-		          		        			<a href="#">
+		          		        			<button class="btn btn-sm"  @click.prevent="addToCart(getProduct.id)">
 		          			        			<div class="card" style="width: 8.5rem; margin-bottom: 5px;">
 		          			        			  <img class="card-img-top" :src="getProduct.image" id="pro_photo" :alt="getProduct.product_name">
 		          			        			  <div class="card-body">
@@ -198,7 +199,7 @@
 		          			        			    
 		          			        			  </div>
 		          			        			</div>
-		          		        			</a>
+		          		        			</button>
 		          		        		</div>
 		          	        		</div>
 		          	        	</div>
@@ -247,9 +248,11 @@
 			this.getAllCategory();
 			this.getAllCustomer();
 			this.cartProduct();
+			this.vat();
 			Reload.$on('AfterAdd', () => {
 				this.cartProduct();
 			});
+			
 		}, 
 
 		data(){
@@ -262,9 +265,13 @@
 				customers: [],
 				errors: {},
 				carts: [],
-				form: {
-					customer_id: ''
-				}
+				vats: '',
+				
+				customer_id: '',
+				pay: '',
+				due: '',
+				pay_by: '',
+				
 
 			}
 		}, 
@@ -279,7 +286,30 @@
 				return	this.getProducts.filter(getProduct => {
 					return getProduct.product_name.match(this.searchCategoryTerm)
 				})
+			},
+
+			qty(){
+				let sum = 0;
+
+				for(let i =0; i < this.carts.length; i++){
+					sum += (parseFloat(this.carts[i].pro_quantity));
+				}
+
+				return sum;
+			},
+
+			subtotal(){
+				let sum = 0;
+
+				for(let i =0; i < this.carts.length; i++){
+					sum += (parseFloat(this.carts[i].sub_total));
+				}
+
+				return sum;
 			}
+
+		
+
 		},
 		methods:{
 			getAllProduct(){
@@ -317,10 +347,30 @@
 				})
 				.catch() 
 			},
+			orderDone(){
+
+				let total = this.subtotal*this.vats.vat /100+this.subtotal;
+				var data = {qty:this.qty, subtotal:this.subtotal, customer_id: this.customer_id, pay:this.pay, due:this.due, pay_by:this.pay_by, vat:this.vats.vat, total:total};
+
+				axios.post('/api/order/complete/', data)
+				.then(() => {
+					Toast.fire({
+					  icon: 'success',
+					  title: 'Successfully Order Done'
+					})
+				})
+				.catch(error => this.errors = error.response.data.errors) 
+			},
 
 			cartProduct(){
 				axios.get('/api/cart/product/')
 				.then(({data}) => (this.carts = data))
+				.catch() 
+			},
+
+			vat(){
+				axios.get('/api/vat/')
+				.then(({data}) => (this.vats = data))
 				.catch() 
 			},
 
@@ -332,6 +382,30 @@
 					  icon: 'success',
 					  title: 'Successfully remove this product from cart'
 					})
+				})
+				.catch() 
+			},
+
+			increment(id){
+				axios.get('/api/increment/quantity/'+id)
+				.then(() => {
+					Reload.$emit('AfterAdd')
+					// Toast.fire({
+					//   icon: 'success',
+					//   title: 'Successfully remove this product from cart'
+					// })
+				})
+				.catch() 
+			},
+
+			decrement(id){
+				axios.get('/api/decrement/quantity/'+id)
+				.then(() => {
+					Reload.$emit('AfterAdd')
+					// Toast.fire({
+					//   icon: 'success',
+					//   title: 'Successfully remove this product from cart'
+					// })
 				})
 				.catch() 
 			}

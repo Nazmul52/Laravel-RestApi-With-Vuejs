@@ -52,3 +52,7 @@ Route::get('getting/product/{id}', 'POSController@index');
 Route::get('/addToCart/{id}', 'CartController@addToCart');
 Route::get('/removeItem/{id}', 'CartController@removeCart');
 Route::get('/cart/product/', 'CartController@cartProduct');
+Route::get('/increment/quantity/{id}', 'CartController@incrementQty');
+Route::get('/decrement/quantity/{id}', 'CartController@decrementQty');
+Route::get('/vat/', 'CartController@vat');
+Route::post('/order/complete', 'POSController@orderComplete');
