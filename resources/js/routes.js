@@ -55,6 +55,7 @@ let editCustomer = require('./components/customer/edit.vue').default;
 
 let pos = require('./components/pos/pos.vue').default;
 let order = require('./components/order/order.vue').default;
+let orderView = require('./components/order/view_order.vue').default;
 
 
  export const routes = [
@@ -111,6 +112,7 @@ let order = require('./components/order/order.vue').default;
 
     { path: '/pos', component: pos, name: 'pos' },
     { path: '/order', component: order, name: 'order' },
+    { path: '/order-view/:id', component: orderView, name: 'order-view' },
 
 
 ]
