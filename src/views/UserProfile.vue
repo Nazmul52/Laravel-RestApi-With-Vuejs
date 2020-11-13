@@ -56,7 +56,7 @@
                   <div class="col-md-4 border-right">
                     <div class="deposite_coin">
                       <img class="mb-2" src="@/assets/taka.png" width="18" alt="">
-                      <h2 class="mb-0">500</h2>
+                      <h2 class="mb-0">{{ getUserData.metadata.total_cash }}</h2>
                       <p class="text-muted">Deposite Coins</p>
                       <hr class="mx-5">
                       <button type="button" class="btn btn-sm btn-success" name="button" data-toggle="modal"
@@ -70,9 +70,9 @@
                     <div class="withdraw_pending h-100">
                       <p class="text-success mb-0">Pending Withdraw</p>
                       <ul>
-                        <li>5</li>
-                        <li>3</li>
-                        <li>7</li>
+                        <li>{{ getUserData.metadata.total_pending_requests}}</li>
+                     <!--    <li>3</li>
+                        <li>7</li> -->
                       </ul>
                     </div>
                   </div>
@@ -85,7 +85,7 @@
                 <div class="d-flex justify-content-between">
                   <div class="">
                     <img class="mr-2" src="@/assets/giftbox.png" alt=""> Your available free contests= <span
-                      class="text-warning">0</span>
+                      class="text-warning">{{ getUserData.metadata.referral_contest_unlocked}}</span>
                     <i class="fas fa-info-circle text-muted ml-3" data-toggle="tooltip" data-placement="top"
                        title="Tooltip on top"></i>
                   </div>
@@ -354,9 +354,61 @@
                   <img src="@/assets/coins.svg" class="img-fluid mb-3" width="60" alt="Logo">
                 </a>
                 <h4 class="mb-4">Coins Log</h4>
-                <p class="text-warning mt-3">Last 10 coins log available*</p>
+                <p class="text-warning mt-3">Last {{ coin_logs.length}} coins log available*</p>
               </div>
               <div class="coin_logs bg-light px-3 rounded-lg">
+                <div class="d-flex justify-content-between coin_log_each pt-3" v-for="coin in coin_logs" :key="coin.id">
+                  <div class="coin_log_left text-left">
+                    <h5 class="mb-1">{{ coin.title }}</h5>
+                    <p class="text-muted">{{ coin.description }}</p>
+                  </div>
+                  <div class="coin_log_right text-right">
+                    <h5 class="mb-1 text-success">
+                      + {{ coin.coin}}
+                      <img src="@/assets/coin.svg" width="18" alt="">
+                    </h5>
+                    <small class="text-muted">{{ coin.log_time }}</small>
+                  </div>
+                </div>
+<!--                 <div class="d-flex justify-content-between coin_log_each pt-3">
+                  <div class="coin_log_left text-left">
+                    <h5 class="mb-1">Promo Code</h5>
+                    <p class="text-muted">You have availed promo code offer</p>
+                  </div>
+                  <div class="coin_log_right text-right">
+                    <h5 class="mb-1 text-success">
+                      + 1000
+                      <img src="@/assets/coin.svg" width="18" alt="">
+                    </h5>
+                    <small class="text-muted">Feb 19, 08:23 AM</small>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-between coin_log_each pt-3">
+                  <div class="coin_log_left text-left">
+                    <h5 class="mb-1">Promo Code</h5>
+                    <p class="text-muted">You have availed promo code offer</p>
+                  </div>
+                  <div class="coin_log_right text-right">
+                    <h5 class="mb-1 text-danger">
+                      - 1000
+                      <img src="@/assets/coin.svg" width="18" alt="">
+                    </h5>
+                    <small class="text-muted">Feb 19, 08:23 AM</small>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-between coin_log_each pt-3">
+                  <div class="coin_log_left text-left">
+                    <h5 class="mb-1">Promo Code</h5>
+                    <p class="text-muted">You have availed promo code offer</p>
+                  </div>
+                  <div class="coin_log_right text-right">
+                    <h5 class="mb-1 text-danger">
+                      - 1000
+                      <img src="@/assets/coin.svg" width="18" alt="">
+                    </h5>
+                    <small class="text-muted">Feb 19, 08:23 AM</small>
+                  </div>
+                </div>
                 <div class="d-flex justify-content-between coin_log_each pt-3">
                   <div class="coin_log_left text-left">
                     <h5 class="mb-1">Promo Code</h5>
@@ -395,59 +447,7 @@
                     </h5>
                     <small class="text-muted">Feb 19, 08:23 AM</small>
                   </div>
-                </div>
-                <div class="d-flex justify-content-between coin_log_each pt-3">
-                  <div class="coin_log_left text-left">
-                    <h5 class="mb-1">Promo Code</h5>
-                    <p class="text-muted">You have availed promo code offer</p>
-                  </div>
-                  <div class="coin_log_right text-right">
-                    <h5 class="mb-1 text-danger">
-                      - 1000
-                      <img src="@/assets/coin.svg" width="18" alt="">
-                    </h5>
-                    <small class="text-muted">Feb 19, 08:23 AM</small>
-                  </div>
-                </div>
-                <div class="d-flex justify-content-between coin_log_each pt-3">
-                  <div class="coin_log_left text-left">
-                    <h5 class="mb-1">Promo Code</h5>
-                    <p class="text-muted">You have availed promo code offer</p>
-                  </div>
-                  <div class="coin_log_right text-right">
-                    <h5 class="mb-1 text-success">
-                      + 1000
-                      <img src="@/assets/coin.svg" width="18" alt="">
-                    </h5>
-                    <small class="text-muted">Feb 19, 08:23 AM</small>
-                  </div>
-                </div>
-                <div class="d-flex justify-content-between coin_log_each pt-3">
-                  <div class="coin_log_left text-left">
-                    <h5 class="mb-1">Promo Code</h5>
-                    <p class="text-muted">You have availed promo code offer</p>
-                  </div>
-                  <div class="coin_log_right text-right">
-                    <h5 class="mb-1 text-success">
-                      + 1000
-                      <img src="@/assets/coin.svg" width="18" alt="">
-                    </h5>
-                    <small class="text-muted">Feb 19, 08:23 AM</small>
-                  </div>
-                </div>
-                <div class="d-flex justify-content-between coin_log_each pt-3">
-                  <div class="coin_log_left text-left">
-                    <h5 class="mb-1">Promo Code</h5>
-                    <p class="text-muted">You have availed promo code offer</p>
-                  </div>
-                  <div class="coin_log_right text-right">
-                    <h5 class="mb-1 text-danger">
-                      - 1000
-                      <img src="@/assets/coin.svg" width="18" alt="">
-                    </h5>
-                    <small class="text-muted">Feb 19, 08:23 AM</small>
-                  </div>
-                </div>
+                </div> -->
               </div>
               <button class="btn btn-warning border-radius mt-4 mb-3">
                 Get Coins Now
@@ -553,12 +553,21 @@ import Header from '@/components/home/Header';
 import * as type from '@/store/type';
 import {image_server_base_path} from '@/utils/enviornment_data';
 import {mapGetters} from 'vuex';
+import auth_axios from '@/http/axios/http-auth';
 
 export default {
   name: "UserProfile",
   data() {
     return {
       file_path: image_server_base_path,
+      coin_logs: [],
+    }
+  },
+  methods:{
+    getCoinLogs() {
+      auth_axios(`/user/coins-log?lang=en`).then(res => res.data.data).then(res => {
+        this.coin_logs = res;
+      });
     }
   },
   components: {
@@ -568,7 +577,10 @@ export default {
     ...mapGetters({
       getUserData: type.USER_DATA_GETTER
     }),
-  }
+  },
+  mounted(){
+    this.getCoinLogs();
+  },
 }
 </script>
 

@@ -87,15 +87,16 @@
                       <div class="d-flex justify-content-between align-items-center">
                         <div class="matche_vs_left">
                           <p>
-                            <img class="mr-1" :src="file_path+con.teams[0].logo" alt=""> {{ con.teams[0].team_key }}
+                            <img class="mr-1" width="154" :src="file_path+con.teams[0].logo" alt=""> {{ con.teams[0].team_key }}
                           </p>
                         </div>
                         <div class="matche_time">
-                          <p class="text-danger font-weight-bold">9h 43m left</p>
+                          <p class="text-danger font-weight-bold" >{{ getMatchTime(con.match_time)}}</p>
+                       <!--    <p class="text-danger font-weight-bold">{{ hours }}h {{ minutes }}m left</p> -->
                         </div>
                         <div class="matche_vs_right">
                           <p>
-                            {{ con.teams[1].team_key }} <img class="ml-1" :src="file_path+con.teams[0].logo" alt="">
+                            {{ con.teams[1].team_key }} <img class="ml-1" :src="file_path+con.teams[0].logo" width="154" alt="">
                           </p>
                         </div>
                       </div>
@@ -186,14 +187,28 @@ export default {
       contestType: 'completed',
       match_id: null,
       file_path: image_server_base_path,
+      hours: 1,
+      minutes: 0,
+      interval: undefined,
+      match_time: ''
     }
   },
   methods: {
+      setTime(minutes_hours) {
+      this.minutes = minutes_hours.minutes;
+      this.hours = minutes_hours.hours;
+
+      return this.hours + 'h ' + this.minutes + 'm' + ' left'
+    },
+    getMatchTime(time){
+      this.match_time = time;
+       return this.setTime(this.getTimeDiff(time)); 
+    },
     getContests(contestType) {
       this.contestType = contestType;
       auth_axios(`/user/${contestType}-match-contests`).then(res => res.data.data).then(res => {
         this.contest = res;
-        console.log(res);
+        // console.log(res);
       });
     },
     getContestDetails(match_id) {
@@ -203,7 +218,7 @@ export default {
       });
     },
     expandTheMatch(match_id) {
-      console.log(this.match_id, match_id);
+      // console.log(this.match_id, match_id);
       if (this.match_id === match_id) {
         this.match_id = null;
         this.contestDetails = [];
@@ -215,7 +230,18 @@ export default {
   },
   mounted() {
     this.getContests(this.contestType);
+    this.setTime(this.getTimeDiff(this.match_time));
+    this.getMatchTime(this.match_time);
+
+  },
+  updated() {
+    this.interval = setInterval(() => this.setTime(this.getTimeDiff(this.match_time)), 60000);
+    this.setTime(this.getTimeDiff(this.match_time));
+  },
+  beforeDestroy() {
+    clearInterval(this.interval);
   }
+
 }
 </script>
 
