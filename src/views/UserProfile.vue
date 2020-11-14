@@ -240,8 +240,10 @@
                   <i>"Personal bKash number is needed while withdrawing the wining prize"</i>
                 </div>
               </div>
-              <form class="login-signup-form" action="index-login.html">
+              <form class="login-signup-form"  @submit.prevent="withdrawRequest">
+                <small class="text-danger" v-if="errors.message"> {{ errors.message}} </small>
                 <div class="form-group">
+
                   <!-- Label -->
                   <label class="pb-1">
                     Enter Amount (BDT)
@@ -253,7 +255,7 @@
                       <img class="d-block" src="@/assets/taka.png" width="12" alt="">
                     </span>
                     </div>
-                    <input type="email" class="form-control" placeholder="Write amount in BDT">
+                    <input type="number" v-model="form.amount" class="form-control" placeholder="Write amount in BDT">
                   </div>
                 </div>
                 <div class="form-group">
@@ -266,7 +268,7 @@
                     <div class="input-icon">
                       <span class="ti-mobile"></span>
                     </div>
-                    <input type="text" class="form-control" placeholder="E.g. 01XXXXXXXXX">
+                    <input type="text" v-model="form.transaction_number" class="form-control" placeholder="E.g. 01XXXXXXXXX">
                   </div>
                 </div>
                 <div class="form-group">
@@ -279,11 +281,14 @@
                     <div class="input-icon">
                       <span class="ti-mobile"></span>
                     </div>
-                    <input type="text" class="form-control" placeholder="E.g. 01XXXXXXXXX">
+                    <input type="text" v-model="form.confirm_number" class="form-control" placeholder="E.g. 01XXXXXXXXX">
+
                   </div>
+                  <small class="text-danger" v-if="errors.confirm_number"> {{ errors.confirm_number}} </small>
+
                 </div>
                 <!-- Submit -->
-                <button class="btn btn-block btn-brand-01 border-radius mt-4 mb-3">
+                <button type="submit" class="btn btn-block btn-brand-01 border-radius mt-4 mb-3">
                   Send Withdraw Request
                 </button>
               </form>
@@ -561,6 +566,15 @@ export default {
     return {
       file_path: image_server_base_path,
       coin_logs: [],
+      form: {
+        transaction_number: null,
+        amount: null,
+        confirm_number: null
+      },
+      errors: {
+        confirm_number : null,
+        message: null
+      },
     }
   },
   methods:{
@@ -568,6 +582,21 @@ export default {
       auth_axios(`/user/coins-log?lang=en`).then(res => res.data.data).then(res => {
         this.coin_logs = res;
       });
+    },
+    withdrawRequest(){
+      if(this.form.transaction_number != this.form.confirm_number ){
+        this.errors.confirm_number = 'Confirmation Bkash Number does not match.';
+        console.log(this.form.amount);
+      }else{
+        auth_axios.post(`/withdraw-request`, this.form).then(res => {
+            if(res.data.status == 0){
+                this.errors.message = res.data.message;
+            }
+          console.log(res.data);
+          console.log(this.form.amount);
+        })
+      }
+      
     }
   },
   components: {
