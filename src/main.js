@@ -11,7 +11,16 @@ import '@/assets/js/app'
 import VueCarousel from 'vue-carousel';
 import axios from 'axios';
 import match_filter from "@/filters/match_filter";
+import VueNoty from 'vuejs-noty';
+import 'vuejs-noty/dist/vuejs-noty.css';
+// import Noty from 'noty';
+// window.Noty = require('noty');
 
+Vue.use(VueNoty, {
+  timeout: 4000,
+  progressBar: true,
+  layout: 'topRight'
+})
 axios.interceptors.request.use(config => {
     config.baseURL = 'http://18.188.54.233/api';
     config.headers['Access-Control-Allow-Origin'] = '*';
@@ -25,7 +34,7 @@ axios.interceptors.response.use((response) => {
 });
 Vue.use(VueCarousel).use(VueRouter);
 Vue.config.productionTip = false;
-
+Vue.use(VueNoty);
 Vue.mixin({
     filters: {
         ...match_filter

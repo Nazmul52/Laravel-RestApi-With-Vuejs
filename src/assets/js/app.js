@@ -22,6 +22,7 @@
 // 14. custom vps hosting plan js
 import jQuery from 'jquery';
 
+
 (function ($) {
     'use strict'; // 1. preloader
 

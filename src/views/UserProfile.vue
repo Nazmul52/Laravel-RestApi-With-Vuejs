@@ -226,7 +226,7 @@
         <div class="modal-content">
           <div class="modal-body">
             <div class="login-signup-wrap p-3">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="withdraw-close-modal">
                 <span aria-hidden="true">&times;</span>
               </button>
               <div class="login-signup-header text-center">
@@ -240,7 +240,7 @@
                   <i>"Personal bKash number is needed while withdrawing the wining prize"</i>
                 </div>
               </div>
-              <form class="login-signup-form"  @submit.prevent="withdrawRequest">
+              <form class="login-signup-form"  v-on:submit.prevent="withdrawRequest">
                 <small class="text-danger" v-if="errors.message"> {{ errors.message}} </small>
                 <div class="form-group">
 
@@ -305,7 +305,7 @@
         <div class="modal-content">
           <div class="modal-body">
             <div class="login-signup-wrap p-3">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="redeem-coin-close">
                 <span aria-hidden="true">&times;</span>
               </button>
               <div class="login-signup-header text-center">
@@ -317,7 +317,9 @@
                   Tincidunt. Nam Sem Lacus, Ornare Non Ante Sed, Ultricies Fringilla Massa.</p>
                 <h4 class="text-warning font-weight-bold mt-3">1 BDT = 50 Coins</h4>
               </div>
-              <form class="login-signup-form mt-4" action="index-login.html">
+              <form class="login-signup-form mt-4" v-on:submit.prevent="redeemCoin">
+                <small class="text-danger" v-if="errors.message"> {{ errors.message}} </small>
+
                 <div class="form-group">
                   <!-- Label -->
                   <label class="pb-1">
@@ -330,7 +332,7 @@
                       <img class="d-block" src="@/assets/taka.png" width="12" alt="">
                     </span>
                     </div>
-                    <input type="email" class="form-control" placeholder="Write amount in BDT to redeem coins">
+                    <input type="number" class="form-control" placeholder="Write amount in BDT to redeem coins" v-model="redeem.amount">
                   </div>
                 </div>
                 <!-- Submit -->
@@ -571,6 +573,9 @@ export default {
         amount: null,
         confirm_number: null
       },
+      redeem: {
+        amount: null
+      },
       errors: {
         confirm_number : null,
         message: null
@@ -586,16 +591,33 @@ export default {
     withdrawRequest(){
       if(this.form.transaction_number != this.form.confirm_number ){
         this.errors.confirm_number = 'Confirmation Bkash Number does not match.';
-        console.log(this.form.amount);
       }else{
         auth_axios.post(`/withdraw-request`, this.form).then(res => {
-            if(res.data.status == 0){
+            if(res.data.status == 1){
+                this.$noty.success(res.data.message);
+                document.querySelector('#withdraw-close-modal').click();
+            }else{
                 this.errors.message = res.data.message;
+                
             }
-          console.log(res.data);
-          console.log(this.form.amount);
-        })
+          
+        });
       }
+      
+    },
+
+    redeemCoin(){
+    
+        auth_axios.post(`/redeem-coin`, this.redeem).then(res => {
+            if(res.data.status == 1){
+                this.$noty.success(res.data.message);
+                document.querySelector('#redeem-coin-close').click();
+            }else{
+                this.errors.message = res.data.message;
+                
+            }
+          
+        });
       
     }
   },
@@ -603,13 +625,18 @@ export default {
     'app-header': Header,
   },
   computed: {
+    
+
     ...mapGetters({
       getUserData: type.USER_DATA_GETTER
     }),
+
   },
   mounted(){
     this.getCoinLogs();
+   
   },
+ 
 }
 </script>
 
