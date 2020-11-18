@@ -13,8 +13,27 @@ import axios from 'axios';
 import match_filter from "@/filters/match_filter";
 import VueNoty from 'vuejs-noty';
 import 'vuejs-noty/dist/vuejs-noty.css';
-// import Noty from 'noty';
-// window.Noty = require('noty');
+import Swal from 'sweetalert2';
+
+// CommonJS
+window.Swal = Swal
+
+/*Sweet Alert*/
+
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
+window.Toast = Toast
+
 
 Vue.use(VueNoty, {
   timeout: 4000,
@@ -50,6 +69,8 @@ Vue.mixin({
         }
     }
 });
+
+
 const router = new VueRouter({
     routes,
     mode: 'history'

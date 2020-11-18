@@ -12,8 +12,9 @@
           <div class="row justify-content-center">
             <div class="col-md-8 mx-auto text-center">
               <div class="hero-slider-content">
-                <img class="rounded-circle mb-3" :src="file_path+getUserData.avatar.image_path" width="120" alt="">
-                <h3 class="text-warning mb-0">{{ getUserData.name }}</h3>
+                <!-- <img class="rounded-circle mb-3" src=" " width="120" alt=""> -->
+
+                <h3 class="text-warning mb-0">{{ getUserData.name }}  </h3>
                 <p class="mb-0 text-white">{{ getUserData.phone }}</p>
                 <p class="text-white d-inline-block pb-2 account_email_border">{{ getUserData.email }}</p>
               </div>
@@ -43,7 +44,7 @@
                   <div class="col-md-4 border-right">
                     <div class="deposite_coin">
                       <img class="mb-2" src="@/assets/coin.svg" width="24" alt="">
-                      <h2 class="mb-0">{{ getUserData.metadata.total_coins }}</h2>
+                      <h2 class="mb-0">{{ getUserData.metadata.total_coins }} </h2>
                       <p class="text-muted">Deposit Coins</p>
                       <hr class="mx-5">
                       <button type="button" class="btn btn-sm btn-warning" name="button" data-toggle="modal"
@@ -557,10 +558,11 @@
 
 <script>
 import Header from '@/components/home/Header';
-import * as type from '@/store/type';
+// import * as type from '@/store/type';
 import {image_server_base_path} from '@/utils/enviornment_data';
-import {mapGetters} from 'vuex';
+// import {mapGetters} from 'vuex';
 import auth_axios from '@/http/axios/http-auth';
+// import axios from 'axios';
 
 export default {
   name: "UserProfile",
@@ -580,9 +582,21 @@ export default {
         confirm_number : null,
         message: null
       },
+      getUserData: {
+        metadata : {
+            total_coins: 0,
+            total_cash: 0,
+            total_pending_requests: 0,
+        }
+      },
+
+
     }
   },
   methods:{
+
+
+
     getCoinLogs() {
       auth_axios(`/user/coins-log?lang=en`).then(res => res.data.data).then(res => {
         this.coin_logs = res;
@@ -612,6 +626,8 @@ export default {
             if(res.data.status == 1){
                 this.$noty.success(res.data.message);
                 document.querySelector('#redeem-coin-close').click();
+                this.getLoginUserData();
+                this.redeem.amount = '';
             }else{
                 this.errors.message = res.data.message;
                 
@@ -619,22 +635,26 @@ export default {
           
         });
       
+    },
+
+    getLoginUserData(){
+        auth_axios('user').then(res => {
+            this.getUserData = res.data.data;
+        })
     }
   },
   components: {
     'app-header': Header,
   },
   computed: {
-    
-
-    ...mapGetters({
-      getUserData: type.USER_DATA_GETTER
-    }),
+    // ...mapGetters({
+    //   getUserData: type.USER_DATA_GETTER
+    // }),
 
   },
   mounted(){
+    this.getLoginUserData();
     this.getCoinLogs();
-   
   },
  
 }

@@ -101,7 +101,7 @@
                           </div>
                         </template>
                         <div class="team_create_btn position-absolute">
-                          <button id="save_team_btn" class="btn btn-success border-radius mt-4 mb-2" disabled>Save
+                          <button v-on:click="saveTeam" id="save_team_btn" class="btn btn-success border-radius mt-4 mb-2" >Save
                             Team
                           </button>
                         </div>
@@ -219,6 +219,7 @@
 import {image_server_base_path} from '@/utils/enviornment_data';
 import {mapGetters, mapMutations} from 'vuex';
 import * as type from '@/store/type';
+import auth_axios from '@/http/axios/http-auth';
 
 export default {
   name: "ConfirmTeam",
@@ -229,6 +230,7 @@ export default {
       activeContest: [],
       team_search_key: '',
       sort_by_credit_asc: true,
+
     }
   },
   methods: {
@@ -243,13 +245,32 @@ export default {
       this.activeContest.players.map(player => {
         if (captain_type === 'c' && player.player_key === player_key) {
           player.isCaptain = !player.isCaptain;
+
+          // console.log(player.isCaptain);
         }
         if (captain_type === 'vc' && player.player_key === player_key) {
           player.isViceCaptain = !player.isViceCaptain;
         }
-        return player;
+        return player.isViceCaptain;
       });
+
+      console.log(this.activeContest);
       this.setActiveContestByMatchIdMutation(this.activeContest);
+      this.$store.state.Contest.selectedTeam.team_name = 'Nazmul Team';
+      this.$store.state.Contest.selectedTeam.match_id = '1196';
+      console.log(this.$store.state.Contest.selectedTeam);
+     
+     
+    },
+
+    saveTeam(){
+        auth_axios.post('user-team/create', this.getSelectedPlayerForTeam).then((res) => {
+            console.log(res);
+        }).catch(error => {
+            console.log(error);
+        })
+        // console.log(this.getSelectedPlayerForTeam);
+
     }
   },
   computed: {

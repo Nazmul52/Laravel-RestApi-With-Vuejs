@@ -150,7 +150,7 @@ import {image_server_base_path} from '@/utils/enviornment_data';
 import {mapGetters, mapMutations} from 'vuex';
 import Vue from 'vue';
 import * as type from '@/store/type';
-
+import Swal from 'sweetalert2';
 export default {
   name: "PlayerList",
   data() {
@@ -241,13 +241,34 @@ export default {
     teamRules(player) {
       if (this.checkAllCategoryForMinimumRequiredPlayer(player)) {
         if (this.batsmanCount < this.min_per_match('batsman')) {
-          alert(this.need_3_batsman);
+          // alert(this.need_3_batsman);
+          Swal.fire({
+            title: 'Warning!',
+            text: this.need_3_batsman,
+          
+          })
+
         } else if (this.keeperCount < this.min_per_match('keeper')) {
-          alert(this.need_1_wk);
+          // alert(this.need_1_wk);
+          Swal.fire({
+            title: 'Warning!',
+            text: this.need_1_wk,
+          
+          })
         } else if (this.allrounderCount < this.min_per_match('allrounder')) {
-          alert(this.need_1_all_rounder);
+          // alert(this.need_1_all_rounder);
+           Swal.fire({
+            title: 'Warning!',
+            text: this.need_1_all_rounder,
+          
+          })
         } else if (this.bowlerCount < this.min_per_match('bowler')) {
-          alert(this.need_3_bowlers);
+             Swal.fire({
+            title: 'Warning!',
+            text: this.need_3_bowlers,
+          
+          })
+          // alert(this.need_3_bowlers);
         }
         return false;
       }
@@ -257,41 +278,81 @@ export default {
         creditCount += player.isSelected ? player.credit_points : 0;
       });
       if (this.totalSelectedPlayer > this.MAXIMUM_NUM_PLAYERS) {
-        alert(this.squad_cannot_cross_max_players);
+        // alert(this.squad_cannot_cross_max_players);
+        Swal.fire({
+          title: 'Warning!',
+          text: this.squad_cannot_cross_max_players,
+        
+        })
         return false;
       }
 
       if (creditCount > this.MAXIMUM_CREDIT) {
-        alert(this.total_credit_value_greater_100);
+        // alert(this.total_credit_value_greater_100);
+         Swal.fire({
+          title: 'Warning!',
+          text: this.total_credit_value_greater_100,
+        
+        })
         return false;
       }
       if (this.playerInTeamACount > this.MAXIMUM_NUM_PLAYER_FOR_INDIVIDUAL_TEAM) {
-        alert(this.not_more_than_7_players_from_any_team);
+         Swal.fire({
+          title: 'Warning!',
+          text: this.not_more_than_7_players_from_any_team,
+        
+        })
+        // alert(this.not_more_than_7_players_from_any_team);
         return false;
       }
       if (this.playerInTeamBCount > this.MAXIMUM_NUM_PLAYER_FOR_INDIVIDUAL_TEAM) {
-        alert(this.not_more_than_7_players_from_any_team);
+        // alert(this.not_more_than_7_players_from_any_team);
+         Swal.fire({
+          title: 'Warning!',
+          text: this.not_more_than_7_players_from_any_team,
+        
+        })
         return false;
       }
       if (this.keeperCount > this.max_per_match('keeper')) {
-        alert(this.not_more_than_1_wicket_keeper);
+        // alert(this.not_more_than_1_wicket_keeper);
+         Swal.fire({
+          title: 'Warning!',
+          text: this.not_more_than_1_wicket_keeper,
+        
+        })
         return false;
       }
 
 
       if (this.batsmanCount > this.max_per_match('batsman')) {
-        alert(`Not more than ${this.max_per_match('batsman')} batsm${this.min_per_match('batsman') > 1 ? 'e' : 'a'}n`);
+        // alert(`Not more than ${this.max_per_match('batsman')} batsm${this.min_per_match('batsman') > 1 ? 'e' : 'a'}n`);
+         Swal.fire({
+          title: 'Warning!',
+          text: `Not more than ${this.max_per_match('batsman')} batsm${this.min_per_match('batsman') > 1 ? 'e' : 'a'}n`,
+        
+        })
         return false;
       }
 
 
       if (this.allrounderCount > this.max_per_match('allrounder')) {
-        alert(this.not_more_than_3_allrounders);
+        // alert(this.not_more_than_3_allrounders);
+         Swal.fire({
+          title: 'Warning!',
+          text: this.not_more_than_3_allrounders,
+        
+        })
         return false;
       }
 
       if (this.bowlerCount > this.max_per_match('bowler')) {
-        alert(this.not_more_than_5_bowlers);
+        // alert(this.not_more_than_5_bowlers);
+        Swal.fire({
+          title: 'Warning!',
+          text: this.not_more_than_5_bowlers,
+        
+        })
         return false;
       }
       return true;
