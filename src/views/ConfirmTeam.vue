@@ -220,6 +220,7 @@ import {image_server_base_path} from '@/utils/enviornment_data';
 import {mapGetters, mapMutations} from 'vuex';
 import * as type from '@/store/type';
 import auth_axios from '@/http/axios/http-auth';
+import Swal from 'sweetalert2';
 
 export default {
   name: "ConfirmTeam",
@@ -230,6 +231,8 @@ export default {
       activeContest: [],
       team_search_key: '',
       sort_by_credit_asc: true,
+      isCaptain: false,
+      isViceCaptain: false,
 
     }
   },
@@ -242,23 +245,139 @@ export default {
       return team_belong === 1 ? this.activeContest.teams.a.team_key : this.activeContest.teams.b.team_key;
     },
     captainOrViceCaptain(player_key, captain_type) {
+     
       this.activeContest.players.map(player => {
         if (captain_type === 'c' && player.player_key === player_key) {
-          player.isCaptain = !player.isCaptain;
 
-          // console.log(player.isCaptain);
+           // Swal.fire({
+           //     title: 'Warning!',
+           //     text: 'Captain Already Selected',
+             
+           //  })
+            
+            if(player.role == 'batsman'){
+                this.getSelectedPlayerForTeam.batsman.map(batsman => {
+                    // console.log(batsman);
+
+                    if(player.player_key === batsman.player_key){
+                            player.isCaptain = !player.isCaptain;
+
+                        // if(this.isCaptain){
+
+                            
+                        // }else{
+                            // player.isCaptain = !player.isCaptain;
+                            if(player.isCaptain){
+                                 // batsman.isCaptain = true;
+                                 this.isCaptain = true;
+                             }else{
+                                 // batsman.isCaptain = false;
+                                  this.isCaptain = false;
+                             }
+                            
+                        // }
+                       
+                    }else{
+                        if(this.isCaptain){
+                            // player.isCaptain = false;
+                            Swal.fire({
+                                title: 'Warning!',
+                                text: 'Captain Already Selected',
+                              
+                             })
+                        }
+                        
+                    }
+                })
+            }else if(player.role == 'keeper'){
+                this.getSelectedPlayerForTeam.keeper.map(keeper => {
+                    // console.log(keeper);
+                      if(player.player_key == keeper.player_key){
+                        if(this.isCaptain){
+                            Swal.fire({
+                                title: 'Warning!',
+                                text: 'Captain Already Selected',
+                              
+                             })
+                             
+                        }else{
+                            player.isCaptain = !player.isCaptain;
+                            if(player.isCaptain){
+                                 keeper.isCaptain = true;
+                                 this.isCaptain = true;
+                             }else{
+                                 keeper.isCaptain = false;
+                                  this.isCaptain = false;
+                             }
+                        }
+                       
+
+                    }
+                })
+            }else if(player.role == 'bowler'){
+                this.getSelectedPlayerForTeam.bowler.map(bowler => {
+                    // console.log(bowler);
+                      if(player.player_key == bowler.player_key){
+                        if(this.isCaptain){
+                            Swal.fire({
+                                title: 'Warning!',
+                                text: 'Captain Already Selected',
+                              
+                             })
+                        }else{
+                            player.isCaptain = !player.isCaptain;
+                            if(player.isCaptain){
+                                 bowler.isCaptain = true;
+                                 this.isCaptain = true;
+                             }else{
+                                 bowler.isCaptain = false;
+                                  this.isCaptain = false;
+                             }
+                        }
+                        
+                    }
+
+                })
+            }else if(player.role == 'allrounder'){
+                this.getSelectedPlayerForTeam.allrounder.map(allrounder => {
+                     // console.log(allrounder);
+                       if(player.player_key == allrounder.player_key){
+                        if(this.isCaptain){
+                            Swal.fire({
+                                title: 'Warning!',
+                                text: 'Captain Already Selected',
+                              
+                             })
+                        }else{
+                            player.isCaptain = !player.isCaptain;
+                            if(player.isCaptain){
+                                 allrounder.isCaptain = true;
+                                 this.isCaptain = true;
+                             }else{
+                                 allrounder.isCaptain = false;
+                                  this.isCaptain = false;
+                             }
+                        }
+                       
+                    }
+                })
+            }
+            // this.getSelectedPlayerForTeam;
+               
         }
         if (captain_type === 'vc' && player.player_key === player_key) {
           player.isViceCaptain = !player.isViceCaptain;
+          this.isViceCaptain= true;
         }
         return player.isViceCaptain;
       });
 
-      console.log(this.activeContest);
+      console.log(this.getSelectedPlayerForTeam);
       this.setActiveContestByMatchIdMutation(this.activeContest);
       this.$store.state.Contest.selectedTeam.team_name = 'Nazmul Team';
-      this.$store.state.Contest.selectedTeam.match_id = '1196';
-      console.log(this.$store.state.Contest.selectedTeam);
+      this.$store.state.Contest.selectedTeam.match_id = '2';
+      this.$store.state.Contest.selectedTeam.allrounder[0].isViceCaptain = true;
+      console.log(this.$store.state.Contest.selectedTeam.allrounder[0].isViceCaptain);
      
      
     },
