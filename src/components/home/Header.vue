@@ -54,7 +54,7 @@
               <!--button start-->
               <li class="nav-item header-nav-last-item d-flex align-items-center position-relative">
                 <a href="#" class="text-white dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown">
-                  <img class="mr-1 rounded-circle border" :src="encodeURI(file_path+getUserData.avatar.image_path)" width="36" alt="">
+                  <img class="mr-1 rounded-circle border" :src="encodeURI(file_path+(getUserData.avatar) ? getUserData.avatar.imagePath : '')" width="36" alt="">
                   {{ getUserData.name }}
                 </a>
                 <div class="login_dropdown dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -169,7 +169,8 @@ export default {
       loginResponseData: {
         login_status: false,
         login_fail_message: undefined,
-      }
+      },
+    
     }
   },
   computed: {
