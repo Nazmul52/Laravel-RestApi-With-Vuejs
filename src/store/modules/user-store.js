@@ -2,7 +2,8 @@ import * as type from '../type'
 import auth_axios from '@/http/axios/http-auth';
 
 const state = {
-    userDetails: {},
+    userDetails: {
+    },
     userStatus: false,
 };
 

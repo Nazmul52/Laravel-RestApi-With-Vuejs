@@ -21,7 +21,7 @@ const getters = {
     [type.TOURNAMENT_ID_GETTER]: (state) => {
         return state.tournament_id;
     },
-    [type.TOURNAMENT_ID_NAME_MAP]: (state) => {
+    [type.TOURNAMENT_ID_NAME_MAP ]: (state) => {
         const mapper = {};
         const tournamentList = [];
         for (let match of state['upcoming_match_' + state.match_type]) {

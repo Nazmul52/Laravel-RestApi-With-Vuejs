@@ -67,7 +67,7 @@
                         </div>
                         <template v-for="player of getActiveContestThatSelected">
                           <div
-                              :class="'create_team_each save_team_each'+ player.isCaptain || player.isViceCaptain?' selected pl-3 mt-3':''"
+                              :class="'create_team_each save_team_each '+ player.isCaptain || player.isViceCaptain ? ' selected pl-3 mt-3':'' "
                               :key="player.player_key"
                               v-if="player.isSelected">
                             <div class="player_thumb">
@@ -348,7 +348,6 @@ export default {
 
     saveTeam(){
         let id = this.$route.params.match_id;
-        console.log(id);
         if(this.team_name == ''){
             Swal.fire({
                title: 'Warning!',
@@ -366,12 +365,7 @@ export default {
                 'is_captain':allrounder.player_key == this.isCaptain,
                 'is_vice_captain':allrounder.player_key == this.isViceCaptain 
             };
-            // this.playerDataFormat.id = allrounder.player_id;
-            // this.playerDataFormat.is_captain = allrounder.isCaptain;
-            // this.playerDataFormat.is_vice_captain = allrounder.isViceCaptain;
-            // this.playerDataFormat.player_key = allrounder.player_key;
-            // this.finalTeam.allrounder.push(this.playerDataFormat);
-            // this.playerDataFormat = {};
+           
             
         });
         
@@ -381,12 +375,7 @@ export default {
                   'is_captain':batsman.player_key == this.isCaptain,
                 'is_vice_captain':batsman.player_key == this.isViceCaptain 
             };
-            // this.playerDataFormat.id = batsman.player_id;
-            // this.playerDataFormat.is_captain = batsman.isCaptain;
-            // this.playerDataFormat.is_vice_captain = batsman.isViceCaptain;
-            // this.playerDataFormat.player_key = batsman.player_key;
-            // this.finalTeam.batsman.push(this.playerDataFormat);
-            // this.playerDataFormat = {};
+            
         });
 
         this.selectedTeamData.bowler =    this.selectedTeamData.bowler.map(bowler => {
@@ -395,12 +384,7 @@ export default {
                   'is_captain':bowler.player_key == this.isCaptain,
                 'is_vice_captain':bowler.player_key == this.isViceCaptain 
             };
-            // this.playerDataFormat.id = bowler.player_id;
-            // this.playerDataFormat.is_captain = bowler.isCaptain;
-            // this.playerDataFormat.is_vice_captain = bowler.isViceCaptain;
-            // this.playerDataFormat.player_key = bowler.player_key;
-            // this.finalTeam.bowler.push(this.playerDataFormat);
-            // this.playerDataFormat = {};
+          
         });
 
         this.selectedTeamData.keeper =    this.selectedTeamData.keeper.map(keeper => {
@@ -409,25 +393,29 @@ export default {
                   'is_captain':keeper.player_key == this.isCaptain,
                 'is_vice_captain':keeper.player_key == this.isViceCaptain 
             };
-            // this.playerDataFormat.id = keeper.player_id;
-            // this.playerDataFormat.is_captain = keeper.isCaptain;
-            // this.playerDataFormat.is_vice_captain = keeper.isViceCaptain;
-            // this.playerDataFormat.player_key = keeper.player_key;
-            // this.finalTeam.keeper.push(this.playerDataFormat);
-            // this.playerDataFormat = {};
+          
         });
-
-        // this.finalTeam.allrounder[0].is_captain = true;
-        // this.finalTeam.keeper[0].is_vice_captain = true;
+        
         this.selectedTeamData.team_name = this.team_name;
-        this.selectedTeamData.match_id = id;
-
-       
+        this.selectedTeamData.match_id = id; 
 
 
         auth_axios.post('user-team/create', this.selectedTeamData).then((res) => {
             // console.log(JSON.parse(res.config.data));
-            console.log(res);
+            if(res.data.status){
+              Swal.fire({
+                 title: 'Success!',
+                 text: res.data.message,
+               
+              });
+              this.$router.push({ name: 'UserHome' });
+            }else{
+              Swal.fire({
+                 title: 'Warning!',
+                 text: res.data.message,
+               
+              });
+            }
         }).catch(error => {
             console.log(error);
         })
@@ -490,8 +478,9 @@ export default {
     this.selectedTeamData = {...this.getSelectedPlayerForTeam} || {};
     this.activeContest = {...this.getActiveContest} || {};
 
-    // console.log(this.selectedTeamData);
-
+    if(Object.keys(this.selectedTeamData.allrounder).length == 0){
+      this.$router.push({ name: 'CreateTeam' });
+    }
 
     
   },

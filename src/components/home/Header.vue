@@ -181,6 +181,8 @@ export default {
     loginStatus(){
       return this.loginResponse.login_status;
     }
+
+
   },
   methods: {
     ...mapActions({
