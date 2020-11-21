@@ -64,9 +64,11 @@
                       </div>
                     </div>
                     <div class="">
-                      <router-link :to="{name:'CreateTeam',params:{match_id:matchId,match_type:matchType}}">
+                      <router-link :to="{name: (matchType=='football') ? 'CreateTeamFootball' : 'CreateTeam',params:{match_type:matchType, match_id:matchId}}">
                         <button type="button" class="btn btn-sm btn-brand-01">Create Team</button>
                       </router-link>
+
+
                     </div>
                   </div>
                   <div v-for="(conts,index) of contest" :key="index">
@@ -416,7 +418,7 @@ export default {
   },
   data() {
     return {
-      matchDetail: {},
+      matchDetail: {match_time : null},
       image_server_base_path: image_server_base_path,
       hours: 0,
       minutes: 0,

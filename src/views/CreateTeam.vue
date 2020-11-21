@@ -322,7 +322,7 @@ export default {
   data() {
     return {
       active_contest: {},
-      matchDetail: {},
+      matchDetail: {match_time: null},
       image_server_base_path: image_server_base_path,
       hours: 0,
       minutes: 0,
@@ -377,6 +377,7 @@ export default {
     }
   },
   mounted() {
+    console.log(this.fetchActiveContest({match_id: this.matchId}));
     setTimeout(() => {
       this.fetchActiveContest({match_id: this.matchId});
       this.matchDetail = this.getMatchDetailByMatchId;

@@ -3,20 +3,20 @@
     <div class="d-flex justify-content-between">
       <ul class="d-flex nav nav-pills w-100">
         <li class="nav-item col p-0">
-          <a :class="'nav-link rounded-0 '+(pType==='keeper'?'active':'')" href="javascript:void(0)"
-             @click="playerType('keeper')">WK ({{ keeperCount }})</a>
+          <a :class="'nav-link rounded-0 '+(pType==='goalkeeper'?'active':'')" href="javascript:void(0)"
+             @click="playerType('goalkeeper')">GK ({{ goalkeeperCount }})</a>
         </li>
         <li class="nav-item col p-0">
-          <a :class="'nav-link rounded-0 '+(pType==='batsman'?'active':'')" href="javascript:void(0)"
-             @click="playerType('batsman')">BAT ({{ batsmanCount }})</a>
+          <a :class="'nav-link rounded-0 '+(pType==='midfielder'?'active':'')" href="javascript:void(0)"
+             @click="playerType('midfielder')">DEF ({{ midfielderCount }})</a>
         </li>
         <li class="nav-item col p-0">
-          <a :class="'nav-link rounded-0 '+(pType==='allrounder'?'active':'')" href="javascript:void(0)"
-             @click="playerType('allrounder')">AR ({{ allrounderCount }})</a>
+          <a :class="'nav-link rounded-0 '+(pType==='defender'?'active':'')" href="javascript:void(0)"
+             @click="playerType('defender')">MID ({{ defenderCount }})</a>
         </li>
         <li class="nav-item col p-0">
-          <a :class="'nav-link rounded-0 '+(pType==='bowler'?'active':'')" href="javascript:void(0)"
-             @click="playerType('bowler')">BOWL ({{ bowlerCount }})</a>
+          <a :class="'nav-link rounded-0 '+(pType==='striker'?'active':'')" href="javascript:void(0)"
+             @click="playerType('striker')">ST ({{ strikerCount }})</a>
         </li>
       </ul>
     </div>
@@ -152,11 +152,11 @@ import Vue from 'vue';
 import * as type from '@/store/type';
 import Swal from 'sweetalert2';
 export default {
-  name: "PlayerList",
+  name: "FootballPlayerList",
   data() {
     return {
-      pType: 'keeper',
-      pTypeTitle: 'Wicket-Keepers',
+      pType: 'goalkeeper',
+      pTypeTitle: 'Goal-Keeper',
       imagePath: image_server_base_path,
       sort_by: undefined,
       activeContest: [],
@@ -191,26 +191,26 @@ export default {
   },
   methods: {
     ...mapMutations({
-      setSelectedPlayerForTeam: type.SELECTED_TEAM_CRICKET_SETTER,
-      setActiveContestByMatchIdMutation: type.ACTIVE_CONTEST_BY_MATCH_ID_MUTATION
+      setSelectedPlayerForTeam: type.SELECTED_TEAM_FOOTBALL_SETTER,
+      setActiveContestByMatchIdMutation: type.ACTIVE_CONTEST_FOOTBALL_BY_MATCH_ID_MUTATION
     }),
     continueForTeamConfirm() {
-      this.$router.push({path: '/confirm-team/cricket/' + this.matchDetail.match_id})
+      this.$router.push({path: '/confirm-team/football/' + this.matchDetail.match_id})
     },
     playerType(type) {
       this.pType = type;
       switch (type) {
-        case 'keeper':
-          this.pTypeTitle = 'Wicket-Keepers';
+        case 'goalkeeper':
+          this.pTypeTitle = 'Goal-Keeper';
           break;
-        case 'batsman':
-          this.pTypeTitle = 'Batsmans';
+        case 'defender':
+          this.pTypeTitle = 'Defender';
           break;
-        case 'bowler':
-          this.pTypeTitle = 'Bowlers';
+        case 'midfielder':
+          this.pTypeTitle = 'Mid Fielder';
           break;
-        case 'allrounder':
-          this.pTypeTitle = 'All-Rounders';
+        case 'striker':
+          this.pTypeTitle = 'Striker';
           break;
         default:
 
@@ -240,7 +240,7 @@ export default {
     },
     teamRules(player) {
       if (this.checkAllCategoryForMinimumRequiredPlayer(player)) {
-        if (this.batsmanCount < this.min_per_match('batsman')) {
+        if (this.goalkeeperCount < this.min_per_match('goalkeeper')) {
           // alert(this.need_3_batsman);
           Swal.fire({
             title: 'Warning!',
@@ -248,21 +248,21 @@ export default {
           
           })
 
-        } else if (this.keeperCount < this.min_per_match('keeper')) {
+        } else if (this.defenderCount < this.min_per_match('defender')) {
           // alert(this.need_1_wk);
           Swal.fire({
             title: 'Warning!',
             text: this.need_1_wk,
           
           })
-        } else if (this.allrounderCount < this.min_per_match('allrounder')) {
+        } else if (this.midfielderCount < this.min_per_match('midfielder')) {
           // alert(this.need_1_all_rounder);
            Swal.fire({
             title: 'Warning!',
             text: this.need_1_all_rounder,
           
           })
-        } else if (this.bowlerCount < this.min_per_match('bowler')) {
+        } else if (this.strikerCount < this.min_per_match('striker')) {
              Swal.fire({
             title: 'Warning!',
             text: this.need_3_bowlers,
@@ -314,7 +314,7 @@ export default {
         })
         return false;
       }
-      if (this.keeperCount > this.max_per_match('keeper')) {
+      if (this.goalkeeperCount > this.max_per_match('goalkeeper')) {
         // alert(this.not_more_than_1_wicket_keeper);
          Swal.fire({
           title: 'Warning!',
@@ -325,18 +325,18 @@ export default {
       }
 
 
-      if (this.batsmanCount > this.max_per_match('batsman')) {
+      if (this.midfielderCount > this.max_per_match('midfielder')) {
         // alert(`Not more than ${this.max_per_match('batsman')} batsm${this.min_per_match('batsman') > 1 ? 'e' : 'a'}n`);
          Swal.fire({
           title: 'Warning!',
-          text: `Not more than ${this.max_per_match('batsman')} batsm${this.min_per_match('batsman') > 1 ? 'e' : 'a'}n`,
+          text: `Not more than ${this.max_per_match('midfielder')} batsm${this.min_per_match('midfielder') > 1 ? 'e' : 'a'}n`,
         
         })
         return false;
       }
 
 
-      if (this.allrounderCount > this.max_per_match('allrounder')) {
+      if (this.defenderCount > this.max_per_match('defender')) {
         // alert(this.not_more_than_3_allrounders);
          Swal.fire({
           title: 'Warning!',
@@ -346,7 +346,7 @@ export default {
         return false;
       }
 
-      if (this.bowlerCount > this.max_per_match('bowler')) {
+      if (this.strikerCount > this.max_per_match('striker')) {
         // alert(this.not_more_than_5_bowlers);
         Swal.fire({
           title: 'Warning!',
@@ -361,37 +361,37 @@ export default {
       let requiredWk = 0, requiredBat = 0, requiredAllR = 0, requiredBowl = 0,
           totalRequiredRemaining, totalSelectedRemaining;
 
-      if (this.keeperCount < this.min_per_match('keeper'))
-        requiredWk = this.min_per_match('keeper') - this.keeperCount;
-      if (this.batsmanCount < this.min_per_match('batsman'))
-        requiredBat = this.min_per_match('batsman') - this.batsmanCount;
-      if (this.allrounderCount < this.min_per_match('allrounder'))
-        requiredAllR = this.min_per_match('allrounder') - this.allrounderCount;
-      if (this.bowlerCount < this.min_per_match('bowler'))
-        requiredBowl = this.min_per_match('bowler') - this.bowlerCount;
+      if (this.goalkeeperCount < this.min_per_match('goalkeeper'))
+        requiredWk = this.min_per_match('goalkeeper') - this.goalkeeperCount;
+      if (this.midfielderCount < this.min_per_match('midfielder'))
+        requiredBat = this.min_per_match('midfielder') - this.midfielderCount;
+      if (this.defenderCount < this.min_per_match('defender'))
+        requiredAllR = this.min_per_match('defender') - this.defenderCount;
+      if (this.strikerCount < this.min_per_match('striker'))
+        requiredBowl = this.min_per_match('striker') - this.strikerCount;
 
       totalRequiredRemaining = requiredWk + requiredBat + requiredAllR + requiredBowl;
-      totalSelectedRemaining = this.MAXIMUM_NUM_PLAYERS - (this.allrounderCount + this.bowlerCount + this.keeperCount + this.batsmanCount);
+      totalSelectedRemaining = this.MAXIMUM_NUM_PLAYERS - (this.defenderCount + this.strikerCount + this.goalkeeperCount + this.midfielderCount);
 
       if (totalRequiredRemaining === 0 && totalSelectedRemaining === 0)
         return false;
 
       if (totalRequiredRemaining >= totalSelectedRemaining) {
 
-        if (player.role === 'keeper') {
-          if (this.keeperCount < this.min_per_match('keeper'))
+        if (player.role === 'goalkeeper') {
+          if (this.goalkeeperCount < this.min_per_match('goalkeeper'))
             return false;
         }
-        if (player.role === 'batsman') {
-          if (this.batsmanCount < this.min_per_match('batsman'))
+        if (player.role === 'midfielder') {
+          if (this.midfielderCount < this.min_per_match('midfielder'))
             return false;
         }
-        if (player.role === 'allrounder') {
-          if (this.allrounderCount < this.min_per_match('allrounder'))
+        if (player.role === 'defender') {
+          if (this.defenderCount < this.min_per_match('defender'))
             return false;
         }
-        if (player.role === 'bowler') {
-          if (this.bowlerCount < this.min_per_match('bowler'))
+        if (player.role === 'striker') {
+          if (this.strikerCount < this.min_per_match('striker'))
             return false;
         }
         return true;
@@ -450,8 +450,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getSelectedPlayerForTeam: type.SELECTED_TEAM_CRICKET_GETTER,
-      getActiveContest: type.ACTIVE_CONTEST_BY_MATCH_ID_GETTER
+      getSelectedPlayerForTeam: type.SELECTED_TEAM_FOOTBALL_GETTER,
+      getActiveContest: type.ACTIVE_CONTEST_FOOTBALL_BY_MATCH_ID_GETTER
     }),
     selectedPLayerList() {
       if (this.activeContest && this.activeContest.players) {
@@ -465,33 +465,33 @@ export default {
         return [];
       }
     },
-    keeperCount() {
+    goalkeeperCount() {
       try {
-        return this.selectedTeamData['keeper'].length || 0;
+        return this.selectedTeamData['goalkeeper'].length || 0;
         // eslint-disable-next-line no-empty
       } catch (e) {
         return 0;
       }
     },
-    batsmanCount() {
+    midfielderCount() {
       try {
-        return this.selectedTeamData['batsman'].length || 0;
+        return this.selectedTeamData['midfielder'].length || 0;
         // eslint-disable-next-line no-empty
       } catch (e) {
         return 0;
       }
     },
-    allrounderCount() {
+    defenderCount() {
       try {
-        return this.selectedTeamData['allrounder'].length || 0;
+        return this.selectedTeamData['defender'].length || 0;
         // eslint-disable-next-line no-empty
       } catch (e) {
         return 0;
       }
     },
-    bowlerCount() {
+    strikerCount() {
       try {
-        return this.selectedTeamData['bowler'].length || 0;
+        return this.selectedTeamData['striker'].length || 0;
         // eslint-disable-next-line no-empty
       } catch (e) {
         return 0;
@@ -509,6 +509,7 @@ export default {
     },
     playerInTeamACount() {
       try {
+
         return this.activeContest.players.filter(player => player.isSelected && +player.team_belong === 1).length || 0
         // eslint-disable-next-line no-empty
       } catch (e) {
@@ -537,8 +538,7 @@ export default {
     },
   },
   mounted() {
-    this.selectedTeamData = {...this.getSelectedPlayerForTeam} || {}
-    
+    this.selectedTeamData = {...this.getSelectedPlayerForTeam} || {};
   },
 }
 </script>
