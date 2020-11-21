@@ -7,12 +7,12 @@
              @click="playerType('goalkeeper')">GK ({{ goalkeeperCount }})</a>
         </li>
         <li class="nav-item col p-0">
-          <a :class="'nav-link rounded-0 '+(pType==='midfielder'?'active':'')" href="javascript:void(0)"
-             @click="playerType('midfielder')">DEF ({{ midfielderCount }})</a>
+          <a :class="'nav-link rounded-0 '+(pType==='defender'?'active':'')" href="javascript:void(0)"
+             @click="playerType('defender')">DEF ({{ defenderCount }})</a>
         </li>
         <li class="nav-item col p-0">
-          <a :class="'nav-link rounded-0 '+(pType==='defender'?'active':'')" href="javascript:void(0)"
-             @click="playerType('defender')">MID ({{ defenderCount }})</a>
+          <a :class="'nav-link rounded-0 '+(pType==='midfielder'?'active':'')" href="javascript:void(0)"
+             @click="playerType('midfielder')">MID ({{ midfielderCount }})</a>
         </li>
         <li class="nav-item col p-0">
           <a :class="'nav-link rounded-0 '+(pType==='striker'?'active':'')" href="javascript:void(0)"
@@ -167,17 +167,17 @@ export default {
       MAXIMUM_NUM_PLAYERS: 11,
       MAXIMUM_CREDIT: 100.0,
       MAXIMUM_NUM_PLAYER_FOR_INDIVIDUAL_TEAM: 7,
-      need_3_batsman: 'You need at least 3 Batsmen',
-      need_1_wk: "You need at least 1 Wicketkeep",
-      need_1_all_rounder: "You need at least 1 All-Rounder",
-      need_3_bowlers: "You need at least 3 bowlers",
+      need_1_gk: "You need at least 1 Goal-Keeper",
+      need_3_defender: "You need at least 3 Defender",
+      need_1_striker: "You need at least 1 Striker",
+      need_3_midfielder: "You need at least 3 Midfielder",
       squad_cannot_cross_max_players: "Your squad can not cross 11 players",
       total_credit_value_greater_100: "Total credit value can not be greater than 100",
       not_more_than_7_players_from_any_team: "Not more than 7 players from any team",
-      not_more_than_1_wicket_keeper: 'Not more than 1 wicket keeper',
-      not_more_than_5_batsmen: 'Not more than 5 batsmen',
-      not_more_than_3_allrounders: 'Not more than 3 allrounders',
-      not_more_than_5_bowlers: 'Not more than 5 bowlers',
+      not_more_than_1_goal_keeper: 'Not more than 1 goal keeper',
+      not_more_than_5_defender: 'Not more than 5 defenders',
+      not_more_than_5_midfielder: 'Not more than 5 midfielder',
+      not_more_than_3_striker: 'Not more than 3 striker',
     }
   },
   props: {
@@ -244,7 +244,7 @@ export default {
           // alert(this.need_3_batsman);
           Swal.fire({
             title: 'Warning!',
-            text: this.need_3_batsman,
+            text: this.need_1_gk,
           
           })
 
@@ -252,20 +252,20 @@ export default {
           // alert(this.need_1_wk);
           Swal.fire({
             title: 'Warning!',
-            text: this.need_1_wk,
+            text: this.need_3_defender,
           
           })
         } else if (this.midfielderCount < this.min_per_match('midfielder')) {
-          // alert(this.need_1_all_rounder);
+          // alert(this.need_1_striker);
            Swal.fire({
             title: 'Warning!',
-            text: this.need_1_all_rounder,
+            text: this.need_3_midfielder,
           
           })
         } else if (this.strikerCount < this.min_per_match('striker')) {
              Swal.fire({
             title: 'Warning!',
-            text: this.need_3_bowlers,
+            text: this.need_1_striker,
           
           })
           // alert(this.need_3_bowlers);
@@ -318,7 +318,7 @@ export default {
         // alert(this.not_more_than_1_wicket_keeper);
          Swal.fire({
           title: 'Warning!',
-          text: this.not_more_than_1_wicket_keeper,
+          text: this.not_more_than_1_goal_keeper,
         
         })
         return false;
@@ -329,7 +329,7 @@ export default {
         // alert(`Not more than ${this.max_per_match('batsman')} batsm${this.min_per_match('batsman') > 1 ? 'e' : 'a'}n`);
          Swal.fire({
           title: 'Warning!',
-          text: `Not more than ${this.max_per_match('midfielder')} batsm${this.min_per_match('midfielder') > 1 ? 'e' : 'a'}n`,
+          text: this.not_more_than_5_midfielder,
         
         })
         return false;
@@ -338,9 +338,10 @@ export default {
 
       if (this.defenderCount > this.max_per_match('defender')) {
         // alert(this.not_more_than_3_allrounders);
+        console.log(this.defenderCount);
          Swal.fire({
           title: 'Warning!',
-          text: this.not_more_than_3_allrounders,
+          text: this.not_more_than_5_defender,
         
         })
         return false;
@@ -350,7 +351,7 @@ export default {
         // alert(this.not_more_than_5_bowlers);
         Swal.fire({
           title: 'Warning!',
-          text: this.not_more_than_5_bowlers,
+          text: this.not_more_than_3_striker,
         
         })
         return false;
@@ -539,6 +540,7 @@ export default {
   },
   mounted() {
     this.selectedTeamData = {...this.getSelectedPlayerForTeam} || {};
+
   },
 }
 </script>

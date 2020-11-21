@@ -34,6 +34,15 @@ const routes = [
 
     },
     {
+        path: '/confirm-team/football/:match_id',
+        name: 'ConfirmFootballTeam',
+        component: () => import(/* webpackChunkName: "confirm-team" */'@/views/ConfirmFootballTeam'),
+        beforeEnter: (to, from, next) => {
+            next();
+        }
+
+    },
+    {
         path: '/contest/:match_type/:match_id',
         name: 'Contest',
         component: () => import(/* webpackChunkName: "confirm-team" */'@/views/Contest'),
