@@ -377,7 +377,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.fetchActiveContest({match_id: this.matchId}));
     setTimeout(() => {
       this.fetchActiveContest({match_id: this.matchId});
       this.matchDetail = this.getMatchDetailByMatchId;

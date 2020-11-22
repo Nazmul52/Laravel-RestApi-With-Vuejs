@@ -252,10 +252,12 @@ export default {
       }
     }
   },
+
+
   methods: {
     ...mapMutations({
-      setSelectedPlayerForTeam: type.SELECTED_TEAM_CRICKET_SETTER,
-      setActiveContestByMatchIdMutation: type.ACTIVE_CONTEST_BY_MATCH_ID_MUTATION
+      setSelectedPlayerForTeam: type.SELECTED_TEAM_FOOTBALL_SETTER,
+      setActiveContestByMatchIdMutation: type.ACTIVE_CONTEST_FOOTBALL_BY_MATCH_ID_MUTATION
     }),
     teamKey(team_belong) {
       return team_belong === 1 ? this.activeContest.teams.a.team_key : this.activeContest.teams.b.team_key;
