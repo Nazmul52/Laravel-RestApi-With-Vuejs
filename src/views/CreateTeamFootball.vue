@@ -315,7 +315,7 @@ import {mapGetters} from 'vuex';
 import SelectedPlayerCount from '@/components/team/SelectedPlayerCount';
 import FootballPlayerList from '@/components/team/FootballPlayerList';
 import MatchDetails from '@/components/team/MatchDetails';
-import TeamStructure from '@/components/team/TeamStructure';
+import FootballTeamStructure from '@/components/team/FootballTeamStructure';
 
 export default {
   name: "CreateTeamFootball",
@@ -338,7 +338,7 @@ export default {
     'appSelectedPlayerCount': SelectedPlayerCount,
     'appPlayerList': FootballPlayerList,
     'appMatchDetails': MatchDetails,
-    'appTeamStructure': TeamStructure,
+    'appTeamStructure': FootballTeamStructure,
   },
   computed: {
     ...mapGetters({

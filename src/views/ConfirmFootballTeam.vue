@@ -116,9 +116,9 @@
                 <div class="">
                   <div class="players_space_around">
                     <div class="players_position_each">
-                      <div class="players_position_each_title text-uppercase">Wicket Keepers</div>
+                      <div class="players_position_each_title text-uppercase">Goal Keeper</div>
                       <div class="players_position_align wicket_keepers">
-                        <div class="players_position_align" v-for="player of getSelectedPlayerForTeam['keeper']"
+                        <div class="players_position_align" v-for="player of getSelectedPlayerForTeam['goalkeeper']"
                              :key="player.player_key">
                           <div class="players_field_position">
                             <div class="">
@@ -138,9 +138,9 @@
                       </div>
                     </div>
                     <div class="players_position_each">
-                      <div class="players_position_each_title text-uppercase">Batsman</div>
+                      <div class="players_position_each_title text-uppercase">Defenders</div>
                       <div class="players_position_align batsman_keepers">
-                        <div class="players_position_align" v-for="player of getSelectedPlayerForTeam['batsman']"
+                        <div class="players_position_align" v-for="player of getSelectedPlayerForTeam['defender']"
                              :key="player.player_key">
                           <div class="players_field_position">
                             <div class="">
@@ -160,9 +160,9 @@
                       </div>
                     </div>
                     <div class="players_position_each">
-                      <div class="players_position_each_title text-uppercase">All Rounders</div>
+                      <div class="players_position_each_title text-uppercase">Mid Fielders</div>
                       <div class="players_position_align batsman_keepers">
-                        <div class="players_position_align" v-for="player of getSelectedPlayerForTeam['allrounder']"
+                        <div class="players_position_align" v-for="player of getSelectedPlayerForTeam['midfielder']"
                              :key="player.player_key">
                           <div class="players_field_position">
                             <div class="">
@@ -182,9 +182,9 @@
                       </div>
                     </div>
                     <div class="players_position_each">
-                      <div class="players_position_each_title text-uppercase">Bowlers</div>
+                      <div class="players_position_each_title text-uppercase">Strikers</div>
                       <div class="players_position_align batsman_keepers">
-                        <div class="players_position_align" v-for="player of getSelectedPlayerForTeam['bowler']"
+                        <div class="players_position_align" v-for="player of getSelectedPlayerForTeam['striker']"
                              :key="player.player_key">
                           <div class="players_field_position">
                             <div class="">
@@ -357,41 +357,41 @@ export default {
 
             return;
         }
-        this.selectedTeamData.allrounder =  
-        this.selectedTeamData.allrounder.map(allrounder => {
+        this.selectedTeamData.goalkeeper =  
+        this.selectedTeamData.goalkeeper.map(goalkeeper => {
 
             return {
-                'id': allrounder.player_id,
-                'is_captain':allrounder.player_key == this.isCaptain,
-                'is_vice_captain':allrounder.player_key == this.isViceCaptain 
+                'id': goalkeeper.player_id,
+                'is_captain':goalkeeper.player_key == this.isCaptain,
+                'is_vice_captain':goalkeeper.player_key == this.isViceCaptain 
             };
            
             
         });
         
-      this.selectedTeamData.batsman =   this.selectedTeamData.batsman.map(batsman => {
+      this.selectedTeamData.defender =   this.selectedTeamData.defender.map(defender => {
             return {
-                'id': batsman.player_id,
-                  'is_captain':batsman.player_key == this.isCaptain,
-                'is_vice_captain':batsman.player_key == this.isViceCaptain 
+                'id': defender.player_id,
+                  'is_captain':defender.player_key == this.isCaptain,
+                'is_vice_captain':defender.player_key == this.isViceCaptain 
             };
             
         });
 
-        this.selectedTeamData.bowler =    this.selectedTeamData.bowler.map(bowler => {
+        this.selectedTeamData.midfielder =    this.selectedTeamData.midfielder.map(midfielder => {
             return {
-                'id': bowler.player_id,
-                  'is_captain':bowler.player_key == this.isCaptain,
-                'is_vice_captain':bowler.player_key == this.isViceCaptain 
+                'id': midfielder.player_id,
+                  'is_captain':midfielder.player_key == this.isCaptain,
+                'is_vice_captain':midfielder.player_key == this.isViceCaptain 
             };
           
         });
 
-        this.selectedTeamData.keeper =    this.selectedTeamData.keeper.map(keeper => {
+        this.selectedTeamData.striker =    this.selectedTeamData.striker.map(striker => {
             return {
-              'id': keeper.player_id,
-                  'is_captain':keeper.player_key == this.isCaptain,
-                'is_vice_captain':keeper.player_key == this.isViceCaptain 
+              'id': striker.player_id,
+                  'is_captain':striker.player_key == this.isCaptain,
+                'is_vice_captain':striker.player_key == this.isViceCaptain 
             };
           
         });
@@ -400,8 +400,8 @@ export default {
         this.selectedTeamData.match_id = id; 
 
 
-        auth_axios.post('user-team/create', this.selectedTeamData).then((res) => {
-            // console.log(JSON.parse(res.config.data));
+        auth_axios.post('football/user-team/create', this.selectedTeamData).then((res) => {
+            // console.log(JSON.parse(res));
             if(res.data.status){
               Swal.fire({
                  title: 'Success!',
@@ -425,8 +425,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getSelectedPlayerForTeam: type.SELECTED_TEAM_CRICKET_GETTER,
-      getActiveContest: type.ACTIVE_CONTEST_BY_MATCH_ID_GETTER
+      getSelectedPlayerForTeam: type.SELECTED_TEAM_FOOTBALL_GETTER,
+      getActiveContest: type.ACTIVE_CONTEST_FOOTBALL_BY_MATCH_ID_GETTER
     }),
 
 
@@ -477,8 +477,7 @@ export default {
   mounted() {
     this.selectedTeamData = {...this.getSelectedPlayerForTeam} || {};
     this.activeContest = {...this.getActiveContest} || {};
-
-    if(Object.keys(this.selectedTeamData.allrounder).length == 0){
+    if(Object.keys(this.selectedTeamData.defender).length == 0){
       this.$router.push({ name: 'CreateTeamFootball' });
     }
 

@@ -83,7 +83,7 @@
               </div>
             </div>
             <div class="team_create_btn position-absolute">
-              <button id="create_team_btn" class="btn btn-success border-radius mt-4 mb-2"
+              <button id="create_football_team_btn" class="btn btn-success border-radius mt-4 mb-2"
                       :disabled="totalSelectedPlayer!==11" @click="continueForTeamConfirm">
                 Continue
               </button>
@@ -316,6 +316,7 @@ export default {
       }
       if (this.goalkeeperCount > this.max_per_match('goalkeeper')) {
         // alert(this.not_more_than_1_wicket_keeper);
+
          Swal.fire({
           title: 'Warning!',
           text: this.not_more_than_1_goal_keeper,
@@ -540,7 +541,7 @@ export default {
   },
   mounted() {
     this.selectedTeamData = {...this.getSelectedPlayerForTeam} || {};
-
+    console.log(this.getActiveContest);
   },
 }
 </script>
